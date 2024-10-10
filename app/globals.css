@@ -4,15 +4,16 @@
 
 
 body {
-  /* background-image: url('/night_sky.jpeg');
-  background-size: contain;
-  background-repeat: repeat; */
   @apply bg-nightsky bg-contain bg-repeat flex flex-col items-center h-screen pt-2.5 leading-tight;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 h2 {
   @apply text-2xl font-bold text-center;
+}
+
+nav {
+  @apply w-full flex flex-row items-center gap-5 content-center;
 }
 
 .blogheader {
@@ -32,9 +33,6 @@ h2 {
     justify-center;
 }
 
-nav {
-  @apply w-full flex flex-row items-center gap-5 content-center;
-}
 
 .aboutLink {
   @apply text-base font-bold items-center basis-1/6 text-left;
@@ -69,26 +67,159 @@ nav {
 }
 
 .containero {
-  @apply w-[90vw] bg-[rgba(250,234,214,0.85)] border border-[rgba(0,0,0,0.35)] flex rounded;
-
-  /* height: 80vh; */
-
-  .loadingblogs {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-  }
+  @apply w-[90vw] bg-[rgba(250,234,214,0.85)] border border-[rgba(0,0,0,0.35)] flex rounded justify-center;
 }
 
 .about {
   @apply px-20 py-2 flex flex-col items-center gap-5 justify-center;
 
   .version {
-      padding-top: 10px;
-      align-items: center;
-      justify-content: center;
+    @apply pt-2 items-center justify-center;
+  }
+}
+
+.login {
+  @apply w-full h-full flex items-center justify-center gap-5 p-12;
+
+  .item {
+    @apply flex-1 flex flex-col items-center gap-5 justify-center;
+
+    .forgotpassword {
+      @apply underline cursor-pointer;
+    }
+
+    .forgotitle {
+      @apply w-3/4 flex items-center justify-center relative;
+
+      .backbutton {
+        @apply absolute left-0;
+
+        button {
+          @apply p-2 w-full border-none bg-[rgba(6,69,6,0.766)] text-white rounded;
+
+          &:hover {
+            @apply bg-[rgba(10,45,10,0.766)];
+          }
+        }
+      }
+    }
+
+    form {
+      @apply flex flex-col items-center justify-center gap-5 w-3/4;
+
+      input {
+        @apply p-5 border-none outline-none bg-[rgba(17,25,40,0.6)] text-white rounded w-full;
+      }
+
+      label {
+        @apply w-full flex items-center gap-5 cursor-pointer underline;
+
+        img {
+          @apply w-12 h-12 rounded object-contain;
+        }
+      }
+
+      button {
+        @apply w-full p-5 border-none bg-[#0e3b63] text-white rounded cursor-pointer font-medium;
+
+        &:disabled {
+          @apply cursor-not-allowed bg-[#1f8ff19c];
+
+          &:hover {
+            @apply bg-[#1f8ff19c];
+          }
+        }
+
+        &:hover {
+          @apply bg-[#071d31];
+        }
+      }
+
+      .goback {
+        @apply w-full;
+
+        button {
+          @apply p-2.5 w-full bg-[rgba(6,69,6,0.766)];
+
+          &:hover {
+            @apply bg-[rgba(10,45,10,0.766)];
+          }
+        }
+      }
+    }
+
+    .errormessage {
+      @apply text-[rgba(255,0,0,0.838)];
+    }
+  }
+
+  .separator {
+    @apply h-4/5 w-0.5 bg-[#dddddd35];
+  }
+}
+
+.usermanager {
+  @apply flex flex-col w-full text-base;
+
+  .info {
+    @apply basis-1/2 flex flex-col gap-5 p-2.5 items-center;
+
+    .changeavatar {
+      @apply flex w-full items-center justify-center p-5 pr-28 pl-64;
+
+      label {
+        @apply basis-2/3 flex items-center cursor-pointer underline gap-5;
+
+        img {
+          @apply w-20 h-20 rounded object-contain;
+        }
+      }
+
+      button {
+        @apply basis-1/3 text-xs;
+      }
+    }
+  }
+
+  button {
+    @apply w-full p-5 border-none bg-[#1a3a56] text-white rounded cursor-pointer font-medium;
+
+    &:hover {
+      @apply bg-[#0c1c2a];
+    }
+
+    &:disabled {
+      @apply cursor-not-allowed bg-[#1f8ff19c];
+    }
+  }
+
+  .useraction {
+    @apply flex flex-col gap-5 p-2.5 basis-1/2 text-xs;
+
+    .changepassword,
+    .changemail,
+    .changeusername {
+      @apply flex rounded gap-2.5 px-28;
+
+      input {
+        @apply flex-1 bg-transparent bg-[rgba(17,25,40,0.6)] text-white rounded border-none pl-5;
+      }
+
+      button {
+        @apply flex-1 pr-5;
+      }
+    }
+
+    .logout {
+      @apply flex px-28 pt-24 pb-5;
+
+      button {
+        @apply bg-[rgb(139,0,0)];
+
+        &:hover {
+          @apply bg-[rgb(73,0,0)];
+        }
+      }
+    }
   }
 }

@@ -34,3 +34,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# vscode
+.vscode/*
+!.vscode/extensions.json
+
+# private stuff
+firebase.js
+.env
