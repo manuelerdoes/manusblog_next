@@ -1,6 +1,7 @@
 import React from 'react'
-import { blogTitle } from '../const'
+import { pageTitle } from '../lib/const'
 import Link from 'next/link'
+import UserButton from './UserButton'
 
 function BlogHeader() {
     return (
@@ -10,16 +11,16 @@ function BlogHeader() {
                     <Link href="/about">About</Link>
                 </div>
                 <div className="newBlogLink buttonStyle">
-                    <Link href="/newBlog">New Blog</Link>
+                    <Link href="/newblog">New Blog</Link>
                 </div>
-                <div className="blogTitle">
-                    <Link href="/">{blogTitle}</Link>
+                <div className="pageTitle">
+                    <Link href="/">{pageTitle}</Link>
                 </div>
                 <div className="allBlogsLink buttonStyle">
-                    <Link href="/allBlogs">All Blogs</Link>
+                    <Link href="/allblogs">All Blogs</Link>
                 </div>
                 <div className="userLink">
-                    <Link href="/user">User</Link>
+                    <Link href="/user"><UserButton /></Link>
                 </div>
             </nav>
         </div>

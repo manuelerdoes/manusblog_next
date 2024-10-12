@@ -10,7 +10,7 @@ function Usermanager() {
     const currentUser = {
         username: "Max Muster",
         email: "maximux@mesongo.com",
-        avatar: "./avatar.png"
+        avatar: "/avatar.png"
     }
     // TODO: get current User from store or something
     // const { currentUser, fetchUserInfo } = useUserStore();

@@ -2,9 +2,9 @@
 
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from './firebase';
- 
+
 export async function authenticate(formData) {
-    const { email, password } = Object.fromEntries(formData);
+  const { email, password } = Object.fromEntries(formData);
   try {
     await signInWithEmailAndPassword(auth, email, password);
     console.log(auth.currentUser);
@@ -19,4 +19,8 @@ export async function authenticate(formData) {
     }
     throw error
   }
+}
+
+export async function newBlog(formdata) {
+
 }

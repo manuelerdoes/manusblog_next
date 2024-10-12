@@ -1,1 +1,0 @@
-export const blogTitle = "Manus Blog";

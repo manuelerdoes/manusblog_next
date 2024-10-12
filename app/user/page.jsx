@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 
 function User() {
 
-    const user = "notnull";
+    const user = null;
     if (!user) {
         redirect('/login');
     } else {
