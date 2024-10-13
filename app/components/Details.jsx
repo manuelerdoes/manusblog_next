@@ -3,13 +3,14 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { adminUserId } from '../lib/const';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 
 const Details = () => {
 
   const [showEditButton, setShowEditButton] = useState(false);
   const [author, setAuthor] = useState(null);
+  const router = useRouter();
 
   const allowed = true; // TODO find out if user is allowed to read blog
 
@@ -48,7 +49,7 @@ const Details = () => {
 
   const handleClickEditButton = () => {
     // TODO: change to method that works with client component
-    redirect('/editblog/' + currentBlog.id);
+    router.push('/editblog/' + currentBlog.id);
   }
 
   const handleClickDeleteButton = async () => {

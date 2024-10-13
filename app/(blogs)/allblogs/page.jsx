@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useContext } from 'react';
 import { debounce } from 'lodash';
-import { auth } from '../lib/firebase';
+import { auth } from '../../lib/firebase';
 
 function Search() {
     const [searchText, setSearchText] = useState("");

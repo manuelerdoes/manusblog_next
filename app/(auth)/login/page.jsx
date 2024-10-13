@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../lib/firebase';
+import { auth } from '../../lib/firebase';
+import { checkUsername, newUser } from '@/app/lib/dbActions';
 // import upload from '../lib/upload';
 
 function Login() {
@@ -60,7 +61,8 @@ function Login() {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        if (!usernameAvailable) return; // Prevent submission if username is taken
+        console.log("registi")
+        //if (!usernameAvailable) return; // Prevent submission if username is taken
 
         setLoading(true);
         const formData = new FormData(e.target);
@@ -75,8 +77,7 @@ function Login() {
                 // imgUrl = await upload(avatar.file);
             }
 
-            // TODO: make db entry with username email and avatar
-
+            await newUser(res.user.uid, username, email, imgUrl);
             setRegisterSuccess(true);
             setRegisterError(false);
         } catch (error) {
@@ -87,27 +88,30 @@ function Login() {
         }
     };
 
-    // Debounced username availability check
-    useEffect(() => {
-        if (username.trim() === '') {
-            setUsernameAvailable(null);
-            return;
-        }
+// Debounced username availability check
+useEffect(() => {
+    if (username.trim() === '') {
+        setUsernameAvailable(null);
+        return;
+    }
 
-        const checkUsername = async () => {
-            setCheckingUsername(true);
-
-
-            // check if username is taken
-
-            setUsernameAvailable(querySnapshot.empty);
+    const checkUsernameAvailability = async () => {
+        setCheckingUsername(true);
+        try {
+            const isUsernameTaken = await checkUsername(username);
+            setUsernameAvailable(!isUsernameTaken); // If username is taken, set to false
+        } catch (error) {
+            console.error("Error checking username availability:", error);
+            setUsernameAvailable(null); // Handle error case
+        } finally {
             setCheckingUsername(false);
-        };
+        }
+    };
 
-        const debounceCheck = setTimeout(checkUsername, 500); // 500ms debounce
+    const debounceCheck = setTimeout(checkUsernameAvailability, 500); // 500ms debounce
 
-        return () => clearTimeout(debounceCheck);
-    }, [username]);
+    return () => clearTimeout(debounceCheck);
+}, [username]);
 
     // remove Firebase from error message
     useEffect(() => {
