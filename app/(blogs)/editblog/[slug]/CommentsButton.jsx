@@ -8,7 +8,7 @@ function CommentsButton({isDisabled}) {
     const [buttonText, setButtonText] = useState("comments disabled");
 
     useEffect(() => {
-        if (isDisabled) {
+        if (!isDisabled) {
             setButtonText("comments enabled");
             setCommentsDisabled(false);
         } else {
@@ -29,7 +29,7 @@ function CommentsButton({isDisabled}) {
     }
 
     return (
-        <button type="button" className={`${commentsDisabled ? 'disablecomments' : ''}`}
+        <button type="button" className={`${!commentsDisabled ? 'disablecomments' : ''}`}
             onClick={toggleComments} value={commentsDisabled}>{buttonText}</button>
     )
 }

@@ -57,16 +57,17 @@ USE \`$db_name\`;
 
 -- Create tables if they do not exist
 CREATE TABLE IF NOT EXISTS User (
-    id VARCHAR(255) NOT NULL,
-    username VARCHAR(255) UNIQUE NOT NULL,
+    id INT AUTO_INCREMENT NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
     avatarURL VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS Blog (
     id INT AUTO_INCREMENT NOT NULL,
-    userId VARCHAR(255),
+    userId INT,
     title VARCHAR(255) NOT NULL,
     created DATE NOT NULL,
     modified DATE NOT NULL,
@@ -82,13 +83,32 @@ CREATE TABLE IF NOT EXISTS Blog (
 CREATE TABLE IF NOT EXISTS Comment (
     id INT AUTO_INCREMENT NOT NULL,
     blogId INT NOT NULL,
-    userId VARCHAR(255),
+    userId INT,
     text TEXT NOT NULL,
     created DATE NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (blogId) REFERENCES Blog(id) ON DELETE CASCADE,
     FOREIGN KEY (userId) REFERENCES User(id) ON DELETE SET NULL
 );
+
+CREATE VIEW `comments_with_usernames` AS
+SELECT 
+    Comment.*,
+    User.username
+FROM 
+    Comment
+JOIN 
+    User ON Comment.userId = User.id;
+
+CREATE VIEW `blogs_with_usernames` AS
+SELECT 
+    Blog.*,
+    User.username
+FROM 
+    Blog
+JOIN 
+    User ON Blog.userId = User.id;
+    
 EOF
 )
 

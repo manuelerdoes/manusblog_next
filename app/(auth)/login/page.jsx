@@ -2,9 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../lib/firebase';
 import { checkUsername, newUser } from '@/app/lib/dbActions';
-// import upload from '../lib/upload';
+import { signIn } from "next-auth/react"
 
 function Login() {
 
@@ -20,6 +19,8 @@ function Login() {
     const [usernameAvailable, setUsernameAvailable] = useState(null); // Check if username is available
     const [checkingUsername, setCheckingUsername] = useState(false); // Show loading while checking
     const [createAccountAvailable, setCreateAccountAvailable] = useState(true);
+
+
 
     const handleAvatar = (e) => {
         if (e.target.files[0]) {
@@ -46,6 +47,11 @@ function Login() {
             setLoading(false);
         }
     };
+
+    const credentialsAction = () => {
+        const formData = new FormData(e.target);
+        signIn("credentials", formData)
+    }
 
     const sendPasswordReset = async (e) => {
         e.preventDefault();
@@ -88,30 +94,30 @@ function Login() {
         }
     };
 
-// Debounced username availability check
-useEffect(() => {
-    if (username.trim() === '') {
-        setUsernameAvailable(null);
-        return;
-    }
-
-    const checkUsernameAvailability = async () => {
-        setCheckingUsername(true);
-        try {
-            const isUsernameTaken = await checkUsername(username);
-            setUsernameAvailable(!isUsernameTaken); // If username is taken, set to false
-        } catch (error) {
-            console.error("Error checking username availability:", error);
-            setUsernameAvailable(null); // Handle error case
-        } finally {
-            setCheckingUsername(false);
+    // Debounced username availability check
+    useEffect(() => {
+        if (username.trim() === '') {
+            setUsernameAvailable(null);
+            return;
         }
-    };
 
-    const debounceCheck = setTimeout(checkUsernameAvailability, 500); // 500ms debounce
+        const checkUsernameAvailability = async () => {
+            setCheckingUsername(true);
+            try {
+                const isUsernameTaken = await checkUsername(username);
+                setUsernameAvailable(!isUsernameTaken); // If username is taken, set to false
+            } catch (error) {
+                console.error("Error checking username availability:", error);
+                setUsernameAvailable(null); // Handle error case
+            } finally {
+                setCheckingUsername(false);
+            }
+        };
 
-    return () => clearTimeout(debounceCheck);
-}, [username]);
+        const debounceCheck = setTimeout(checkUsernameAvailability, 500); // 500ms debounce
+
+        return () => clearTimeout(debounceCheck);
+    }, [username]);
 
     // remove Firebase from error message
     useEffect(() => {
@@ -142,9 +148,9 @@ useEffect(() => {
                 {!forgotPassword ? (
                     <div className='item'>
                         <h2>Welcome back,</h2>
-                        <form onSubmit={handleLogin}>
-                            <input type='text' placeholder='Email' name='email' />
-                            <input type='password' placeholder='Password' name='password' />
+                        <form action={credentialsAction}>
+                            <input type='email' placeholder='Email' name='email' id="credentials-email" />
+                            <input type='password' placeholder='Password' name='password' id="credentials-password" />
                             <button disabled={loading}>{loading ? 'loading' : 'Sign In'}</button>
                             {loginError && (
                                 <div className='errormessage'>

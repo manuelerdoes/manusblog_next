@@ -1,9 +1,12 @@
+'use client'
+
 import React from 'react'
 import { redirect } from 'next/navigation'
 
 function User() {
 
-    const user = null;
+    const user = "not null";
+    
     if (!user) {
         redirect('/login');
     } else {

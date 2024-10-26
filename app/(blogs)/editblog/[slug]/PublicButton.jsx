@@ -8,9 +8,6 @@ function PublicButton({ publi }) {
     const [buttonText, setButtonText] = useState("blog not public");
 
 
-    //setIsPublic(publi);
-    console.log("public:" + publi);
-
     useEffect(() => {
         if (publi) {
             setButtonText("blog public");

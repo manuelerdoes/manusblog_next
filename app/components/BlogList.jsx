@@ -1,10 +1,11 @@
 'use client'
 
+import { useRouter } from 'next/navigation';
 import React, { useState, useEffect, useRef } from 'react';
-import { auth } from '../lib/firebase';
-import { redirect } from 'next/navigation';
 
-function BlogList() {
+
+
+function BlogList({ currentBlogList }) {
     const searchInputRef = useRef(null);
     const [showTopicFilter, setShowTopicFilter] = useState(false);
     const [searchActive, setSearchActive] = useState(false);
@@ -12,34 +13,14 @@ function BlogList() {
     const [searchValue, setSearchValue] = useState('');
     const [selectedTopic, setSelectedTopic] = useState(null); // Track selected topic
     const [filteredBlogs, setFilteredBlogs] = useState([]);
+    const router = useRouter();
 
-    const currentBlogList = [{
-        id: 1,
-        title: "whatever",
-        username: "Max Muster",
-        topic: "computer",
-        tags: "gaggi, bisi",
-        isPublic: "true",
-        userid: "abcd",
-        created: 123
-      },
-      {
-        id: 2,
-        title: "waslos",
-        username: "Maese Muesche",
-        topic: "other",
-        tags: "hubi, bubi",
-        isPublic: "true",
-        userid: "abcd",
-        created: 754
-      }]
-
-    const currentUser = {
+    const user = {
         username: "Max Muster",
         email: "maximux@mesongo.com",
         avatar: "/avatar.png"
     }
-    
+
     //const user = auth.currentUser;
 
     // Filter blogs based on search value and selected topic
@@ -104,7 +85,7 @@ function BlogList() {
     }, [isMouseOver, searchActive]);
 
     const handleBlogClick = (id) => {
-        // TODO: redirect to blog
+        router.push('/blog/' + id);
     }
 
     return (
@@ -156,7 +137,7 @@ function BlogList() {
 
             <div className="blogentries">
                 {filteredBlogs.map(blogentry => (
-                    <div key={blogentry.id} className={`item ${blogentry.topic} ${!blogentry.isPublic ? 'notpublic' : ''}`} onClick={handleBlogClick(blogentry.id)}>
+                    <div key={blogentry.id} className={`item ${blogentry.topic} ${!blogentry.isPublic ? 'notpublic' : ''}`} onClick={() => handleBlogClick(blogentry.id)}>
                         <p>{blogentry.title}</p>
                     </div>
                 ))}

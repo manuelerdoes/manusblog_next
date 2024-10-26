@@ -1,26 +1,26 @@
 'use server'
 
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from './firebase';
+import { newBlog, newComment } from "./dbActions";
 
-export async function authenticate(formData) {
-  const { email, password } = Object.fromEntries(formData);
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    console.log(auth.currentUser);
-  } catch (error) {
-    if (error) {
-      switch (error.type) {
-        case 'CredentialsSignin':
-          return 'Invalid credentials.'
-        default:
-          return 'Something went wrong.'
-      }
-    }
-    throw error
-  }
+
+const currentUser = {
+  uid: 1,
+  username: "Max Muster",
+  email: "mumu@mu.com"
 }
 
-export async function newBlog(formdata) {
 
+export async function addNewBlog(formdata, isPublic, disableComments) {
+  const { title, selectedtopic, tags, rawcontent } = Object.fromEntries(formdata);
+  newBlog(currentUser.uid, title, Date.now(), rawcontent, tags, selectedtopic, isPublic, disableComments);
+}
+
+export async function addNewComment(blogId, comment) {
+  try {
+    const commentId = newComment(blogId, currentUser.uid, comment, Date.now());
+    return commentId;
+  } catch (error) {
+    console.error("Error adding comment: ", error.message);
+    throw error;
+  }
 }

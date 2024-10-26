@@ -1,41 +1,43 @@
 'use client'
 
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { debounce } from 'lodash';
-import { auth } from '../../lib/firebase';
+import { useRouter } from 'next/navigation';
 
 function Search() {
     const [searchText, setSearchText] = useState("");
     const [filteredBlogs, setFilteredBlogs] = useState([]);
     const [sortField, setSortField] = useState('created'); // Set 'created' as the default sort field
     const [sortOrder, setSortOrder] = useState('desc'); // Default sort order to 'asc' (or 'desc' based on your preference
-
-    // TODO: currentBlogList
-    const currentBlogList = [{
-        id: 1,
-        title: "whatever",
-        username: "Max Muster",
-        topic: "computer",
-        tags: "gaggi, bisi",
-        isPublic: "true",
-        userid: "abcd",
-        created: 123
-      },
-      {
-        id: 2,
-        title: "waslos",
-        username: "Maese Muesche",
-        topic: "other",
-        tags: "hubi, bubi",
-        isPublic: "true",
-        userid: "abcd",
-        created: 754
-      }]
+    const [currentBlogList, setCurrentBlogList] = useState(null);
+    const router = useRouter();
     
-    const user = auth.currentUser;
+
+    useEffect(() => {
+        // Fetch initial comments when component mounts
+        const fetchBlogs = async () => {
+            const res = await fetch(`/api/blog`);
+            if (!res.ok) {
+                console.error("Could not fetch blogs");
+                return;
+            }
+            const data = await res.json();
+            setCurrentBlogList(data);
+        };
+
+        fetchBlogs();
+    }, []);
+
+    const user = {
+        id: 1,
+        username: "Max Muster",
+        email: "maximux@mesongo.com",
+        avatar: "/avatar.png"
+    }
 
     const handleBlogClick = (id) => {
         // TODO: redirect to blog
+        router.push(`/blog/${id}`);
     };
 
     // Function to handle sorting
@@ -59,8 +61,12 @@ function Search() {
 
     useEffect(() => {
         const debouncedSearch = debounce((searchText) => {
-            
+
             let filtered = currentBlogList;
+
+            if (!filtered) {
+                return;
+            }
 
             filtered = filtered.filter((blog) => blog.isPublic || (user && blog.userid === user.uid));
 
@@ -89,7 +95,7 @@ function Search() {
         return () => {
             debouncedSearch.cancel();  // Cancel the debounce on cleanup
         };
-    }, [searchText,/* currentBlogList,*/ sortOrder]); // Now dependent on sortOrder
+    }, [searchText,currentBlogList, sortOrder]); // Now dependent on sortOrder
 
     const renderSortIndicator = (field) => {
         if (sortField === field) {

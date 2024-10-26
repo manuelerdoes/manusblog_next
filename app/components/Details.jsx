@@ -6,7 +6,7 @@ import { adminUserId } from '../lib/const';
 import { useRouter } from 'next/navigation';
 
 
-const Details = () => {
+const Details = ({currentBlog}) => {
 
   const [showEditButton, setShowEditButton] = useState(false);
   const [author, setAuthor] = useState(null);
@@ -19,18 +19,6 @@ const Details = () => {
     username: "Max Muster",
     email: "maximux@mesongo.com",
     avatar: "/avatar.png"
-  }
-
-  const currentBlog = {
-    id: 1,
-    title: "Test Blog Title",
-    tags: "gaggi, bisi",
-    created: 123, 
-    modified: 453,
-    topic: "computer",
-    content: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia quidem quia neque facilis ut \
-  harum repellat unde, maiores laboriosam excepturi animi optio voluptatem dolor consequuntur minima autem, \
-  enim, sapiente corporis."
   }
 
   useEffect(() => {
@@ -48,7 +36,6 @@ const Details = () => {
   }, [/*currentBlog*/]);
 
   const handleClickEditButton = () => {
-    // TODO: change to method that works with client component
     router.push('/editblog/' + currentBlog.id);
   }
 

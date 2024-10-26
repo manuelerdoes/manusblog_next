@@ -1,19 +1,21 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { auth } from '../../lib/firebase';
 import { reauthenticateWithCredential, updatePassword, EmailAuthProvider } from 'firebase/auth';
+import { checkUsername, getUser, updateUsername } from '@/app/lib/dbActions';
+import { useRouter } from 'next/navigation';
 
 
 function Usermanager() {
 
+    const router = useRouter();
     const currentUser = {
         username: "Max Muster",
         email: "maximux@mesongo.com",
         avatar: "/avatar.png"
     }
     // TODO: get current User from store or something
-    // const { currentUser, fetchUserInfo } = useUserStore();
     const [loading, setLoading] = useState(false);
     const [avatarStatus, setAvatarStatus] = useState("Save");
     const [inputUsername, setInputUsername] = useState("");
@@ -21,6 +23,8 @@ function Usermanager() {
     const [inputPassword, setInputPassword] = useState("");
     const [passwordStatus, setPasswordStatus] = useState("Change Password");
     const [inputCurrentPassword, setInputCurrentPassword] = useState("");
+    const [usernameAvailable, setUsernameAvailable] = useState(null); // Check if username is available
+    const [checkingUsername, setCheckingUsername] = useState(false);
 
     const [avatar, setAvatar] = useState({
         file: null,
@@ -59,9 +63,8 @@ function Usermanager() {
         setLoading(true);
 
         try {
-            //TODO: update user's username in db
-
-            setUsernameStatus("Username changed!");
+            const res = await updateUsername(auth.currentUser.id, inputUsername);
+            setUsernameStatus("Username changed: " + res);
         } catch (error) {
             console.log(error.message);
             setUsernameStatus(error.message);
@@ -69,6 +72,36 @@ function Usermanager() {
             setLoading(false);
         }
     }
+
+    // Debounced username availability check
+    useEffect(() => {
+        if (inputUsername.trim() === '') {
+            setUsernameAvailable(null);
+            return;
+        }
+
+        const checkUsernameAvailability = async () => {
+            setCheckingUsername(true);
+            try {
+                const isUsernameTaken = await checkUsername(inputUsername);
+                if (isUsernameTaken) {
+                    setUsernameStatus("username already taken");
+                    setLoading(true);
+                }
+                setUsernameAvailable(!isUsernameTaken); // If username is taken, set to false
+            } catch (error) {
+                console.error("Error checking username availability:", error);
+                setUsernameAvailable(null); // Handle error case
+            } finally {
+                setCheckingUsername(false);
+                setLoading(false);  
+            }
+        };
+
+        const debounceCheck = setTimeout(checkUsernameAvailability, 500); // 500ms debounce
+
+        return () => clearTimeout(debounceCheck);
+    }, [inputUsername]);
 
     const handleUsernameInputChange = (e) => {
         setInputUsername(e.target.value)
@@ -104,7 +137,7 @@ function Usermanager() {
 
     const handleLogout = () => {
         auth.signOut();
-        //fetchUserInfo(null);
+        router.push('/login');
     }
 
 
@@ -117,7 +150,7 @@ function Usermanager() {
                     <div className="changeavatar">
 
                         <label htmlFor="file">
-                            <img src={!avatar.file ? currentUser.avatar || "./avatar.png"
+                            <img src={!avatar.file ? currentUser.avatarURL || "./avatar.png"
                                 : avatar.url || "./avatar.png"} alt="" />
                             Upload new avatar pic
                         </label>
