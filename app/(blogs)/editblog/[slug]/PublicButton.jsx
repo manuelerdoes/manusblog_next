@@ -31,7 +31,7 @@ function PublicButton({ publi }) {
     }
 
     return (
-        <button type='button' onClick={togglePublic}
+        <button id='isPublicButton' type='button' onClick={togglePublic}
             className={`${isPublic ? 'publicblog' : ''}`}
             value={isPublic}>{buttonText}</button>
     )

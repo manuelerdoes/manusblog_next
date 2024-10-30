@@ -12,3 +12,13 @@ export function getFormattedDateTime() {
 
   return `${day}.${month}.${year} ${hour}:${minute}:${second}`;
 }
+
+export function boolStringToInt(string) {
+  let result = null;
+  if (string === "true") {
+    result = 1;
+  } else {
+    result = 0;
+  }
+  return result;
+}

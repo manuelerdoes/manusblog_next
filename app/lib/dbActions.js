@@ -1,6 +1,7 @@
 'use server'
 
 import { sqlDatabase, sqlPassword, sqlServer, sqlUser } from './const';
+import { boolStringToInt } from './utils';
 
 // prepare
 var mysql = require('mysql2/promise');
@@ -163,18 +164,8 @@ export async function getUserAndHash(email) {
 // blog actions
 
 export async function newBlog(userId, title, created, content, tags, topic, isPublic, disableComments) {
-  let isPublicInt = null;
-  let disableCommentsInt = null;
-  if (isPublic === "true") {
-    isPublicInt = 1;
-  } else {
-    isPublicInt = 0;
-  }
-  if (disableComments === "true") {
-    disableCommentsInt = 1;
-  } else {
-    disableCommentsInt = 0;
-  }
+  let isPublicInt = boolStringToInt(isPublic);
+  let disableCommentsInt = boolStringToInt(disableComments);
 
   try {
     const [rows] = await pool.query(`INSERT INTO blog (userId, title, created, modified, content, tags, topic, isPublic, disableComments) 
@@ -186,12 +177,28 @@ export async function newBlog(userId, title, created, content, tags, topic, isPu
   }
 }
 
-export async function updateBlog(id, userId, title, username, created, modified, content, tags, topic, isPublic, disableComments) {
+export async function updateBlog(id, title, modified, content, tags, topic, isPublic, disableComments) {
+  let isPublicInt = boolStringToInt(isPublic);
+  let disableCommentsInt = boolStringToInt(disableComments);
 
+  try {
+    const [rows] = await pool.query(`UPDATE blog SET title = '${title}', modified = '${modified}', content = '${content}', tags = '${tags}', 
+      topic = '${topic}', isPublic = '${isPublicInt}', disableComments = '${disableCommentsInt}' WHERE id = '${id}'`);
+    return rows.affectedRows;
+  } catch (error) {
+    console.error('Database query failed:', error);
+    throw error;
+  }
 }
 
 export async function deleteBlog(id) {
-
+  try {
+    const [rows] = await pool.query(`DELETE FROM blog WHERE id = '${id}'`);
+    return rows.affectedRows;
+  } catch (error) {
+    console.error('Database query failed:', error);
+    throw error;
+  }
 }
 
 export async function getBlogList() {
@@ -209,7 +216,7 @@ export async function getAuthenticatedBlogList(userId) {
 }
 
 
-export async function getBlog(id) { 
+export async function getBlog(id) {
   try {
     const [rows] = await pool.query(`SELECT * FROM blog WHERE id = '${id}'`);
     return rows[0];
@@ -220,7 +227,7 @@ export async function getBlog(id) {
 }
 
 
-export async function getLatestBlogId() { 
+export async function getLatestBlogId() {
   try {
     const [rows] = await pool.query(`SELECT id FROM blog ORDER BY created LIMIT 1`);
     return rows[0].id;

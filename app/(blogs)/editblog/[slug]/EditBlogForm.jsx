@@ -7,8 +7,9 @@ import UploadPictures from '@/app/components/UploadPictures';
 import { useRouter } from 'next/navigation';
 import useSWR from 'swr';
 import { apiServer } from '@/app/lib/const';
+import { getFormattedDateTime } from '@/app/lib/utils';
 
-function EditBlogForm({blog, currentUser, blogid}) {
+function EditBlogForm({currentUser, blogid}) {
   const router = useRouter();
   const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
@@ -19,7 +20,41 @@ function EditBlogForm({blog, currentUser, blogid}) {
 
 
   const currentBlog = data;
-  //const currentBlog = JSON.parse(blog.value);
+
+  const updateBlog = async (title, topic, tags, content, isPublic, disableComments) => {
+    const res = await fetch(`${apiServer}/api/blog/${blogid}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: title,
+        modified: getFormattedDateTime(),
+        content: content,
+        tags: tags,
+        topic: topic,
+        isPublic: isPublic,
+        disableComments: disableComments,
+      }),
+    });
+    if (!res.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const modified = await res.json();
+      
+    return modified.res;
+  }
+ 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const { title, selectedtopic, tags, rawcontent } = Object.fromEntries(formData);
+    const pub = document.getElementById('isPublicButton').value;
+    const com = document.getElementById('commentsButton').value;
+
+    const res = updateBlog(title, selectedtopic, tags, rawcontent, pub, com);
+    router.push(`/blog/${blogid}`);
+  }
 
   return (
     !currentUser ? (
@@ -31,7 +66,7 @@ function EditBlogForm({blog, currentUser, blogid}) {
     ) : (
       <div className="containero">
         <div className='newblog'>
-          <form onSubmit={null /* TODO: editBlog function */} >
+          <form onSubmit={handleSubmit} >
             <div className="settitle item">
               <label htmlFor="">Blog Title:</label>
               <input type="text" placeholder='Blog Title'

@@ -42,7 +42,18 @@ const Details = ({currentBlog}) => {
   const handleClickDeleteButton = async () => {
     try {
 
-      // TODO: delete blog 
+      const res = await fetch('/api/blog/' + currentBlog.id, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      router.push('/blog/latest');
 
     } catch (error) {
       console.log(error.message);
