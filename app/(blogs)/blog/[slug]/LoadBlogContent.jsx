@@ -2,6 +2,8 @@ import { apiServer } from '@/app/lib/const';
 import React from 'react'
 import { Suspense } from 'react';
 import LoadComments from './LoadComments';
+import DOMPurify from 'dompurify';
+import { marked } from 'marked';
 
 async function getBlog(id) {
   const res = await fetch(`${apiServer}/api/blog/${id}`, {
@@ -28,7 +30,8 @@ async function LoadBlogContent({ blogId }) {
       </div>
       <div className="blogcontent">
         {/* <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(currentBlog.content)) }} /> */}
-        <p>{currentBlog.content}</p>
+        <div dangerouslySetInnerHTML={{ __html: marked.parse(currentBlog.content) }} />
+        {/* <p>{currentBlog.content}</p> */}
       </div>
       {(!currentBlog.disableComments) ? (
         <Suspense fallback={<p>loading comments...</p>}>

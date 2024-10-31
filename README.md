@@ -21,6 +21,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## To-Do
 
 * In blogView change basis values with custom tailwind class or just use non-tailwind-flex
-* API
-* DB functions
 * solve the "upload picture" problem
+* auth
+* topic designs
+* responsive design
