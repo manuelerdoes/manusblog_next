@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { debounce } from 'lodash';
 import { useRouter } from 'next/navigation';
+import { apiServer } from '@/app/lib/const';
 
 function Search() {
     const [searchText, setSearchText] = useState("");
@@ -16,7 +17,7 @@ function Search() {
     useEffect(() => {
         // Fetch initial comments when component mounts
         const fetchBlogs = async () => {
-            const res = await fetch(`/api/blog`);
+            const res = await fetch(`${apiServer}/api/blog`);
             if (!res.ok) {
                 console.error("Could not fetch blogs");
                 return;

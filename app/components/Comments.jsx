@@ -53,7 +53,7 @@ function Comments({ blogId/*, comments */}) {
   }
 
   const postNewComment = async (newcomment) => {
-    const res = await fetch('/api/comments', {
+    const res = await fetch(`${apiServer}/api/comments`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

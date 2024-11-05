@@ -45,6 +45,10 @@ nav {
   @apply text-2xl font-bold basis-2/6 items-center text-center;
 }
 
+.mobileSearch, .mobileMenu {
+  display: none;
+}
+
 .allBlogsLink {
   @apply text-xs items-center basis-1/6 text-center;
 }
@@ -541,7 +545,7 @@ nav {
 }
 
 .blogView {
-  @apply flex flex-row w-full items-center justify-center;
+  @apply flex flex-row w-full items-center justify-center p-0;
 
   .sideSearch {
     @apply flex flex-col h-full;
@@ -550,7 +554,7 @@ nav {
   }
 
   .blog {
-    @apply text-justify flex flex-col gap-2.5 p-2.5 px-8 h-full;
+    @apply text-justify flex flex-col gap-2.5 p-1.5 px-8 h-full;
     flex: 3;
     border-left: 1px solid rgba(0,0,0,0.15);
     border-right: 1px solid rgba(0,0,0,0.15);
@@ -976,19 +980,13 @@ nav {
   overflow: scroll;
 
   .search {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
+    @apply p-3 gap-5 flex items-center;
 
     .searchbar {
+      @apply flex items-center w-full p-1.5;
       background-color: rgba(17,25,40,0.5);
-      display: flex;
-      align-items: center;
       border-radius: 10px;
-      padding: 7px;
       overflow: auto;
-      width: 100%;
 
       input {
         @apply text-xs;
@@ -1006,17 +1004,15 @@ nav {
     }
   }
 
-  .item {
-    display: flex;
+  .bloglistitem {
+    @apply flex flex-col mx-3 my-0.5 cursor-pointer;
     /* align-items: center; */
     gap: 20px;
-    margin: 2px 20px;
-    cursor: pointer;
     border: 1px solid;
     border-radius: 5px;
-    flex-direction: column;
     padding: 1px 5px;
     box-sizing: border-box !important;
+    overflow-x: auto;
 
     p {
       display: inline;
@@ -1208,4 +1204,172 @@ nav {
           font-size: medium;
       }
   }
+}
+
+/* responsive part */
+
+@media (max-width: 768px) {
+
+  body {
+    @apply bg-nightsky bg-contain bg-repeat flex flex-col items-center h-screen pt-0 leading-tight w-full;
+    font-family: "Lucida Sans","Lucida Sans Regular","Lucida Grande","Lucida Sans Unicode",Geneva,Verdana,sans-serif;
+  }
+
+  .blogheader {
+    @apply w-full rounded-none mb-0.5 border-none p-1.5;
+  }
+
+  nav {
+    @apply flex w-full flex-row items-center gap-5 content-center justify-center;
+  }
+
+  .pageTitle {
+    @apply text-xl font-medium basis-1/2 items-center text-center;
+  }
+
+  .aboutLink, .newBlogLink, .allBlogsLink, .userLink {
+    display: none;
+  }
+
+  .mobileSearch {
+    @apply flex basis-1/4 text-2xl w-full justify-center items-center;
+  }
+
+  .mobileMenu {
+    @apply flex basis-1/4 text-4xl w-full justify-center items-center;
+  }
+
+  .containero {
+    @apply w-[99vw] border-none flex flex-col rounded-none justify-center;
+  }
+  
+  .blogView {
+    @apply flex flex-col w-full items-center justify-center;
+    .blog {
+      @apply text-justify w-full flex flex-col gap-1 p-1 px-1.5 h-full border-none;
+      flex: 3;
+      border-bottom: 1px solid rgba(131,130,130,0.312);
+    }
+  }
+
+  .sideSearch, .bloglist {
+    display: none;
+  }
+
+  .blog {
+    @apply text-justify w-full flex flex-col gap-1 p-1 px-0 h-full border-none;
+    flex: 3;
+    border-left: none;
+    border-right: none;
+    border: none;
+    border-bottom: 1px solid rgba(131,130,130,0.312);
+  }
+
+  .blogtitle {
+    @apply flex gap-2 items-center;
+    padding-left: 5px;
+    padding-bottom: 2px;
+    border-bottom: 2px solid rgba(131,130,130,0.312);
+  }
+
+  .blogcontent {
+    padding: 5px 10px;
+  }
+
+  .details {
+    @apply w-full;
+  }
+
+  .manageButtons {
+    @apply text-2xl;
+  }
+
+  .search {
+    .searchinput {
+      @apply w-full;
+    }
+    .resulttags, .resultdate {
+      display: none;
+    }
+  }
+
+  .about {
+    @apply px-3;
+  }
+
+  .newblog {
+    @apply basis-3/4 flex flex-col items-center w-full p-1 px-1;
+    border-bottom: 1px solid rgba(131,130,130,0.312);
+
+    .setoptions {
+  
+      .optionsbuttons {
+        @apply basis-5/6 flex p-1 flex-col gap-1;
+  
+        button {
+          @apply p-1 rounded-xl m-0;
+        }
+      }
+    }
+  }
+
+  .usermanager {
+    @apply flex-col w-full p-4;
+
+    .info {
+
+      .changeavatar {
+        padding: 10px;
+        padding-left: 0px;
+        padding-right: 0px;
+
+      }
+    }
+
+    .useraction {
+      padding: 0;
+
+      .changepassword {
+        flex-direction: column;
+        padding: 0;
+
+        input {
+          padding: 10px;
+        }
+      }
+
+      .changeusername {
+        padding: 0;
+        flex-direction: column;
+
+        input {
+          padding: 10px;
+        }
+      }
+
+      .logout {
+        @apply flex px-0 pt-3 pb-5;
+      }
+    }
+  }
+
+  .login {
+    @apply flex-col p-6;
+    .item {
+      form {
+        @apply w-full;
+        input {
+          @apply p-2; 
+        }
+        button {
+          @apply p-2; 
+        }
+      }
+    }
+    .separator {
+      @apply w-full;
+      border-bottom: 1px solid rgba(131,130,130,0.312);
+    }
+  }
+
 }

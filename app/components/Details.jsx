@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { useEffect } from 'react';
-import { adminUserId } from '../lib/const';
+import { adminUserId, apiServer } from '../lib/const';
 import { useRouter } from 'next/navigation';
 
 
@@ -42,7 +42,7 @@ const Details = ({currentBlog}) => {
   const handleClickDeleteButton = async () => {
     try {
 
-      const res = await fetch('/api/blog/' + currentBlog.id, {
+      const res = await fetch(`${apiServer}/api/blog/${currentBlog.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

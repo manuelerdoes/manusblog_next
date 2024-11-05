@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 
 function User() {
 
-    const user = "not null";
+    const user = null;
     
     if (!user) {
         redirect('/login');

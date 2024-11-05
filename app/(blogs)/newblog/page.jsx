@@ -5,6 +5,7 @@ import CommentsButton from './CommentsButton';
 import UploadPictures from '../../components/UploadPictures';
 import { useRouter } from 'next/navigation';
 import { getFormattedDateTime } from '@/app/lib/utils';
+import { apiServer } from '@/app/lib/const';
 
 function NewBlog() {
   const router = useRouter();
@@ -16,7 +17,7 @@ function NewBlog() {
   //const currentUser = auth.currentUser;
 
   const postNewBlog = async (title, topic, tags, content, isPublic, disableComments) => {
-    const res = await fetch('/api/blog', {
+    const res = await fetch(`${apiServer}/api/blog`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
