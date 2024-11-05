@@ -8,7 +8,7 @@ import { marked } from 'marked';
 async function getBlog(id) {
   const res = await fetch(`${apiServer}/api/blog/${id}`, {
     next: {
-      revalidate: 10
+      revalidate: 0
     }
   });
   if (!res.ok) {

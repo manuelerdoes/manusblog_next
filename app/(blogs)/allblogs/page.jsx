@@ -142,14 +142,14 @@ function Search() {
                             {filteredBlogs.map((blogentry) => (
                                 <tr
                                     key={blogentry.id}
-                                    className={`item ${blogentry.topic} ${!blogentry.isPublic ? 'notpublic' : ''}`}
+                                    className={`searchitem ${blogentry.topic} ${!blogentry.isPublic ? 'notpublic' : ''}`}
                                     onClick={() => handleBlogClick(blogentry.id)}
                                 >
-                                    <td>{blogentry.title}</td>
-                                    <td>{blogentry.topic}</td>
-                                    <td>👤{blogentry.username}</td>
-                                    <td className='resulttags'>{blogentry.tags}</td>
-                                    <td className='resultdate'>{blogentry.created}</td>
+                                    <td data-label="Title" className='resulttitle'>{blogentry.title}</td>
+                                    <td data-label="Topic" >{blogentry.topic}</td>
+                                    <td data-label="Author">👤{blogentry.username}</td>
+                                    <td data-label="Tags" className='resulttags'>{blogentry.tags}</td>
+                                    <td data-label="Created" className='resultdate'>{blogentry.created}</td>
                                 </tr>
                             ))}
                         </tbody>

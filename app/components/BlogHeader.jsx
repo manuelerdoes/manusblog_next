@@ -32,7 +32,6 @@ function BlogHeader() {
 
                 {/* only shown in responsive mode */}
                 <div className="mobileMenu">
-                    <p>⏛</p>
                     <MobileMenu />
                 </div>
                 {/* end of responsive stuff */}
