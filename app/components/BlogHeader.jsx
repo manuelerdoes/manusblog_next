@@ -3,8 +3,17 @@ import { pageTitle } from '../lib/const'
 import Link from 'next/link'
 import UserButton from './UserButton'
 import MobileMenu from './MobileMenu'
+import { SignIn } from './SignIn'
+import { auth } from '../auth'
+import { SessionProvider } from "next-auth/react"
 
-function BlogHeader() {
+async function BlogHeader() {
+    const session = await auth();
+    // const session = {
+    //     user: "oergel"
+    // }
+
+
     return (
         <div className='blogheader'>
             <nav>
@@ -27,12 +36,14 @@ function BlogHeader() {
                     <Link href="/allblogs">All Blogs</Link>
                 </div>
                 <div className="userLink">
-                    <Link href="/user"><UserButton /></Link>
+                    {(!session?.user) ? (<SignIn />) : (<UserButton />)}
                 </div>
 
                 {/* only shown in responsive mode */}
                 <div className="mobileMenu">
-                    <MobileMenu />
+                    <SessionProvider>
+                        <MobileMenu />
+                    </SessionProvider>
                 </div>
                 {/* end of responsive stuff */}
             </nav>

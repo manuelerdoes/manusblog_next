@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { adminUserId, apiServer } from '../lib/const';
 import { useRouter } from 'next/navigation';
+import { useSession } from "next-auth/react"
 
 
 const Details = ({currentBlog}) => {
@@ -14,20 +15,32 @@ const Details = ({currentBlog}) => {
 
   const allowed = true; // TODO find out if user is allowed to read blog
 
+  const { data: session } = useSession();
 
-  const currentUser = {
-    username: "Max Muster",
-    email: "maximux@mesongo.com",
-    avatar: "/avatar.png"
-  }
+  const currentUser = session?.user;
+
+  // const currentUser = {
+  //   username: "Max Muster",
+  //   email: "maximux@mesongo.com",
+  //   avatar: "/avatar.png"
+  // }
+
+  // useEffect(() => {
+  //   if (currentUser?.id === currentBlog?.userid || currentUser?.id === adminUserId) {
+  //     setShowEditButton(true);
+  //   } else {
+  //     setShowEditButton(false);
+  //   }
+  // }, [currentUser, currentBlog]);
+
 
   useEffect(() => {
-    if (currentUser?.id === currentBlog?.userid || currentUser?.id === adminUserId) {
+    if (session?.user && (currentBlog?.userid === session?.user.id || session?.user.role === "admin")) {
       setShowEditButton(true);
     } else {
       setShowEditButton(false);
     }
-  }, [currentUser, currentBlog]);
+  }, [session, currentBlog]);
 
   useEffect(() => {
     if (currentBlog && currentBlog.userid) {
@@ -84,7 +97,7 @@ const Details = ({currentBlog}) => {
             <h3>created by</h3>
             <div className="authorinfo">
               <div className="authorimage">
-                <img src={author ? author.avatar || "/avatar.png" : "/avatar.png"} alt="" />
+                <img src={author ? author.image || "/avatar.png" : "/avatar.png"} alt="" />
               </div>
               <div className="username">
                 {currentBlog.username}

@@ -11,17 +11,17 @@ function page({ params }) {
         <div className="containero">
             <div className="blogView">
                 <div className="sideSearch">
-                    <Suspense fallback={<p>Loading list...</p>}>
+                    <Suspense fallback={<div className="loadingfallback"><p>Loading list...</p></div>}>
                         <LoadBlogList />
                     </Suspense>
                 </div>
                 <div className="blog">
-                    <Suspense fallback={<p>Loading blog...</p>}>
+                    <Suspense fallback={<div className="loadingfallback"><p>Loading blog...</p></div>}>
                         <LoadBlogContent blogId={params.slug}/>
                     </Suspense>
                 </div>
                 <div className="details">
-                    <Suspense fallback={<p>Loading info...</p>}>
+                    <Suspense fallback={<div className="loadingfallback"><p>Loading info...</p></div>}>
                         <LoadBlogDetails blogId={params.slug}/>
                     </Suspense>
                 </div>

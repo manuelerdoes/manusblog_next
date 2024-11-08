@@ -12,7 +12,8 @@ async function getBlog(id) {
     }
   });
   if (!res.ok) {
-    throw new Error('Network response was not ok');
+    console.error("Could not fetch blog content");
+    return null;
   }
   const data = await res.json(); // Ensure the response is parsed as JSON
   return data;
@@ -22,11 +23,15 @@ async function LoadBlogContent({ blogId }) {
 
   const currentBlog = await getBlog(blogId);
 
+  if (!currentBlog) { 
+    return <div className="loadingerror"><p>could not load blog content</p></div>
+  }
+
   return (
     <>
       <div className="blogtitle">
         <h2>{currentBlog.title}</h2>
-        {!currentBlog?.isPublic && (<span>not public</span>)}
+        {!currentBlog.isPublic && (<span>not public</span>)}
       </div>
       <div className="blogcontent">
         {/* <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(currentBlog.content)) }} /> */}

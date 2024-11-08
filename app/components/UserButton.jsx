@@ -1,21 +1,23 @@
-'use client'
-
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import Link from 'next/link'
+import { hostUrl } from '../lib/const'
 
 
 function UserButton() {
-  const [currentUser, setCurrentUser] = useState(null);
 
-
-
+  const currentUser = {
+    id: 1,
+    username: "Max Muster",
+    email: "mumu@mu.com"
+  }
 
   return (
-    <div className='userbutton'>
-      <div className='user'>
-        <img src={currentUser ? currentUser.avatarURL || "/avatar.png" : "/avatar.png"} alt="" />
-        <h2>{currentUser ? currentUser.username : "Login"}</h2>
+    <Link href={`${hostUrl}/usermanager`}>
+      <div className="userButton">
+        <img src={currentUser.avatarURL ? currentUser.avatarURL : "/avatar.png"} alt="" />
+        <span>{currentUser.username}</span>
       </div>
-    </div>
+    </Link>
   )
 }
 

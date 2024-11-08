@@ -1,5 +1,6 @@
 import React from 'react'
 import { appVersion } from '../version'
+import { SignIn } from '../components/SignIn'
 
 function About() {
     return (
@@ -19,7 +20,7 @@ function About() {
                 </div>
                 <div className="version">
                     <p>App Version: {appVersion}</p>
-                </div>
+                </div>  
             </div>
         </div>
     )

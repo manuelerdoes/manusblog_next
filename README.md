@@ -22,6 +22,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 * In blogView change basis values with custom tailwind class or just use non-tailwind-flex
 * solve the "upload picture" problem
-* auth
+* auth: custom signin. register with username and avatar
 * topic designs
-* responsive design
+* responsive design ✅
+* mobilemenu yellow hover

@@ -162,6 +162,9 @@ function Login() {
                         <span className='forgotpassword' onClick={() => setForgotPassword(true)}>
                             forgot password
                         </span>
+                        <div className="emailloginbutton">
+                            
+                        </div>
                     </div>
                 ) : (
                     <div className='item'>
