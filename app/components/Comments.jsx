@@ -141,9 +141,12 @@ function Comments({ blogId/*, comments */ }) {
 
               <div className="newcomment">
                 <form onSubmit={handleNewComment}>
+                  {/* <div className="namei">
+                    <input type="text" name='nickname' id='nickname' placeholder='nickname' />
+                  </div> */}
                   <div className="texti">
                     {/* <input type="text" placeholder='Comment' name='newcomment' /> */}
-                    <textarea name='newcomment' id='newcomment'
+                    <textarea name='newcomment' id='newcomment' placeholder='your comment'
                       value={commentText} onChange={(e) => setCommentText(e.target.value)}></textarea>
                   </div>
                   <div className="boetton">

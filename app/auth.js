@@ -20,6 +20,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
       from: process.env.EMAIL_FROM,
     }),],
+    callbacks: {
+      session({ session, user }) {
+        session.user.role = user.role
+        return session
+      }
+    },
     // pages: {
     //   signIn: "/signin",
     // }

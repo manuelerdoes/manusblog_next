@@ -34,9 +34,9 @@ const authPool = mysql.createPool({
 
 // user actions
 
-export async function getUser(id) {
+export async function getUser(email) {
   try {
-    const [rows] = await authPool.query(`SELECT name, image FROM user WHERE email = '${id}'`);
+    const [rows] = await authPool.query(`SELECT name, image FROM user WHERE email = '${email}'`);
     return rows[0];
   } catch (error) {
     console.error('Database query failed:', error);
@@ -119,7 +119,7 @@ export async function getBlog(id) {
 
 export async function getBlogAuthenticated(id, userId) {
   try {
-    const [rows] = await pool.query(`SELECT * FROM blog WHERE id = '${id}' AND userId = '${userId}'`);
+    const [rows] = await pool.query(`SELECT * FROM blog WHERE id = '${id}' AND (isPublic = 1 OR userId = '${userId}')`);
     return rows[0];
   } catch (error) {
     console.error('Database query failed:', error);

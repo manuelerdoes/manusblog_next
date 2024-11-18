@@ -34,7 +34,7 @@ const Details = ({currentBlog, author}) => {
 
 
   useEffect(() => {
-    if (session?.user && (currentBlog?.userId === session?.user.id || session?.user.role === "admin")) {
+    if (session?.user && (currentBlog?.userId === session?.user.email || session?.user.role === "admin")) {
       setShowEditButton(true);
     } else {
       setShowEditButton(false);
