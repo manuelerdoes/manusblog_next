@@ -14,6 +14,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           user: process.env.EMAIL_SERVER_USER,
           pass: process.env.EMAIL_SERVER_PASSWORD,
         },
+        // tls: {
+        //   rejectUnauthorized: false, // Allow self-signed certificates
+        // },
       },
       from: process.env.EMAIL_FROM,
     }),],

@@ -102,7 +102,11 @@ nav {
 }
 
 .loadingerror, .loadingfallback {
-  @apply flex items-center justify-center pt-8;
+  @apply flex flex-col gap-4 items-center justify-center pt-8 text-center;
+}
+
+.signinmessage {
+  @apply flex w-full text-center items-center justify-center text-gray-500;
 }
 
 .login {

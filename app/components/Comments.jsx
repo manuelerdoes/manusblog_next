@@ -3,18 +3,17 @@
 import React, { useState, useEffect } from 'react'
 import { getFormattedDateTime } from '../lib/utils';
 import { apiServer } from '../lib/const';
+import { useSession } from "next-auth/react"
 
-function Comments({ blogId/*, comments */}) {
+function Comments({ blogId/*, comments */ }) {
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [loading, setLoading] = useState(false);
+  const { data: session } = useSession();
 
   const currentUser = {
-    id: 1,
-    username: "Max Muster",
-    email: "maximux@mesongo.com",
-    avatar: "/avatar.png"
+    email: session?.user.email
   }
 
   const currentBlog = {
@@ -59,8 +58,8 @@ function Comments({ blogId/*, comments */}) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        blogId: currentBlog.id, 
-        userId: currentUser.id,
+        blogId: currentBlog.id,
+        userId: currentUser.email,
         created: getFormattedDateTime(),
         content: newcomment,
       }),
@@ -69,10 +68,10 @@ function Comments({ blogId/*, comments */}) {
       throw new Error('Network response was not ok');
     }
     const commentId = await res.json();
-    
+
     return commentId.res;
   }
-  
+
 
   const handleNewComment = async (e) => {
     e.preventDefault();
@@ -80,7 +79,7 @@ function Comments({ blogId/*, comments */}) {
     const formData = new FormData(e.target);
     const { newcomment } = Object.fromEntries(formData);
 
-    if (!newcomment || !currentBlog?.id || !currentUser?.id) {
+    if (!newcomment || !currentBlog?.id || !currentUser?.email) {
       console.log("Missing necessary data to submit the comment.");
       console.log("newcomment: ", newcomment);
       console.log("currentblogid: ", currentBlog.id);
@@ -97,6 +96,16 @@ function Comments({ blogId/*, comments */}) {
       setLoading(false);
     }
   };
+
+  const getCommentAuthor = async (userId) => {
+    const res = await fetch(`${apiServer}/api/user/${userId}`);
+    if (!res.ok) {
+      console.error("Could not fetch user");
+      return;
+    }
+    const data = await res.json();
+    return data.name;
+  }
 
 
 
@@ -117,7 +126,7 @@ function Comments({ blogId/*, comments */}) {
               currentBlog?.comments.map((comment, index) => (
                 <div key={comment.id || index} className="commentcontainer">
                   <div className="commentuser">
-                    <h3>{comment?.username}</h3>
+                    <h3>name of author</h3>
                     <span>{comment.created}</span>
                   </div>
                   <div className="commentcontent">
@@ -127,18 +136,28 @@ function Comments({ blogId/*, comments */}) {
               ))
             )
             }
-            <div className="newcomment">
-              <form onSubmit={handleNewComment}>
-                <div className="texti">
-                  {/* <input type="text" placeholder='Comment' name='newcomment' /> */}
-                  <textarea name='newcomment' id='newcomment'
-                    value={commentText} onChange={(e) => setCommentText(e.target.value)}></textarea>
+            {session?.user ? (
+
+
+              <div className="newcomment">
+                <form onSubmit={handleNewComment}>
+                  <div className="texti">
+                    {/* <input type="text" placeholder='Comment' name='newcomment' /> */}
+                    <textarea name='newcomment' id='newcomment'
+                      value={commentText} onChange={(e) => setCommentText(e.target.value)}></textarea>
+                  </div>
+                  <div className="boetton">
+                    <button disabled={loading}>Submit</button>
+                  </div>
+                </form>
+              </div>
+            ) : (
+              <div className="newcomment">
+                <div className="signinmessage">
+                  <p>Sign in to comment</p>
                 </div>
-                <div className="boetton">
-                  <button disabled={loading}>Submit</button>
-                </div>
-              </form>
-            </div>
+              </div>
+            )}
           </div>
         )}
       </div>

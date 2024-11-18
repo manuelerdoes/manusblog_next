@@ -4,7 +4,7 @@ import PublicButton from './PublicButton';
 import CommentsButton from './CommentsButton';
 import UploadPictures from '../../components/UploadPictures';
 import { useRouter } from 'next/navigation';
-import { getFormattedDateTime } from '@/app/lib/utils';
+import { getFormattedDateTime, sleep } from '@/app/lib/utils';
 import { apiServer } from '@/app/lib/const';
 import { useSession } from "next-auth/react"
 
@@ -13,10 +13,9 @@ function NewBlog() {
   const { data: session } = useSession()
 
   const currentUser = {
-    id: 1,
-    username: "Max Muster",
-    email: "mumu@mu.com"
+    email: session?.user.email,
   }
+
   //const currentUser = auth.currentUser;
 
   const postNewBlog = async (title, topic, tags, content, isPublic, disableComments) => {
@@ -26,7 +25,7 @@ function NewBlog() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        userId: currentUser.id,
+        userId: currentUser.email,
         title: title,
         created: getFormattedDateTime(),
         content: content,
@@ -53,6 +52,7 @@ function NewBlog() {
     //addNewBlog(formData, pub, com);
     const res = postNewBlog(title, selectedtopic, tags, rawcontent, pub, com);
     console.log("new blog added! id: ", res);
+    await sleep(500);
     router.push('/blog/latest');
   }
 

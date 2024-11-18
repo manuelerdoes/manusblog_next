@@ -1,6 +1,7 @@
 'use server'
 
 import { sqlDatabase, sqlPassword, sqlServer, sqlUser } from './const';
+import { authSqlDatabase, authSqlPassword, authSqlServer, authSqlUser } from './const';
 import { boolStringToInt } from './utils';
 
 // prepare
@@ -18,146 +19,29 @@ const pool = mysql.createPool({
   keepAliveInitialDelay: 0,
 });
 
-
+const authPool = mysql.createPool({
+  host: authSqlServer,
+  user: authSqlUser,
+  password: authSqlPassword,
+  database: authSqlDatabase,
+  waitForConnections: true,
+  connectionLimit: 100,
+  queueLimit: 0,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 0,
+});
 
 
 // user actions
 
-export async function newUser(id, username, email, avatarURL) {
-  return new Promise((resolve, reject) => {
-    con.connect(function (err) {
-      if (err) {
-        console.error("Error connecting to the database:", err);
-        return reject(new Error("Error connecting to the database"));
-      }
-      var sql = `INSERT INTO user (id, username, email, avatarURL) VALUES ('${id}', '${username}', '${email}', '${avatarURL}')`;
-      con.query(sql, function (err, result) {
-        if (err) {
-          console.error("Error inserting new user:", err);
-          return reject(new Error("Error inserting new user"));
-        }
-        console.log("New user created: " + username);
-        resolve("New user created successfully");
-      });
-    });
-  });
-}
-
-export async function updateUsername(id, newUsername) {
-
-  return new Promise((resolve, reject) => {
-    con.connect(function (err) {
-      if (err) {
-        console.error("Error connecting to the database:", err);
-        return reject(new Error("Error connecting to the database"));
-      }
-      var sql = `UPDATE user SET username = '${newUsername}' WHERE id = '${id}'`;
-      con.query(sql, function (err, result) {
-        if (err) {
-          console.error("Error updating username: ", err);
-          return reject(new Error("Error updating username"));
-        }
-        console.log("Username of " + id + " updated to: " + newUsername);
-        resolve(newUsername);
-      });
-    });
-  });
-}
-
-export async function updateAvatarURL(id, newAvatarURL) {
-
-}
-
-
-export async function deleteUser(id) {
-  return new Promise((resolve, reject) => {
-    con.connect(function (err) {
-      if (err) {
-        console.error("Error connecting to the database:", err);
-        return reject(new Error("Error connecting to the database"));
-      }
-      var sql = `DELETE FROM user WHERE id = '${id}'`;
-      con.query(sql, function (err, result) {
-        if (err) {
-          console.error("Error deleting user: ", err);
-          return reject(new Error("Error deleting user"));
-        }
-        console.log("User deleted with id: " + id);
-        resolve("User deleted successfully");
-      });
-    });
-  });
-}
-
-
 export async function getUser(id) {
-  return new Promise((resolve, reject) => {
-    con.connect(function (err) {
-      if (err) {
-        console.error("Error connecting to the database:", err);
-        return reject(new Error("Error connecting to the database"));
-      }
-      var sql = `SELECT * FROM user WHERE id = '${id}'`;
-      con.query(sql, function (err, result) {
-        if (err) {
-          console.error("Error searching user: ", err);
-          return reject(new Error("Error searching user"));
-        }
-        if (result.length > 0) {
-          resolve(result[0]);
-        } else {
-          resolve(null);
-        }
-      });
-    });
-  });
-}
-
-export async function checkUsername(username) {
-  return new Promise((resolve, reject) => {
-    con.connect(function (err) {
-      if (err) {
-        console.error("Error connecting to the database:", err);
-        return reject(new Error("Error connecting to the database"));
-      }
-      var sql = `SELECT * FROM user WHERE username = '${username}'`;
-      con.query(sql, function (err, result) {
-        if (err) {
-          console.error("Error searching username: ", err);
-          return reject(new Error("Error searching username"));
-        }
-        if (result.length > 0) {
-          resolve(true); // Username is taken
-        } else {
-          resolve(false); // Username is not taken
-        }
-      });
-    });
-  });
-}
-
-export async function getUserAndHash(email) {
-  return new Promise((resolve, reject) => {
-    con.connect(function (err) {
-      if (err) {
-        console.error("Error connecting to the database:", err);
-        return reject(new Error("Error connecting to the database"));
-      }
-      var sql = `SELECT password, salt FROM user WHERE email = '${email}'`;
-      con.query(sql, function (err, result) {
-        if (err) {
-          console.error("Error searching user: ", err);
-          return reject(new Error("Error searching user"));
-        }
-        if (result.length > 0) {
-          resolve(result[0]);
-        } else {
-          resolve(null);
-        }
-      });
-    });
+  try {
+    const [rows] = await authPool.query(`SELECT name, image FROM user WHERE email = '${id}'`);
+    return rows[0];
+  } catch (error) {
+    console.error('Database query failed:', error);
+    throw error;
   }
-  );
 }
 
 
@@ -203,7 +87,7 @@ export async function deleteBlog(id) {
 
 export async function getBlogList() {
   try {
-    const [rows] = await pool.query(`SELECT * FROM blogs_with_usernames`);
+    const [rows] = await pool.query(`SELECT * FROM blog WHERE isPublic = 1 ORDER BY id DESC`);
     return rows;
   } catch (error) {
     console.error('Database query failed:', error);
@@ -211,14 +95,31 @@ export async function getBlogList() {
   }
 }
 
-export async function getAuthenticatedBlogList(userId) {
 
+export async function getAuthenticatedBlogList(userId) {
+  try {
+    const [rows] = await pool.query(`SELECT * FROM blog WHERE isPublic = 1 OR userId = '${userId}' GROUP BY id ORDER BY id DESC`);
+    return rows;
+  } catch (error) {
+    console.error('Database query failed:', error);
+    throw error;
+  }
 }
 
 
 export async function getBlog(id) {
   try {
-    const [rows] = await pool.query(`SELECT * FROM blog WHERE id = '${id}'`);
+    const [rows] = await pool.query(`SELECT * FROM blog WHERE id = '${id}' AND isPublic = 1`);
+    return rows[0];
+  } catch (error) {
+    console.error('Database query failed:', error);
+    throw error;
+  }
+}
+
+export async function getBlogAuthenticated(id, userId) {
+  try {
+    const [rows] = await pool.query(`SELECT * FROM blog WHERE id = '${id}' AND userId = '${userId}'`);
     return rows[0];
   } catch (error) {
     console.error('Database query failed:', error);
@@ -229,7 +130,7 @@ export async function getBlog(id) {
 
 export async function getLatestBlogId() {
   try {
-    const [rows] = await pool.query(`SELECT id FROM blog ORDER BY created LIMIT 1`);
+    const [rows] = await pool.query(`SELECT id FROM blog WHERE isPublic = 1 ORDER BY id DESC LIMIT 1`);
     return rows[0].id;
   } catch (error) {
     console.error('Database query failed:', error);
@@ -252,7 +153,7 @@ export async function newComment(blogId, userId, text, created) {
 
 export async function getComments(blogId) {
   try {
-    const [rows] = await pool.query(`SELECT * FROM comments_with_usernames WHERE blogId = '${blogId}';`);
+    const [rows] = await pool.query(`SELECT * FROM Comment WHERE blogId = '${blogId}';`);
     return rows;
   } catch (error) {
     console.error('Database query failed:', error);

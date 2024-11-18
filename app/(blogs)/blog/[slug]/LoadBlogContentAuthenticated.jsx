@@ -1,31 +1,31 @@
+'use client'
+
 import { apiServer } from '@/app/lib/const';
-import React from 'react'
-import { Suspense } from 'react';
-import LoadComments from './LoadComments';
+import React, { useEffect, useState } from 'react'
 import DOMPurify from 'dompurify';
 import { marked } from 'marked';
 
-async function getBlog(id) {
-  const res = await fetch(`${apiServer}/api/blog/${id}`, {
-    next: {
-      revalidate: 10
-    }
-  });
-  if (!res.ok) {
-    console.error("Could not fetch blog content");
-    return null;
-  }
-  const data = await res.json(); // Ensure the response is parsed as JSON
-  return data;
-}
 
-async function LoadBlogContent({ blogId }) {
 
-  const currentBlog = await getBlog(blogId);
+function LoadBlogContentAuthenticated({ blogId }) {
+  const [currentBlog, setCurrentBlog] = useState(null);
 
-  if (!currentBlog) { 
-    return <div className="loadingerror"><h2>Error</h2><p>Could not load blog content.<br></br>
-      You might be trying to access a non-public blogpost. Please check if you are signed in.</p></div>
+  useEffect(() => {
+    const fetchBlog = async () => {
+      const res = await fetch(`${apiServer}/api/blog/${blogId}`);
+      if (!res.ok) {
+        console.error("Could not fetch blog content");
+        return;
+      }
+      const data = await res.json();
+      setCurrentBlog(data);
+    };
+
+    fetchBlog();
+  }, []);
+
+  if (!currentBlog) {
+    return <div className="loadingerror"><p>could not load blog content</p></div>
   }
 
   return (
@@ -41,7 +41,7 @@ async function LoadBlogContent({ blogId }) {
       </div>
       {/* {(!currentBlog.disableComments) ? (
         <Suspense fallback={<p>loading comments...</p>}>
-          <LoadComments blogId={blogId} />
+          <LoadCommentsAuthenticated blogId={blogId} />
         </Suspense>
       ) : (
         <div className="comments">
@@ -52,4 +52,4 @@ async function LoadBlogContent({ blogId }) {
   )
 }
 
-export default LoadBlogContent
+export default LoadBlogContentAuthenticated

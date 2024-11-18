@@ -1,12 +1,19 @@
 import { signOut } from '@/app/auth'
 import React from 'react'
+import { auth } from '@/app/auth'
+import { redirect } from 'next/navigation'
 
-function Usermanager() {
+async function Usermanager() {
+  const session = await auth()
+
+  if (!session?.user) redirect('/');
+
   const currentUser = {
-    username: "Max Muster",
-    email: "maximux@mesongo.com",
-    avatar: "/avatar.png"
-}
+    username: session.user.name,
+    email: session.user.email,
+    avatar: session.user.image
+  }
+  
   return (
     <div className="containero">
       <div className="usermanager">

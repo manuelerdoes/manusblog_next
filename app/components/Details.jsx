@@ -7,10 +7,9 @@ import { useRouter } from 'next/navigation';
 import { useSession } from "next-auth/react"
 
 
-const Details = ({currentBlog}) => {
+const Details = ({currentBlog, author}) => {
 
   const [showEditButton, setShowEditButton] = useState(false);
-  const [author, setAuthor] = useState(null);
   const router = useRouter();
 
   const allowed = true; // TODO find out if user is allowed to read blog
@@ -26,7 +25,7 @@ const Details = ({currentBlog}) => {
   // }
 
   // useEffect(() => {
-  //   if (currentUser?.id === currentBlog?.userid || currentUser?.id === adminUserId) {
+  //   if (currentUser?.id === currentBlog?.userId || currentUser?.id === adminUserId) {
   //     setShowEditButton(true);
   //   } else {
   //     setShowEditButton(false);
@@ -35,7 +34,7 @@ const Details = ({currentBlog}) => {
 
 
   useEffect(() => {
-    if (session?.user && (currentBlog?.userid === session?.user.id || session?.user.role === "admin")) {
+    if (session?.user && (currentBlog?.userId === session?.user.id || session?.user.role === "admin")) {
       setShowEditButton(true);
     } else {
       setShowEditButton(false);
@@ -43,7 +42,7 @@ const Details = ({currentBlog}) => {
   }, [session, currentBlog]);
 
   useEffect(() => {
-    if (currentBlog && currentBlog.userid) {
+    if (currentBlog && currentBlog.userId) {
       // TODO fetch author data
     }
   }, [/*currentBlog*/]);
@@ -100,7 +99,7 @@ const Details = ({currentBlog}) => {
                 <img src={author ? author.image || "/avatar.png" : "/avatar.png"} alt="" />
               </div>
               <div className="username">
-                {currentBlog.username}
+                {author?.name}
               </div>
             </div>
           </div>

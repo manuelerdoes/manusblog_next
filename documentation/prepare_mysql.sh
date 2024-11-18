@@ -56,59 +56,30 @@ GRANT ALL PRIVILEGES ON \`$db_name\`.* TO '$username'@'localhost';
 USE \`$db_name\`;
 
 -- Create tables if they do not exist
-CREATE TABLE IF NOT EXISTS User (
-    id INT AUTO_INCREMENT NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    username VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    avatarURL VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id)
-);
 
 CREATE TABLE IF NOT EXISTS Blog (
     id INT AUTO_INCREMENT NOT NULL,
-    userId INT,
+    userId VARCHAR(191),
     title VARCHAR(255) NOT NULL,
-    created DATE NOT NULL,
-    modified DATE NOT NULL,
+    created TEXT NOT NULL,
+    modified TEXT NOT NULL,
     content TEXT NOT NULL,
     tags VARCHAR(255),
     topic VARCHAR(255) NOT NULL,
     isPublic BOOLEAN NOT NULL,
     disableComments BOOLEAN NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (userId) REFERENCES User(id) ON DELETE SET NULL
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS Comment (
     id INT AUTO_INCREMENT NOT NULL,
     blogId INT NOT NULL,
-    userId INT,
+    userId VARCHAR(191),
     text TEXT NOT NULL,
-    created DATE NOT NULL,
+    created TEXT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (blogId) REFERENCES Blog(id) ON DELETE CASCADE,
-    FOREIGN KEY (userId) REFERENCES User(id) ON DELETE SET NULL
-);
-
-CREATE VIEW `comments_with_usernames` AS
-SELECT 
-    Comment.*,
-    User.username
-FROM 
-    Comment
-JOIN 
-    User ON Comment.userId = User.id;
-
-CREATE VIEW `blogs_with_usernames` AS
-SELECT 
-    Blog.*,
-    User.username
-FROM 
-    Blog
-JOIN 
-    User ON Blog.userId = User.id;
-    
+    FOREIGN KEY (blogId) REFERENCES Blog(id) ON DELETE CASCADE
+);  
 EOF
 )
 

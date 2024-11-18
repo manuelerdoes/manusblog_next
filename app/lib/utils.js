@@ -22,3 +22,7 @@ export function boolStringToInt(string) {
   }
   return result;
 }
+
+export function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}

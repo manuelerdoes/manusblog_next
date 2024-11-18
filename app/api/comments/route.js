@@ -1,7 +1,12 @@
 import { newComment } from "@/app/lib/dbActions";
 import { NextResponse } from "next/server";
+import { auth } from "@/app/auth";
 
-export async function POST(request) {
+export const POST = auth(async function POST(request) {
+  if (!request.auth) {
+    return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+  }
+
   const data = await request.json();
 
   try {
@@ -10,4 +15,4 @@ export async function POST(request) {
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
-}
+})

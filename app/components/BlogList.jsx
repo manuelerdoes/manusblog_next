@@ -2,10 +2,12 @@
 
 import { useRouter } from 'next/navigation';
 import React, { useState, useEffect, useRef } from 'react';
+import { useSession } from "next-auth/react"
+import { apiServer } from '../lib/const';
 
 
 
-function BlogList({ currentBlogList }) {
+function BlogList() {
     const searchInputRef = useRef(null);
     const [showTopicFilter, setShowTopicFilter] = useState(false);
     const [searchActive, setSearchActive] = useState(false);
@@ -13,13 +15,28 @@ function BlogList({ currentBlogList }) {
     const [searchValue, setSearchValue] = useState('');
     const [selectedTopic, setSelectedTopic] = useState(null); // Track selected topic
     const [filteredBlogs, setFilteredBlogs] = useState([]);
+    const [currentBlogList, setCurrentBlogList] = useState([]);
     const router = useRouter();
+    const { data: session } = useSession();
 
     const user = {
-        username: "Max Muster",
-        email: "maximux@mesongo.com",
-        avatar: "/avatar.png"
+        email: session?.user.email
     }
+
+    useEffect(() => {
+        // Fetch initial comments when component mounts
+        const fetchBlogs = async () => {
+            const res = await fetch(`${apiServer}/api/blog`);
+            if (!res.ok) {
+                console.error("Could not fetch blogs");
+                return;
+            }
+            const data = await res.json();
+            setCurrentBlogList(data);
+        };
+
+        fetchBlogs();
+    }, []);
 
     //const user = auth.currentUser;
 
@@ -27,8 +44,8 @@ function BlogList({ currentBlogList }) {
     useEffect(() => {
         let result = [...currentBlogList];
 
-        result = result.filter((blog) => blog.isPublic || (user && blog.userid === user.uid));
-
+        result = result.filter((blog) => blog.isPublic || (user && blog.userId === user.email));
+        
         // Filter by search value if present
         if (searchValue.trim()) {
             result = result.filter((blog) =>
@@ -42,11 +59,11 @@ function BlogList({ currentBlogList }) {
         }
 
         // Sort by creation date ascending (again, to ensure sorted after filtering)
-        result = result.sort((a, b) => new Date(a.created) - new Date(b.created));
+        // result = result.sort((a, b) => new Date(a.created) - new Date(b.created));
 
         // Limit to first 30 results
         setFilteredBlogs(result.slice(0, 30));
-    }, [searchValue, selectedTopic/*, currentBlogList*/]);
+    }, [searchValue, selectedTopic, currentBlogList]);
 
     // Handle topic selection
     const handleTopicClick = (topic) => {

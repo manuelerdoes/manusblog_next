@@ -36,7 +36,7 @@ async function BlogHeader() {
                     <Link href="/allblogs">All Blogs</Link>
                 </div>
                 <div className="userLink">
-                    {(!session?.user) ? (<SignIn />) : (<UserButton />)}
+                    {(!session?.user) ? (<SignIn />) : (<SessionProvider><UserButton /></SessionProvider>)}
                 </div>
 
                 {/* only shown in responsive mode */}

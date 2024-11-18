@@ -10,23 +10,35 @@ async function getBlog(id) {
     }
   });
   if (!res.ok) {
-    throw new Error('Network response was not ok');
+    console.error('Could not fetch blog');
+    return null;
+  }
+  const data = await res.json(); // Ensure the response is parsed as JSON
+  return data;
+}
+
+async function getUserInfo(id) {
+  const res = await fetch(`${apiServer}/api/user/${id}`);
+  if (!res.ok) {
+    console.error('Could not fetch user info');
+    return null;
   }
   const data = await res.json(); // Ensure the response is parsed as JSON
   return data;
 }
 
 async function LoadBlogDetails({ blogId }) {
-
   const currentBlog = await getBlog(blogId);
 
   if (!currentBlog) {
     return <div className="loadingerror"><p>could not load blog detail</p></div>
   }
+  
+  const author = await getUserInfo(currentBlog.userId);
 
   return (
     <SessionProvider>
-      <Details currentBlog={currentBlog} />
+      <Details currentBlog={currentBlog} author={author}/>
     </SessionProvider>
   )
 }
