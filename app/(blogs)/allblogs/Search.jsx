@@ -76,7 +76,8 @@ function Search() {
                     blog.title.toLowerCase().includes(searchText.toLowerCase()) ||
                     blog.userId.toLowerCase().includes(searchText.toLowerCase()) ||
                     blog.topic.toLowerCase().includes(searchText.toLowerCase()) ||
-                    blog.tags?.toLowerCase().includes(searchText.toLowerCase())
+                    blog.tags?.toLowerCase().includes(searchText.toLowerCase()) ||
+                    blog.created.includes(searchText)
                 );
             }
 

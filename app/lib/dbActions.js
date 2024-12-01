@@ -1,35 +1,7 @@
 'use server'
 
-import { sqlDatabase, sqlPassword, sqlServer, sqlUser } from './const';
-import { authSqlDatabase, authSqlPassword, authSqlServer, authSqlUser } from './const';
+import { pool, authPool } from './mysql';
 import { boolStringToInt } from './utils';
-
-// prepare
-var mysql = require('mysql2/promise');
-
-const pool = mysql.createPool({
-  host: sqlServer,
-  user: sqlUser,
-  password: sqlPassword,
-  database: sqlDatabase,
-  waitForConnections: true,
-  connectionLimit: 100,
-  queueLimit: 0,
-  enableKeepAlive: true,
-  keepAliveInitialDelay: 0,
-});
-
-const authPool = mysql.createPool({
-  host: authSqlServer,
-  user: authSqlUser,
-  password: authSqlPassword,
-  database: authSqlDatabase,
-  waitForConnections: true,
-  connectionLimit: 100,
-  queueLimit: 0,
-  enableKeepAlive: true,
-  keepAliveInitialDelay: 0,
-});
 
 
 // user actions
