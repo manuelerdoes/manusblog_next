@@ -9,10 +9,6 @@ import { SessionProvider } from "next-auth/react"
 
 async function BlogHeader() {
     const session = await auth();
-    // const session = {
-    //     user: "oergel"
-    // }
-
 
     return (
         <div className='blogheader'>
@@ -36,7 +32,9 @@ async function BlogHeader() {
                     <Link href="/allblogs">All Blogs</Link>
                 </div>
                 <div className="userLink">
-                    {(!session?.user) ? (<SignIn />) : (<SessionProvider><UserButton /></SessionProvider>)}
+                    <SessionProvider>
+                        {(!session?.user) ? <SignIn /> : <UserButton />}
+                    </SessionProvider>
                 </div>
 
                 {/* only shown in responsive mode */}

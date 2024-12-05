@@ -7,12 +7,60 @@ function UserManager() {
 
   const { data: session } = useSession()
   const router = useRouter();
+  const { update } = useSession();
+
+  const [loading, setLoading] = useState(false);
+  const [avatarStatus, setAvatarStatus] = useState("Save");
 
   const [currentUser, setCurrentUser] = useState({
     username: '',
     email: '',
     avatar: ''
   })
+
+  const [avatar, setAvatar] = useState({
+    file: null,
+    url: ""
+  })
+
+  const handleAvatar = (e) => {
+    if (e.target.files[0]) {
+      setAvatarStatus("Save");
+      setAvatar({
+        file: e.target.files[0],
+        url: URL.createObjectURL(e.target.files[0]),
+      });
+    }
+  };
+
+  const handleUpdateAvatar = async () => {
+    setLoading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', avatar.file);
+      formData.append('email', currentUser.email);
+  
+      const response = await fetch('/api/files', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to upload picture');
+      }
+  
+      const data = await response.json();
+      //update({ image: data.fileUrl });
+      // TODO: Update session to make the new image visible immediately
+      setAvatarStatus("Saved!")
+    } catch (error) {
+      console.log(error.message)
+      setAvatarStatus(error.message)
+    } finally {
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
     if (session?.user) {
@@ -35,6 +83,17 @@ function UserManager() {
       <div className="info">
         <h2>{currentUser.username}</h2>
         <p>{currentUser.email}</p>
+        <div className="changeavatar">
+
+          <label htmlFor="file">
+            <img src={!avatar.file ? currentUser.avatar || "/avatar.png"
+              : avatar.url || "/avatar.png"} alt="" />
+            Upload new avatar pic
+          </label>
+          <input type="file" id="file" style={{ display: "none" }} onChange={handleAvatar} />
+          <button disabled={loading} onClick={handleUpdateAvatar}>
+            {loading ? "loading..." : avatarStatus}</button>
+        </div>
       </div>
       <div className="useraction">
         {!currentUser.username && <div className="new-user-info">

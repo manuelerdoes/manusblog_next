@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS Blog (
 CREATE TABLE IF NOT EXISTS Comment (
     id INT AUTO_INCREMENT NOT NULL,
     blogId INT NOT NULL,
-    userId VARCHAR(191),
+    userName VARCHAR(191),
     text TEXT NOT NULL,
     created TEXT NOT NULL,
     PRIMARY KEY (id),

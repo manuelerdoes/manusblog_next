@@ -89,7 +89,10 @@ function Search() {
                 return sortOrder === 'asc' ? (aValue > bValue ? 1 : -1) : (aValue < bValue ? 1 : -1);
             });
 
-            setFilteredBlogs(sortedByCreation);
+            const sortedById = filtered.sort((a, b) => b.id - a.id);
+            setFilteredBlogs(sortedById);
+
+            // setFilteredBlogs(sortedByCreation);
         }, 300);
 
         debouncedSearch(searchText);  // Trigger debounced search

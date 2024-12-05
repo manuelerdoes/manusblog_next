@@ -10,10 +10,12 @@ function Comments({ blogId/*, comments */ }) {
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showUsernameWarning, setShowUsernameWarning] = useState(false);
   const { data: session } = useSession();
 
   const currentUser = {
-    email: session?.user.email
+    email: session?.user.email,
+    username: session?.user.name
   }
 
   const currentBlog = {
@@ -38,6 +40,14 @@ function Comments({ blogId/*, comments */ }) {
     }
   }, [loading]);
 
+  useEffect(() => {
+    if (!session?.user.name) {
+      setShowUsernameWarning(true);
+    } else {
+      setShowUsernameWarning(false);
+    }
+  }, [session?.user.name]);
+
   const toggleComments = async () => {
     const newShowComments = !showComments;
     setShowComments(newShowComments);
@@ -59,7 +69,8 @@ function Comments({ blogId/*, comments */ }) {
       },
       body: JSON.stringify({
         blogId: currentBlog.id,
-        userId: currentUser.email,
+        // TODO: change to userName, once db is updated
+        userId: currentUser.username,
         created: getFormattedDateTime(),
         content: newcomment,
       }),
@@ -76,10 +87,15 @@ function Comments({ blogId/*, comments */ }) {
   const handleNewComment = async (e) => {
     e.preventDefault();
     setLoading(true);
+    if (!session) {
+      console.log("User is not logged in.");
+      return;
+    }
+
     const formData = new FormData(e.target);
     const { newcomment } = Object.fromEntries(formData);
 
-    if (!newcomment || !currentBlog?.id || !currentUser?.email) {
+    if (!newcomment || !currentBlog?.id || !currentUser.username) {
       console.log("Missing necessary data to submit the comment.");
       console.log("newcomment: ", newcomment);
       console.log("currentblogid: ", currentBlog.id);
@@ -126,7 +142,8 @@ function Comments({ blogId/*, comments */ }) {
               currentBlog?.comments.map((comment, index) => (
                 <div key={comment.id || index} className="commentcontainer">
                   <div className="commentuser">
-                    <h3>name of author</h3>
+                    {/* TODO: change userId to userName once db is updated */}
+                    <h3>{comment.userId.substring(0, 12) + (comment.userId.length > 15 ? '...' : '')}</h3>
                     <span>{comment.created}</span>
                   </div>
                   <div className="commentcontent">
@@ -136,10 +153,11 @@ function Comments({ blogId/*, comments */ }) {
               ))
             )
             }
-            {session?.user ? (
+            {session?.user && !showUsernameWarning ? (
 
 
               <div className="newcomment">
+                {/* {showUsernameWarning && <div className="warning">you need to set a username to comment</div>} */}
                 <form onSubmit={handleNewComment}>
                   {/* <div className="namei">
                     <input type="text" name='nickname' id='nickname' placeholder='nickname' />
@@ -157,7 +175,7 @@ function Comments({ blogId/*, comments */ }) {
             ) : (
               <div className="newcomment">
                 <div className="signinmessage">
-                  <p>Sign in to comment</p>
+                  <p>Sign in to comment. Make sure to set a username.</p>
                 </div>
               </div>
             )}
