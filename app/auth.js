@@ -29,7 +29,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),],
     callbacks: {
       async jwt({ token, user, session, trigger }) {
-        if (trigger === "update" && session?.name !== token.name) {
+        if (trigger === "update" && session?.name && session?.name !== token.name) {
           token.name = session.name;
   
           try {
@@ -38,6 +38,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             console.error("Failed to set user name:", error);
           }
         }
+
+        if (trigger === "update" && session?.image && session?.image !== token.image) {
+          token.image = session.image;
+        }
+
   
         if (user) {
           await clearStaleTokens(); // Clear up any stale verification tokens from the database after a successful sign in
@@ -49,6 +54,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         return token;
       },
       async session({ session, token }) {
+        if (token.image) {
+          session.user.image = token.image;
+        }
         return {
           ...session,
           user: {

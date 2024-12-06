@@ -6,8 +6,9 @@ import { useRouter } from 'next/navigation';
 function UserManager() {
 
   const { data: session } = useSession()
-  const router = useRouter();
   const { update } = useSession();
+  const router = useRouter();
+  // const { updateimage } = useSession();
 
   const [loading, setLoading] = useState(false);
   const [avatarStatus, setAvatarStatus] = useState("Save");
@@ -40,19 +41,22 @@ function UserManager() {
       const formData = new FormData();
       formData.append('file', avatar.file);
       formData.append('email', currentUser.email);
-  
+
       const response = await fetch('/api/files', {
         method: 'POST',
         body: formData,
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed to upload picture');
       }
-  
+
       const data = await response.json();
-      //update({ image: data.fileUrl });
+      // updateimage({ image: data.fileUrl });
       // TODO: Update session to make the new image visible immediately
+      // Update token with the new image
+   
+      update({ image: data.fileUrl });
       setAvatarStatus("Saved!")
     } catch (error) {
       console.log(error.message)
@@ -63,6 +67,7 @@ function UserManager() {
   }
 
   useEffect(() => {
+    console.log(session)
     if (session?.user) {
       setCurrentUser({
         username: session.user.name,

@@ -23,10 +23,9 @@ export const POST = auth(async function POST(request) {
   const filePath = `${fileStorageDirectory}/${file.name}`;
   const fileBuffer = await file.arrayBuffer();
   const fileData = Buffer.from(fileBuffer);
-  const fileUrl = fileStorageUrl + "/" + file.name;
+  const fileUrl = fileStorageUrl + "/" + encodeURIComponent(file.name);
   await saveFileToStorage(filePath, fileData);
   await writeUserImageUrlToDb(fileUrl, email);
-
 
   return NextResponse.json({ message: 'File uploaded successfully', fileUrl }, { status: 201 });
 });
