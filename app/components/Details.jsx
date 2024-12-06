@@ -18,11 +18,6 @@ const Details = ({currentBlog, author}) => {
 
   const currentUser = session?.user;
 
-  // const currentUser = {
-  //   username: "Max Muster",
-  //   email: "maximux@mesongo.com",
-  //   avatar: "/avatar.png"
-  // }
 
   // useEffect(() => {
   //   if (currentUser?.id === currentBlog?.userId || currentUser?.id === adminUserId) {

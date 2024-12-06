@@ -42,7 +42,7 @@ function UserManager() {
       formData.append('file', avatar.file);
       formData.append('email', currentUser.email);
 
-      const response = await fetch('/api/files', {
+      const response = await fetch(`/api/user/${currentUser.email}`, {
         method: 'POST',
         body: formData,
       });
@@ -52,9 +52,6 @@ function UserManager() {
       }
 
       const data = await response.json();
-      // updateimage({ image: data.fileUrl });
-      // TODO: Update session to make the new image visible immediately
-      // Update token with the new image
    
       update({ image: data.fileUrl });
       setAvatarStatus("Saved!")

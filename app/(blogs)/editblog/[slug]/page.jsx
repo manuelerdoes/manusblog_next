@@ -1,13 +1,17 @@
 import React, { Suspense } from 'react'
 import EditBlogForm from './EditBlogForm';
+import { auth } from '@/app/auth';
 import { apiServer } from '@/app/lib/const';
 
-function EditBlog({ params }) {
+async function EditBlog({ params }) {
+
+  const session = await auth();
+
+  if (!session?.user) return null
 
   const currentUser = {
-    id: 1,
-    username: "Max Muster",
-    email: "mumu@mu.com"
+    username: session.user.name,
+    email: session.user.email
   }
   //const currentUser = auth.currentUser;
 

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/app/auth";
 import { saveFileToStorage } from "@/app/lib/storage/saveFileToStorageServerAction";
 import { fileStorageDirectory, fileStorageUrl } from "@/app/lib/const";
-import { writeUserImageUrlToDb } from "@/app/lib/storage/writeUserImageUrlToDbServerAction";
+import { writeFileToDb } from "@/app/lib/storage/writeFileToDbServerAction";
 
 export const dynamic = 'force-dynamic';
 
@@ -25,7 +25,7 @@ export const POST = auth(async function POST(request) {
   const fileData = Buffer.from(fileBuffer);
   const fileUrl = fileStorageUrl + "/" + encodeURIComponent(file.name);
   await saveFileToStorage(filePath, fileData);
-  await writeUserImageUrlToDb(fileUrl, email);
+  await writeFileToDb(fileUrl, email);
 
   return NextResponse.json({ message: 'File uploaded successfully', fileUrl }, { status: 201 });
 });

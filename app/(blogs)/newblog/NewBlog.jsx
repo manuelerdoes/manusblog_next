@@ -111,7 +111,7 @@ function NewBlog() {
           </form>
         </div>
         <div className="pictureUpload">
-          <UploadPictures />
+          <UploadPictures currentUser={currentUser}/>
         </div>
       </div>
 

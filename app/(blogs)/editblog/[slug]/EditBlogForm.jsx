@@ -110,7 +110,7 @@ function EditBlogForm({currentUser, blogid}) {
           </form>
         </div>
         <div className="pictureUpload">
-          <UploadPictures />
+          <UploadPictures currentUser={currentUser} blogid={blogid}/>
         </div>
       </div>
 
