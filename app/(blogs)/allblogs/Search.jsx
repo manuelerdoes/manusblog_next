@@ -5,6 +5,7 @@ import { debounce } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { apiServer } from '@/app/lib/const';
 import { useSession } from "next-auth/react"
+import { addUsernameToBloglist } from '@/app/lib/addUsernameToBloglist';
 
 function Search() {
     const [searchText, setSearchText] = useState("");
@@ -25,7 +26,8 @@ function Search() {
                 return;
             }
             const data = await res.json();
-            setCurrentBlogList(data);
+            const userlist = await addUsernameToBloglist(data);
+            setCurrentBlogList(userlist);
         };
 
         fetchBlogs();
@@ -36,7 +38,6 @@ function Search() {
     }
 
     const handleBlogClick = (id) => {
-        // TODO: redirect to blog
         router.push(`/blog/${id}`);
     };
 

@@ -54,9 +54,9 @@ function UserManager() {
       const data = await response.json();
    
       update({ image: data.fileUrl });
-      setAvatarStatus("Saved!")
+      setAvatarStatus("Saved! (Reload to see changes)");
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
       setAvatarStatus(error.message)
     } finally {
       setLoading(false);
@@ -64,7 +64,6 @@ function UserManager() {
   }
 
   useEffect(() => {
-    console.log(session)
     if (session?.user) {
       setCurrentUser({
         username: session.user.name,

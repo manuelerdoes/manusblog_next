@@ -163,7 +163,6 @@ function UploadPictures({ currentUser, blogid, uploadedPictures, setUploadedPict
                     return;
                 }
                 const data = await res.json();
-                console.log(data)
                 const img = data.map(item => item.name);
                 setServerImages(img);
             } catch (error) {
@@ -217,7 +216,7 @@ function UploadPictures({ currentUser, blogid, uploadedPictures, setUploadedPict
 
             {/* List of already uploaded images from the server */}
             <div className="uploaded-images-container">
-                {serverImages.length > 0 ? (
+                {serverImages?.length > 0 ? (
                     <div className="server-image-list">
                         {serverImages.map((url, index) => (
                             <div key={index} className="server-image-container">

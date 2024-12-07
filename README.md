@@ -26,13 +26,16 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 * when logged in sometimes non-public is loaded as latest ✅
 * auth: custom signin. register with username ✅
 * comments: allow user to enter nickname. ✅
-* bloglist sometimes shows non-public, sometimes not 🌶️
-* In blogView change basis values with custom tailwind class or just use non-tailwind-flex
-* solve the "upload picture" problem
+* solve the "upload picture" problem ✅
 * uploadpicture: connect pic to blog in edit mode when uploading ✅
-* uploadpicture: find way to connect pic in new blog.
-* auth: set avatar
-* disable comments 
-* topic designs
-* mobilemenu yellow hover
+* uploadpicture: find way to connect pic in new blog. ✅
+* auth: set avatar ✅
+
+* HIGH: fix search sorting
+* MID: make searchbar topic filter keep selection when changing blogpost
+* LOW: make Detail topic and author clickable
+* LOW: In blogView change basis values with custom tailwind class or just use non-tailwind-flex
+* HIGH: disable comments 
+* LOW: topic designs
+* LOW: mobilemenu yellow hover
 
