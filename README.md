@@ -29,6 +29,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 * bloglist sometimes shows non-public, sometimes not 🌶️
 * In blogView change basis values with custom tailwind class or just use non-tailwind-flex
 * solve the "upload picture" problem
+* uploadpicture: connect pic to blog in edit mode when uploading ✅
+* uploadpicture: find way to connect pic in new blog.
 * auth: set avatar
 * disable comments 
 * topic designs

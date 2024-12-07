@@ -2,14 +2,16 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { apiServer } from '../lib/const';
+import { set } from 'lodash';
 
-function UploadPictures({ currentUser, blogid }) {
+function UploadPictures({ currentUser, blogid, uploadedPictures, setUploadedPictures }) {
     const [isDragging, setIsDragging] = useState(false);
     const [imageUrlsToUpload, setImageUrlsToUpload] = useState([]); // For new images to upload
     const [filesToUpload, setFilesToUpload] = useState([]); // Track actual files to upload
     const [loading, setLoading] = useState(false);
     const [copiedUrl, setCopiedUrl] = useState(null); // Track copied picture URL
     const [serverImages, setServerImages] = useState([]);
+    const [showUserImages, setShowUserImages] = useState(false);
     const fileInputRef = useRef(null);
 
     // Fetch pictures related to the current blog from Firestore
@@ -27,8 +29,8 @@ function UploadPictures({ currentUser, blogid }) {
                     return null;
                 }
                 const data = await res.json();
-                const serverImages = data.map(item => item.fileName);
-                setServerImages(serverImages);
+                const img = data.map(item => item.fileName);
+                setServerImages(img);
             };
             fetchPictures();
         }
@@ -69,8 +71,27 @@ function UploadPictures({ currentUser, blogid }) {
         handleFiles(files);
     };
 
+    const connectFileToBlog = async (fileName) => {
+        try {
+            const res = await fetch(`${apiServer}/api/file/${blogid}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fileName: fileName,
+                }),
+            });
+            if (!res.ok) {
+                console.error("Could not connect blog to file");
+            }
+        } catch (error) {
+            console.error("Error connecting blog to file: ", error);
+        }
+    }
+
     const handleUploadClick = async () => {
-        if (!blogid || !currentUser || filesToUpload.length === 0) return;
+        if (!currentUser || filesToUpload.length === 0) return;
 
         setLoading(true);
         try {
@@ -90,11 +111,13 @@ function UploadPictures({ currentUser, blogid }) {
                     throw new Error('Failed to upload picture');
                 }
 
+                if (blogid) {
+                    await connectFileToBlog(file.name);
+                }
+
                 const data = await response.json();
                 // Create a unique picture document ID using picture + datetime
                 //const pictureId = `picture_${new Date().toISOString()}`;
-
-                // TODO: Store image metadata in the 'pictures' database
 
                 const downloadUrl = data.fileUrl;
                 return downloadUrl;
@@ -103,7 +126,10 @@ function UploadPictures({ currentUser, blogid }) {
             const imageDownloadUrls = await Promise.all(uploadPromises);
 
             // Add the newly uploaded image URLs to the server images
-            setServerImages((prev) => [...prev, ...imageDownloadUrls]);
+            const newServerImages = [...serverImages, ...imageDownloadUrls];
+
+            setServerImages(newServerImages);
+            setUploadedPictures(newServerImages);
 
             // Clear the selected images for upload and files to upload
             setImageUrlsToUpload([]);
@@ -126,6 +152,29 @@ function UploadPictures({ currentUser, blogid }) {
             })
             .catch(err => console.error('Failed to copy: ', err));
     };
+
+    const handleUserImageToggle = async () => {
+        const newVal = !showUserImages;
+        if (newVal) {
+            try {
+                const res = await fetch(`${apiServer}/api/file`);
+                if (!res.ok) {
+                    console.error("Could not get images");
+                    return;
+                }
+                const data = await res.json();
+                console.log(data)
+                const img = data.map(item => item.name);
+                setServerImages(img);
+            } catch (error) {
+                console.error("Error connecting blog to file: ", error);
+            }
+            setShowUserImages(false);
+        } else {
+            setServerImages(uploadedPictures);
+        }
+        setShowUserImages(newVal);
+    }
 
     return (
         <div className='uploadPicturesContainer'>
@@ -161,6 +210,9 @@ function UploadPictures({ currentUser, blogid }) {
             </div>
             <button onClick={handleUploadClick} disabled={loading}>
                 {loading ? 'Uploading...' : 'Upload'}
+            </button>
+            <button onClick={handleUserImageToggle}>
+                {showUserImages ? 'Hide user pictures' : 'Show user pictures'}
             </button>
 
             {/* List of already uploaded images from the server */}

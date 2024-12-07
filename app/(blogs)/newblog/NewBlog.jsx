@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import PublicButton from './PublicButton';
 import CommentsButton from './CommentsButton';
 import UploadPictures from '../../components/UploadPictures';
@@ -11,12 +11,32 @@ import { useSession } from "next-auth/react"
 function NewBlog() {
   const router = useRouter();
   const { data: session } = useSession()
+  const [uploadedPictures, setUploadedPictures] = useState([]);
 
   const currentUser = {
     email: session?.user.email,
   }
 
   //const currentUser = auth.currentUser;
+
+     const connectFileToBlog = async (fileName, blogId) => {
+        try {
+            const res = await fetch(`${apiServer}/api/file/${blogId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fileName: fileName,
+                }),
+            });
+            if (!res.ok) {
+                console.error("Could not connect blog to file");
+            }
+        } catch (error) {
+            console.error("Error connecting blog to file: ", error);
+        }
+    }
 
   const postNewBlog = async (title, topic, tags, content, isPublic, disableComments) => {
     const res = await fetch(`${apiServer}/api/blog`, {
@@ -40,6 +60,13 @@ function NewBlog() {
     }
     const blogId = await res.json();
       
+    if (uploadedPictures.length > 0) {
+      for (let i = 0; i < uploadedPictures.length; i++) {
+        await connectFileToBlog(uploadedPictures[i], blogId.res);
+      }
+    }
+
+
     return blogId.res;
   }
 
@@ -49,7 +76,6 @@ function NewBlog() {
     const { title, selectedtopic, tags, rawcontent } = Object.fromEntries(formData);
     const pub = document.getElementById('isPublicButton').value;
     const com = document.getElementById('commentsButton').value;
-    //addNewBlog(formData, pub, com);
     const res = postNewBlog(title, selectedtopic, tags, rawcontent, pub, com);
     console.log("new blog added! id: ", res);
     await sleep(500);
@@ -111,7 +137,7 @@ function NewBlog() {
           </form>
         </div>
         <div className="pictureUpload">
-          <UploadPictures currentUser={currentUser}/>
+          <UploadPictures currentUser={currentUser} uploadedPictures={uploadedPictures} setUploadedPictures={setUploadedPictures}/>
         </div>
       </div>
 

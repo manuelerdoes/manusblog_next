@@ -3,6 +3,7 @@ import { auth } from "@/app/auth";
 import { saveFileToStorage } from "@/app/lib/storage/saveFileToStorageServerAction";
 import { fileStorageDirectory, fileStorageUrl } from "@/app/lib/const";
 import { writeFileToDb } from "@/app/lib/storage/writeFileToDbServerAction";
+import { getFilesOfUser } from "@/app/lib/storage/getFilesOfUserServerAction";
 
 export const dynamic = 'force-dynamic';
 
@@ -28,4 +29,15 @@ export const POST = auth(async function POST(request) {
   await writeFileToDb(fileUrl, email);
 
   return NextResponse.json({ message: 'File uploaded successfully', fileUrl }, { status: 201 });
+});
+
+export const GET = auth(async function GET(request) {
+  if (!request.auth) {
+    return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+  }
+
+  const email = request.auth.user.email;
+  const files = await getFilesOfUser(email);
+
+  return NextResponse.json(files, { status: 200 });
 });

@@ -42,3 +42,6 @@ next-env.d.ts
 # private stuff
 firebase.js
 .env
+
+# public folder
+public/files/*
