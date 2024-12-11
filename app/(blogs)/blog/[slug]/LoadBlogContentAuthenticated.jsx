@@ -2,7 +2,7 @@
 
 import { apiServer } from '@/app/lib/const';
 import React, { useEffect, useState } from 'react'
-import DOMPurify from 'dompurify';
+import DOMPurify from "isomorphic-dompurify";
 import { marked } from 'marked';
 
 
@@ -35,8 +35,8 @@ function LoadBlogContentAuthenticated({ blogId }) {
         {!currentBlog.isPublic && (<span>not public</span>)}
       </div>
       <div className="blogcontent">
-        {/* <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(currentBlog.content)) }} /> */}
-        <div dangerouslySetInnerHTML={{ __html: marked.parse(currentBlog.content) }} />
+        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(currentBlog.content)) }} />
+        {/* <div dangerouslySetInnerHTML={{ __html: marked.parse(currentBlog.content) }} /> */}
         {/* <p>{currentBlog.content}</p> */}
       </div>
       {/* {(!currentBlog.disableComments) ? (

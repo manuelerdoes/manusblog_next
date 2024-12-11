@@ -45,6 +45,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   
         if (user) {
+          token.role = user.role;
           await clearStaleTokens(); // Clear up any stale verification tokens from the database after a successful sign in
           return {
             ...token,
@@ -56,6 +57,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       async session({ session, token }) {
         if (token.image) {
           session.user.image = token.image;
+        }
+        if (token.role) {
+          session.user.role = token.role;
         }
         return {
           ...session,

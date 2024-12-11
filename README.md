@@ -40,4 +40,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 * LOW: In blogView change basis values with custom tailwind class or just use non-tailwind-flex
 * LOW: topic designs
 * LOW: mobilemenu yellow hover
+* MID: code syntax highlighting
 

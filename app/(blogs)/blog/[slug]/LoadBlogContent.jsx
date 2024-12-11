@@ -1,8 +1,6 @@
 import { apiServer } from '@/app/lib/const';
 import React from 'react'
-import { Suspense } from 'react';
-import LoadComments from './LoadComments';
-import DOMPurify from 'dompurify';
+import DOMPurify from "isomorphic-dompurify";
 import { marked } from 'marked';
 
 async function getBlog(id) {

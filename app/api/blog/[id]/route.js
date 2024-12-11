@@ -46,6 +46,16 @@ export const DELETE = auth(async function DELETE(request, { params }) {
   if (!request.auth) {
     return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
   }
+
+  const blogId = params.id;
+  const authenticatedUser = request.auth.user;
+
+  // Check if the authenticated user is the author of the blog or has the role "admin"
+  const blog = await getBlog(blogId);
+  if (!blog || (blog.userId !== authenticatedUser.email && authenticatedUser.role !== "admin")) {
+    return NextResponse.json({ error: "Unauthorized to delete blog" }, { status: 403 });
+  }
+  
   const res = await deleteBlog(params.id);
   if (!res) {
     return NextResponse.json({ error: res }, { status: 404 });
