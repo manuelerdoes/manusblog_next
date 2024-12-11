@@ -1,7 +1,6 @@
 import Details from '@/app/components/Details';
 import { apiServer } from '@/app/lib/const';
 import React from 'react'
-import { SessionProvider } from "next-auth/react"
 
 async function getBlog(id) {
   const res = await fetch(`${apiServer}/api/blog/${id}`, {
@@ -33,13 +32,11 @@ async function LoadBlogDetails({ blogId }) {
   if (!currentBlog) {
     return <div className="loadingerror"><p>could not load blog detail</p></div>
   }
-  
+
   const author = await getUserInfo(currentBlog.userId);
 
   return (
-    <SessionProvider>
-      <Details currentBlog={currentBlog} author={author}/>
-    </SessionProvider>
+    <Details currentBlog={currentBlog} author={author} />
   )
 }
 

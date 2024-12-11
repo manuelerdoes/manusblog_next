@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react'
 import { getFormattedDateTime } from '../lib/utils';
 import { apiServer } from '../lib/const';
 import { useSession } from "next-auth/react"
-import { set } from 'lodash';
 
 function Comments({ blogId/*, comments */ , disabled}) {
   const [comments, setComments] = useState([]);

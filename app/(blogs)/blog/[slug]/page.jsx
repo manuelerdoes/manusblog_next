@@ -3,7 +3,6 @@ import LoadBlogList from './LoadBlogList';
 import { Suspense } from 'react';
 import LoadBlogContent from './LoadBlogContent';
 import LoadBlogDetails from './LoadBlogDetails';
-import { SessionProvider } from "next-auth/react"
 import { auth } from '@/app/auth';
 import LoadBlogContentAuthenticated from './LoadBlogContentAuthenticated';
 import LoadComments from './LoadComments';
@@ -26,11 +25,9 @@ async function page({ params }) {
                             <LoadBlogContent blogId={params.slug} />
                         </Suspense>
                     ) : (
-                        <SessionProvider>
-                            <Suspense fallback={<div className="loadingfallback"><p>Loading blog...</p></div>}>
-                                <LoadBlogContentAuthenticated blogId={params.slug} />
-                            </Suspense>
-                        </SessionProvider>
+                        <Suspense fallback={<div className="loadingfallback"><p>Loading blog...</p></div>}>
+                            <LoadBlogContentAuthenticated blogId={params.slug} />
+                        </Suspense>
                     )}
                     <Suspense fallback={<p>loading comments...</p>}>
                         <LoadComments blogId={params.slug} />

@@ -1,7 +1,6 @@
 import Comments from '@/app/components/Comments'
 import { apiServer } from '@/app/lib/const';
 import React from 'react'
-import { SessionProvider } from "next-auth/react"
 import { intToBool } from '@/app/lib/utils';
 
 async function getComments(blogId) {
@@ -13,7 +12,7 @@ async function getComments(blogId) {
   if (!res.ok) {
     throw new Error('Network response was not ok');
   }
-  const data = await res.json(); 
+  const data = await res.json();
   return data;
 }
 
@@ -22,19 +21,17 @@ async function checkIfCommentsDisabled(blogId) {
   if (!res.ok) {
     throw new Error('Network response was not ok');
   }
-  const data = await res.json(); 
+  const data = await res.json();
   return intToBool(data.disableComments);
 }
 
-async function LoadComments({blogId}) {
+async function LoadComments({ blogId }) {
 
   try {
     // const comments = await getComments(blogId);
-     const disabled = await checkIfCommentsDisabled(blogId);
+    const disabled = await checkIfCommentsDisabled(blogId);
     return (
-      <SessionProvider>
-        <Comments blogId={blogId} disabled={disabled}/>
-      </SessionProvider>
+      <Comments blogId={blogId} disabled={disabled} />
     )
   } catch (error) {
     console.error("Could not load comments: " + error);

@@ -35,8 +35,8 @@ async function LoadBlogContent({ blogId }) {
         {!currentBlog.isPublic && (<span>not public</span>)}
       </div>
       <div className="blogcontent">
-        {/* <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(currentBlog.content)) }} /> */}
-        <div dangerouslySetInnerHTML={{ __html: marked.parse(currentBlog.content) }} />
+        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(currentBlog.content)) }} />
+        {/* <div dangerouslySetInnerHTML={{ __html: marked.parse(currentBlog.content) }} /> */}
         {/* <p>{currentBlog.content}</p> */}
       </div>
       {/* {(!currentBlog.disableComments) ? (

@@ -32,12 +32,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 * auth: set avatar ✅
 * HIGH: fix search sorting ✅
 * HIGH: disable comments ✅
+* MID: reduce session requests ✅
+* MID: check markdown syntax (dompurify) ✅
 
-* MID: make searchbar topic filter keep selection when changing blogpost
+* LOW: make searchbar topic filter keep selection when changing blogpost
 * LOW: make Detail topic and author clickable
 * LOW: In blogView change basis values with custom tailwind class or just use non-tailwind-flex
 * LOW: topic designs
 * LOW: mobilemenu yellow hover
-* MID: check markdown syntax (dompurify)
-* MID: reduce session requests
 

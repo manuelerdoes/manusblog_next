@@ -1,137 +1,153 @@
-'use server'
+'use server';
 
 import { pool, authPool } from './mysql';
 import { boolStringToInt } from './utils';
 
+// Helper function to log errors
+function logError(action, error) {
+  console.error(`${action} failed:`, error.message);
+  throw new Error(`Database operation failed during ${action}`);
+}
 
-// user actions
-
+// User actions
 export async function getUser(email) {
   try {
-    const [rows] = await authPool.query(`SELECT name, image FROM user WHERE email = '${email}'`);
-    return rows[0];
+    const [rows] = await authPool.query(
+      'SELECT name, image FROM user WHERE email = ?',
+      [email]
+    );
+    return rows[0] || null;
   } catch (error) {
-    console.error('Database query failed:', error);
-    throw error;
+    logError('getUser', error);
   }
 }
 
-
-// blog actions
-
+// Blog actions
 export async function newBlog(userId, title, created, content, tags, topic, isPublic, disableComments) {
-  let isPublicInt = boolStringToInt(isPublic);
-  let disableCommentsInt = boolStringToInt(disableComments);
+  const isPublicInt = boolStringToInt(isPublic);
+  const disableCommentsInt = boolStringToInt(disableComments);
 
   try {
-    const [rows] = await pool.query(`INSERT INTO blog (userId, title, created, modified, content, tags, topic, isPublic, disableComments) 
-        VALUES ('${userId}', '${title}', '${created}', '${created}', '${content}', '${tags}', '${topic}', '${isPublicInt}', '${disableCommentsInt}')`);
+    const [rows] = await pool.query(
+      `INSERT INTO blog (userId, title, created, modified, content, tags, topic, isPublic, disableComments) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [userId, title, created, created, content, tags, topic, isPublicInt, disableCommentsInt]
+    );
     return rows.insertId;
   } catch (error) {
-    console.error('Database query failed:', error);
-    throw error;
+    logError('newBlog', error);
   }
 }
 
 export async function updateBlog(id, title, modified, content, tags, topic, isPublic, disableComments) {
-  let isPublicInt = boolStringToInt(isPublic);
-  let disableCommentsInt = boolStringToInt(disableComments);
+  const isPublicInt = boolStringToInt(isPublic);
+  const disableCommentsInt = boolStringToInt(disableComments);
 
   try {
-    const [rows] = await pool.query(`UPDATE blog SET title = '${title}', modified = '${modified}', content = '${content}', tags = '${tags}', 
-      topic = '${topic}', isPublic = '${isPublicInt}', disableComments = '${disableCommentsInt}' WHERE id = '${id}'`);
+    const [rows] = await pool.query(
+      `UPDATE blog SET title = ?, modified = ?, content = ?, tags = ?, topic = ?, isPublic = ?, disableComments = ? 
+      WHERE id = ?`,
+      [title, modified, content, tags, topic, isPublicInt, disableCommentsInt, id]
+    );
     return rows.affectedRows;
   } catch (error) {
-    console.error('Database query failed:', error);
-    throw error;
+    logError('updateBlog', error);
   }
 }
 
 export async function deleteBlog(id) {
   try {
-    const [rows] = await pool.query(`DELETE FROM blog WHERE id = '${id}'`);
+    const [rows] = await pool.query(
+      'DELETE FROM blog WHERE id = ?',
+      [id]
+    );
     return rows.affectedRows;
   } catch (error) {
-    console.error('Database query failed:', error);
-    throw error;
+    logError('deleteBlog', error);
   }
 }
 
 export async function getBlogList() {
   try {
-    const [rows] = await pool.query(`SELECT * FROM blog WHERE isPublic = 1 ORDER BY id DESC`);
+    const [rows] = await pool.query(
+      'SELECT * FROM blog WHERE isPublic = 1 ORDER BY id DESC'
+    );
     return rows;
   } catch (error) {
-    console.error('Database query failed:', error);
-    throw error;
+    logError('getBlogList', error);
   }
 }
-
 
 export async function getAuthenticatedBlogList(userId) {
   try {
-    const [rows] = await pool.query(`SELECT * FROM blog WHERE isPublic = 1 OR userId = '${userId}' GROUP BY id ORDER BY id DESC`);
+    const [rows] = await pool.query(
+      `SELECT * FROM blog WHERE isPublic = 1 OR userId = ? 
+      GROUP BY id ORDER BY id DESC`,
+      [userId]
+    );
     return rows;
   } catch (error) {
-    console.error('Database query failed:', error);
-    throw error;
+    logError('getAuthenticatedBlogList', error);
   }
 }
 
-
 export async function getBlog(id) {
   try {
-    const [rows] = await pool.query(`SELECT * FROM blog WHERE id = '${id}' AND isPublic = 1`);
-    return rows[0];
+    const [rows] = await pool.query(
+      'SELECT * FROM blog WHERE id = ? AND isPublic = 1',
+      [id]
+    );
+    return rows[0] || null;
   } catch (error) {
-    console.error('Database query failed:', error);
-    throw error;
+    logError('getBlog', error);
   }
 }
 
 export async function getBlogAuthenticated(id, userId) {
   try {
-    const [rows] = await pool.query(`SELECT * FROM blog WHERE id = '${id}' AND (isPublic = 1 OR userId = '${userId}')`);
-    return rows[0];
+    const [rows] = await pool.query(
+      `SELECT * FROM blog WHERE id = ? AND (isPublic = 1 OR userId = ?)`,
+      [id, userId]
+    );
+    return rows[0] || null;
   } catch (error) {
-    console.error('Database query failed:', error);
-    throw error;
+    logError('getBlogAuthenticated', error);
   }
 }
-
 
 export async function getLatestBlogId() {
   try {
-    const [rows] = await pool.query(`SELECT id FROM blog WHERE isPublic = 1 ORDER BY id DESC LIMIT 1`);
-    return rows[0].id;
+    const [rows] = await pool.query(
+      `SELECT id FROM blog WHERE isPublic = 1 ORDER BY id DESC LIMIT 1`
+    );
+    return rows[0]?.id || null;
   } catch (error) {
-    console.error('Database query failed:', error);
-    throw error;
+    logError('getLatestBlogId', error);
   }
 }
 
-
-// comment actions
-
+// Comment actions
 export async function newComment(blogId, userId, text, created) {
   try {
-    const [rows] = await pool.query(`INSERT INTO Comment (blogId, userId, text, created) VALUES ('${blogId}', '${userId}', '${text}', '${created}')`);
+    const [rows] = await pool.query(
+      `INSERT INTO Comment (blogId, userId, text, created) 
+      VALUES (?, ?, ?, ?)`,
+      [blogId, userId, text, created]
+    );
     return rows.insertId;
   } catch (error) {
-    console.error('Database query failed:', error);
-    throw error;
+    logError('newComment', error);
   }
 }
 
 export async function getComments(blogId) {
   try {
-    const [rows] = await pool.query(`SELECT * FROM Comment WHERE blogId = '${blogId}';`);
+    const [rows] = await pool.query(
+      `SELECT * FROM Comment WHERE blogId = ?`,
+      [blogId]
+    );
     return rows;
   } catch (error) {
-    console.error('Database query failed:', error);
-    throw error;
+    logError('getComments', error);
   }
 }
-
-
-

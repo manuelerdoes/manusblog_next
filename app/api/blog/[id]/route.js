@@ -10,6 +10,8 @@ export const GET = auth(async function GET(req, { params }) {
 
   if (params.id === 'latest') {
     searchId = await getLatestBlogId();
+  } else if (!/^\d+$/.test(params.id)) { // Ensure `id` is numeric
+    return NextResponse.json({ error: "Invalid blog ID" }, { status: 400 });
   }
 
   if (req.auth) {

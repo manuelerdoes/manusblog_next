@@ -1,4 +1,3 @@
-import localFont from "next/font/local";
 import "./globals.css";
 import BlogHeader from "./components/BlogHeader";
 import { pageTitle } from "./lib/const";
