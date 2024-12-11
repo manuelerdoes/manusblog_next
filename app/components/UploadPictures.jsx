@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react';
-import { apiServer } from '../lib/const';
+import { apiServer, imageCompressionMaxHeight, imageCompressionMaxWidth, imageCompressionQuality } from '../lib/const';
 import { set } from 'lodash';
 
 function UploadPictures({ currentUser, blogid, uploadedPictures, setUploadedPictures }) {
@@ -36,6 +36,31 @@ function UploadPictures({ currentUser, blogid, uploadedPictures, setUploadedPict
         }
     }, [blogid]);
 
+    const compressImage = (image) => {
+        return new Promise((resolve, reject) => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          const maxWidth = imageCompressionMaxWidth;
+          const maxHeight = imageCompressionMaxHeight;
+          const quality = imageCompressionQuality;
+      
+          canvas.width = image.width;
+          canvas.height = image.height;
+          ctx.drawImage(image, 0, 0);
+      
+          if (image.width > maxWidth || image.height > maxHeight) {
+            const ratio = Math.min(maxWidth / image.width, maxHeight / image.height);
+            canvas.width = image.width * ratio;
+            canvas.height = image.height * ratio;
+            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+          }
+      
+          canvas.toBlob((blob) => {
+            resolve(blob);
+          }, 'image/jpeg', quality);
+        });
+      };
+
     const handleDragEnter = (e) => {
         e.preventDefault();
         setIsDragging(true);
@@ -57,13 +82,38 @@ function UploadPictures({ currentUser, blogid, uploadedPictures, setUploadedPict
         fileInputRef.current.click(); // Trigger the hidden file input
     };
 
+    // const handleFiles = (files) => {
+    //     const uploadedFiles = Array.from(files);
+    //     const urls = uploadedFiles.map(file => URL.createObjectURL(file));
+
+    //     // Store both URLs for preview and file objects for upload
+    //     setImageUrlsToUpload((prev) => [...prev, ...urls]);
+    //     setFilesToUpload((prev) => [...prev, ...uploadedFiles]); // Store actual files
+    // };
+
     const handleFiles = (files) => {
         const uploadedFiles = Array.from(files);
-        const urls = uploadedFiles.map(file => URL.createObjectURL(file));
-
-        // Store both URLs for preview and file objects for upload
-        setImageUrlsToUpload((prev) => [...prev, ...urls]);
-        setFilesToUpload((prev) => [...prev, ...uploadedFiles]); // Store actual files
+        const compressedFiles = [];
+    
+        uploadedFiles.forEach((file) => {
+            const image = new Image();
+            image.src = URL.createObjectURL(file);
+            image.onload = () => {
+                compressImage(image).then((compressedBlob) => {
+                    // Create a new File object using the original filename
+                    const compressedFile = new File([compressedBlob], file.name, { type: file.type });
+                    compressedFiles.push(compressedFile);
+    
+                    if (compressedFiles.length === uploadedFiles.length) {
+                        // Update state to include the compressed files with original filenames
+                        setFilesToUpload((prev) => [...prev, ...compressedFiles]);
+    
+                        // Update preview URLs
+                        setImageUrlsToUpload((prev) => [...prev, ...compressedFiles.map((f) => URL.createObjectURL(f))]);
+                    }
+                });
+            };
+        });
     };
 
     const handleFileInputChange = (e) => {

@@ -16,3 +16,7 @@ export const authSqlDatabase = "blogauth";
 // export const fileStorageDirectory = "@/public/files";
 export const fileStorageDirectory = "public/files";
 export const fileStorageUrl = `${hostUrl}/files`;
+
+export const imageCompressionMaxWidth = 2048;
+export const imageCompressionMaxHeight = 2048;
+export const imageCompressionQuality = 0.9;

@@ -41,4 +41,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 * LOW: topic designs
 * LOW: mobilemenu yellow hover
 * MID: code syntax highlighting
+* LOW: make picture upload more beautiful
+* LOW: CSS cleanup
 
