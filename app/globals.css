@@ -17,7 +17,7 @@ nav {
 }
 
 .blogheader {
-  @apply w-[90vw] h-[10vh] bg-[rgba(8,51,82,0.85)] rounded mb-2.5 border border-[rgba(201,200,200,0.65)] flex flex-row text-[rgb(212,207,187)] p-5 items-center justify-center;
+  @apply w-[90vw] h-[10vh] bg-[rgba(8,51,82,0.85)] rounded mb-2.5 border-none border-[rgba(201,200,200,0.65)] flex flex-row text-[rgb(212,207,187)] p-5 items-center justify-center;
 }
 
 
@@ -86,7 +86,7 @@ nav {
 }
 
 .containero {
-  @apply w-[90vw] bg-[rgba(250,234,214,0.85)] border border-[rgba(0,0,0,0.35)] flex rounded justify-center;
+  @apply w-[90vw] bg-[rgba(250,234,214,0.85)] border-none border-[rgba(0,0,0,0.35)] flex rounded justify-center;
 }
 
 .about {
@@ -777,6 +777,7 @@ nav {
     background-color: rgba(245, 245, 220, 0.654);
     border-radius: 10px;
     color: black;
+    margin-bottom: 10px;
 
     .allcomments {
         width: 100%;
@@ -953,22 +954,28 @@ nav {
   h1 {
     font-size: x-large;
     margin-bottom: 14px;
+    font-weight: 500;
   }
 
   h2 {
     font-size: large;
     margin-bottom: 9px;
-    font-weight:normal;
+    font-weight:600;
   }
 
   h3 {
     font-size: medium;
     margin-bottom: 7px;
+    font-weight: 600;
   }
 
   ol,
   ul {
     margin-bottom: 16px;
+  }
+
+  ol {
+    list-style-type: decimal;
   }
 
   ul {
@@ -978,6 +985,7 @@ nav {
 
   li {
     margin-left: 25px;
+    margin-bottom: 3px;
   }
 
   p {
@@ -994,6 +1002,14 @@ nav {
     padding: 0px 3px;
     border-radius: 2px;
 
+  }
+
+  blockquote {
+    @apply rounded-sm p-1 my-1;
+    background-color: rgba(197, 142, 94, 0.431);
+    border-left: solid 8px rgba(0, 0, 0, 0.092);
+    padding-left: 12px;
+    padding-top: 10px;
   }
 
   table {
@@ -1027,8 +1043,10 @@ nav {
     }
   }
 
-  code {
-    background-color: red;
+  pre {
+    @apply rounded-sm p-2 text-sm my-2;
+    background-color: rgba(147, 147, 147, 0.356);
+    border: solid 1px rgba(72, 72, 72, 0.787);
   }
 }
 
@@ -1314,7 +1332,10 @@ nav {
   .signinButton, .userButton {
     @apply justify-center;
   }
-  
+
+  .sideSearch, .bloglist {
+    display: none;
+  }
   .blogView {
     @apply flex flex-col w-full items-center justify-center;
     .blog {
@@ -1322,11 +1343,9 @@ nav {
       flex: 3;
       border-bottom: 1px solid rgba(131,130,130,0.312);
     }
-  }
+  
 
-  .sideSearch, .bloglist {
-    display: none;
-  }
+
 
   .blog {
     @apply text-justify w-full flex flex-col gap-1 p-1 px-0 h-full border-none;
@@ -1335,17 +1354,18 @@ nav {
     border-right: none;
     border: none;
     border-bottom: 1px solid rgba(131,130,130,0.312);
-  }
+
 
   .blogtitle {
-    @apply flex gap-2 items-center;
-    padding-left: 5px;
+    @apply flex gap-2 items-center px-3;
     padding-bottom: 2px;
     border-bottom: 2px solid rgba(131,130,130,0.312);
   }
+}
+  }
 
   .blogcontent {
-    padding: 5px 10px;
+    @apply py-2 px-3;
   }
 
   .details {
