@@ -4,13 +4,15 @@ import React, { useState, useEffect } from 'react'
 import { getFormattedDateTime } from '../lib/utils';
 import { apiServer } from '../lib/const';
 import { useSession } from "next-auth/react"
+import { set } from 'lodash';
 
-function Comments({ blogId/*, comments */ }) {
+function Comments({ blogId/*, comments */ , disabled}) {
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [loading, setLoading] = useState(false);
   const [showUsernameWarning, setShowUsernameWarning] = useState(false);
+  const [commentsDisabled, setCommentsDisabled] = useState(false);
   const { data: session } = useSession();
 
   const currentUser = {
@@ -25,6 +27,10 @@ function Comments({ blogId/*, comments */ }) {
 
   useEffect(() => {
     // Fetch initial comments when component mounts
+   // const disabled = checkIfCommentsDisabled(blogId);
+    setCommentsDisabled(disabled);
+
+    if (disabled) return;
     const fetchComments = async () => {
       const res = await fetch(`${apiServer}/api/comments/${currentBlog.id}`);
       if (!res.ok) {
@@ -126,7 +132,7 @@ function Comments({ blogId/*, comments */ }) {
 
 
   return (
-    !currentBlog.disableComments ? (
+    !commentsDisabled ? (
       <div className='comments'>
         <div className="commentsheader" onClick={toggleComments}>
           <h2>Comments</h2>

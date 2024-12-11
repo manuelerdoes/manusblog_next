@@ -23,6 +23,16 @@ export function boolStringToInt(string) {
   return result;
 }
 
+export function intToBool(int) {
+  let result = null;
+  if (int === 1) {
+    result = true;
+  } else {
+    result = false;
+  }
+  return result;
+}
+
 export function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
