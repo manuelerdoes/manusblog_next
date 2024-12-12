@@ -334,13 +334,13 @@ button:hover {
   border-color: rgb(161,35,35) rgb(203,99,99) rgb(203,99,99) rgb(161,35,35);
 }
 
-.publicblog,
+.publicblog button,
 .disablecomments button {
   background-color: rgba(0,255,0,0.475);
   border-color: rgb(99,203,99) rgb(35,161,35) rgb(35,161,35) rgb(99,203,99);
 }
 
-.disablecomments, .publicblog button:active {
+.disablecomments button:active, .publicblog button:active {
   background-color: rgba(15,137,15,0.735);
   border-color: rgb(35,161,35) rgb(99,203,99) rgb(99,203,99) rgb(35,161,35);
 }
@@ -420,7 +420,7 @@ button:hover {
   }
 }
 
-.search {
+/* .search {
   @apply flex w-full flex-col items-center p-2 gap-4;
 
   .searchinput {
@@ -483,8 +483,6 @@ button:hover {
   }
 
   .searchitem {
-    /* display: flex; */
-    /* align-items: center; */
     gap: 20px;
     margin: 2px 20px;
     cursor: pointer;
@@ -570,6 +568,108 @@ button:hover {
     border: 1px dashed rgba(255,73,12,0.674);
     box-sizing: border-box;
   }
+} */
+
+.big-search {
+  @apply flex w-full flex-col items-center p-2 gap-4;
+}
+
+.big-search-input {
+  @apply flex flex-1 items-center bg-[rgba(17,25,40,0.5)] rounded-[10px] p-[7px] overflow-auto w-1/2;
+}
+
+.big-search-input input {
+  @apply text-xs bg-transparent border-none outline-none text-white flex-1 pl-[5px];
+}
+
+.big-search-input img {
+  @apply w-[20px] h-[20px];
+}
+
+.big-search-results {
+  @apply flex w-full items-center;
+}
+
+.big-search-results table {
+  @apply w-full p-[5px] border-separate;
+  border-spacing: 1px 4px;
+}
+
+.big-search-results th,
+.big-search-results td {
+  @apply rounded-sm p-[3px] text-left;
+}
+
+.big-search-results th {
+  @apply relative cursor-pointer pr-[10px];
+}
+
+.big-search-item {
+  @apply gap-[20px] m-[2px_20px] cursor-pointer border border-solid rounded-[5px] flex-col p-[1px_5px];
+}
+
+.big-search-item p {
+  @apply inline;
+}
+
+.travel-item {
+  @apply bg-[rgba(0,128,0,0.323)] border-[rgba(1,98,1,0.641)];
+}
+
+.travel-item:hover {
+  @apply bg-[rgba(0,101,0,0.852)];
+}
+
+.other-item {
+  @apply bg-[rgba(210,105,30,0.363)] border-[rgba(151,71,14,0.775)];
+}
+
+.other-item:hover {
+  @apply bg-[rgba(174,79,11,0.866)];
+}
+
+.photography-item {
+  @apply bg-[rgba(107,107,107,0.662)] border-[rgba(137,135,135,0.662)];
+}
+
+.photography-item:hover {
+  @apply bg-[rgba(28,28,28,0.756)];
+}
+
+.music-item {
+  @apply bg-[rgba(60,60,215,0.389)] border-[rgba(26,26,173,0.745)];
+}
+
+.music-item:hover {
+  @apply bg-[rgba(31,31,210,0.854)];
+}
+
+.computer-item {
+  @apply bg-[rgba(0,255,255,0.222)] border-[rgba(26,169,169,0.666)];
+}
+
+.computer-item:hover {
+  @apply bg-[rgba(1,200,200,0.792)];
+}
+
+.food-item {
+  @apply bg-[rgba(255,0,0,0.184)] border-[rgba(151,5,5,0.471)];
+}
+
+.food-item:hover {
+  @apply bg-[rgba(189,1,1,0.561)];
+}
+
+.robotics-item {
+  @apply bg-[rgba(192,192,192,0.43)] border-[rgb(99,94,94)];
+}
+
+.robotics-item:hover {
+  @apply bg-[rgb(93,92,92)];
+}
+
+.not-public-item td {
+  @apply border-dashed border-[1px] border-[rgba(255,73,12,0.674)] box-border;
 }
 
 .blogView {

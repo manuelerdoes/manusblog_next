@@ -117,8 +117,8 @@ function Search() {
   };
 
   return (
-    <div className='search'>
-      <div className="searchinput">
+    <div className='big-search'>
+      <div className="big-search-input">
         <img src="/search.png" alt="" />
         <input
           type="text"
@@ -127,7 +127,7 @@ function Search() {
           placeholder='Search all Blogs'
         />
       </div>
-      <div className="results">
+      <div className="big-search-results">
         <table>
           <thead>
             <tr>
@@ -152,7 +152,7 @@ function Search() {
             {filteredBlogs.map((blogentry) => (
               <tr
                 key={blogentry.id}
-                className={`searchitem ${blogentry.topic} ${!blogentry.isPublic ? 'notpublic' : ''}`}
+                className={`big-search-item ${blogentry.topic}-item ${!blogentry.isPublic ? 'not-public-item' : ''}`}
                 onClick={() => handleBlogClick(blogentry.id)}
               >
                 <td data-label="Title" className='resulttitle'>{blogentry.title}</td>
