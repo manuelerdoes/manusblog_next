@@ -94,12 +94,12 @@ function NewBlog() {
       <div className="containero">
         <div className='newblog'>
           <form onSubmit={newBlog} >
-            <div className="settitle item">
+            <div className="settitle new-blog-item">
               <label htmlFor="">Blog Title:</label>
               <input type="text" placeholder='Blog Title'
                 name="title" required />
             </div>
-            <div className="settopic item">
+            <div className="settopic new-blog-item">
               <label htmlFor="">Topic:</label>
               <select name="selectedtopic">
                 <option value="computer">Computer</option>
@@ -111,22 +111,22 @@ function NewBlog() {
                 <option value="other">Other</option>
               </select>
             </div>
-            <div className="settags item">
+            <div className="settags new-blog-item">
               <label htmlFor="">Tags:</label>
               <input type="text" placeholder='Tags' name="tags" />
             </div>
-            <div className="setoptions item">
+            <div className="new-blog-options new-blog-item">
               <label htmlFor="">Options:</label>
-              <div className="optionsbuttons">
+              <div className="new-blog-options-buttons">
                 <PublicButton />
                 <CommentsButton />
               </div>
             </div>
-            <div className="setcontent item">
+            <div className="new-blog-content new-blog-item">
               <label htmlFor="">Content:</label>
               <textarea placeholder='Lorem ipsum, dolor sit amet' name="rawcontent" required></textarea>
             </div>
-            <div className="newblogbuttons item">
+            <div className="new-blog-buttons new-blog-item">
               <div className="cancelblog">
                 <button type="button" onClick={router.back}>Cancel</button>
               </div>

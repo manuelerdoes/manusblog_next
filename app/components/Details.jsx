@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { useEffect } from 'react';
-import { adminUserId, apiServer } from '../lib/const';
+import { apiServer } from '../lib/const';
 import { useRouter } from 'next/navigation';
 import { useSession } from "next-auth/react"
 

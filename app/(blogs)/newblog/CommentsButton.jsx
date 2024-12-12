@@ -19,8 +19,10 @@ function CommentsButton() {
     }
 
     return (
-        <button id='commentsButton' type="button" className={`${!commentsDisabled ? 'disablecomments' : ''}`}
-            onClick={toggleComments} value={commentsDisabled}>{buttonText}</button>
+        <div className={`${!commentsDisabled ? 'disable-comments-button disablecomments' : 'disable-comments-button'}`}>
+            <button id='commentsButton' type="button" className={`${!commentsDisabled ? 'disablecomments' : ''}`}
+                onClick={toggleComments} value={commentsDisabled}>{buttonText}</button>
+        </div>
     )
 }
 

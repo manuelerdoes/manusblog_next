@@ -35,7 +35,10 @@ function SetUsername() {
             <input type="text" placeholder="username" name="username" />
             <button type="submit">Submit</button>
           </form>
-          <button onClick={handleSignout}>Sign Out</button>
+          <div className="signout_button">
+            <button onClick={handleSignout}>Sign Out</button>
+
+          </div>
         </div>
       </div>
     </div>

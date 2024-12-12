@@ -81,11 +81,10 @@ function UserManager() {
 
   return (
     <div className="usermanager">
-      <div className="info">
+      <div className="user_info">
         <h2>{currentUser.username}</h2>
         <p>{currentUser.email}</p>
         <div className="changeavatar">
-
           <label htmlFor="file">
             <img src={!avatar.file ? currentUser.avatar || "/avatar.png"
               : avatar.url || "/avatar.png"} alt="" />
@@ -98,12 +97,11 @@ function UserManager() {
       </div>
       <div className="useraction">
         {!currentUser.username && <div className="new-user-info">
-          <p>You're new! Please set a username.</p></div>}
-        <div className="changeusername">
-
+          <p>You are new! Please set a username.</p></div>}
+        <div className="change_username_button">
           <button onClick={() => router.push('/setusername')}>Change Username</button>
         </div>
-        <div className="logout">
+        <div className="signout_button">
           <button onClick={handleSignout}>Sign Out</button>
         </div>
       </div>

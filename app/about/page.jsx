@@ -1,6 +1,5 @@
 import React from 'react'
 import { appVersion } from '../version'
-import { SignIn } from '../components/SignIn'
 
 function About() {
     return (

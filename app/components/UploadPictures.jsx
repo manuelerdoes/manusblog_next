@@ -2,7 +2,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { apiServer, imageCompressionMaxHeight, imageCompressionMaxWidth, imageCompressionQuality } from '../lib/const';
-import { set } from 'lodash';
 
 function UploadPictures({ currentUser, blogid, uploadedPictures, setUploadedPictures }) {
     const [isDragging, setIsDragging] = useState(false);
