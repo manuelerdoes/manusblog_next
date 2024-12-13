@@ -46,7 +46,7 @@ async function LoadBlogContent({ blogId }) {
   const currentBlog = await getBlog(blogId);
 
   if (!currentBlog) {
-    return <div className="loadingerror"><h2>Error</h2><p>Could not load blog content.<br></br>
+    return <div className="loading-error"><h2>Error</h2><p>Could not load blog content.<br></br>
       You might be trying to access a non-public blogpost. Please check if you are signed in.</p></div>
   }
 
@@ -56,11 +56,11 @@ async function LoadBlogContent({ blogId }) {
 
   return (
     <>
-      <div className="blogtitle">
+      <div className="blog-title">
         <h2>{currentBlog.title}</h2>
         {!currentBlog.isPublic && (<span>not public</span>)}
       </div>
-      <div className="blogcontent">
+      <div className="blog-content">
         <div dangerouslySetInnerHTML={{ __html: blogContentHTML }} />
       </div>
     </>

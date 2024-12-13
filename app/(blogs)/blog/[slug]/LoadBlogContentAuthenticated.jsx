@@ -25,16 +25,16 @@ function LoadBlogContentAuthenticated({ blogId }) {
   }, []);
 
   if (!currentBlog) {
-    return <div className="loadingerror"><p>could not load blog content</p></div>
+    return <div className="loading-error"><p>could not load blog content</p></div>
   }
 
   return (
     <>
-      <div className="blogtitle">
+      <div className="blog-title">
         <h2>{currentBlog.title}</h2>
         {!currentBlog.isPublic && (<span>not public</span>)}
       </div>
-      <div className="blogcontent">
+      <div className="blog-content">
         <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(currentBlog.content)) }} />
         {/* <div dangerouslySetInnerHTML={{ __html: marked.parse(currentBlog.content) }} /> */}
         {/* <p>{currentBlog.content}</p> */}

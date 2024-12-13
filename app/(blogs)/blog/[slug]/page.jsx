@@ -13,19 +13,19 @@ async function page({ params }) {
 
     return (
         <div className="containero">
-            <div className="blogView">
-                <div className="sideSearch">
-                    <Suspense fallback={<div className="loadingfallback"><p>Loading list...</p></div>}>
+            <div className="blog-view">
+                <div className="side-search">
+                    <Suspense fallback={<div className="loading-fallback"><p>Loading list...</p></div>}>
                         <LoadBlogList />
                     </Suspense>
                 </div>
-                <div className="blog">
+                <div className="blog-wrapper">
                     {(!session?.user) ? (
-                        <Suspense fallback={<div className="loadingfallback"><p>Loading blog...</p></div>}>
+                        <Suspense fallback={<div className="loading-fallback"><p>Loading blog...</p></div>}>
                             <LoadBlogContent blogId={params.slug} />
                         </Suspense>
                     ) : (
-                        <Suspense fallback={<div className="loadingfallback"><p>Loading blog...</p></div>}>
+                        <Suspense fallback={<div className="loading-fallback"><p>Loading blog...</p></div>}>
                             <LoadBlogContentAuthenticated blogId={params.slug} />
                         </Suspense>
                     )}
@@ -33,8 +33,8 @@ async function page({ params }) {
                         <LoadComments blogId={params.slug} />
                     </Suspense>
                 </div>
-                <div className="details">
-                    <Suspense fallback={<div className="loadingfallback"><p>Loading info...</p></div>}>
+                <div className="blog-details">
+                    <Suspense fallback={<div className="loading-fallback"><p>Loading info...</p></div>}>
                         <LoadBlogDetails blogId={params.slug} />
                     </Suspense>
                 </div>

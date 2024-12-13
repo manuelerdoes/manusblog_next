@@ -71,44 +71,44 @@ const Details = ({currentBlog, author}) => {
   return (
 
     !currentBlog ? (
-      <div className="details">
+      <div className="blog-details">
         <p>no data</p>
       </div>
     ) : (
       allowed ? (
-        <div className='details'>
+        <div className='blog-details'>
           {showEditButton && (
-            <div className="manageButtons">
-              <div className="editButton">
+            <div className="manage-buttons">
+              <div className="edit-blog-button">
                 <button onClick={handleClickEditButton}>Edit Blog</button>
               </div>
-              <div className="deleteButton">
+              <div className="delete-blog-button">
                 <button onClick={handleClickDeleteButton}>Delete Blog</button>
               </div>
             </div>
           )}
-          <div className="author item">
+          <div className="detail-author detail-item">
             <h3>created by</h3>
-            <div className="authorinfo">
-              <div className="authorimage">
+            <div className="detail-author-info">
+              <div className="detail-author-image">
                 <img src={author ? author.image || "/avatar.png" : "/avatar.png"} alt="" />
               </div>
-              <div className="username">
+              <div className="detail-author-username">
                 {author?.name}
               </div>
             </div>
           </div>
-          <div className="topic item">
+          <div className="detail-topic detail-item">
             <h3>topic</h3>
-            <div className="topico">
-              <p className={currentBlog.topic}>{currentBlog.topic}</p>
+            <div className="detail-topico">
+              <p className={`detail-${currentBlog.topic}`}>{currentBlog.topic}</p>
             </div>
           </div>
-          <div className="tags item">
+          <div className="detail-tags detail-item">
             <h3>tags</h3>
             <p>{currentBlog.tags}</p>
           </div>
-          <div className="timestamps item">
+          <div className="detail-timestamps detail-item">
             <h3>created on</h3>
             <p>{currentBlog.created}</p>
             <h3>last modified</h3>
@@ -116,7 +116,7 @@ const Details = ({currentBlog, author}) => {
           </div>
         </div>
       ) : (
-        <div className="details">
+        <div className="blog-details">
           <p>Access Denied</p>
         </div>
       )
