@@ -22,12 +22,12 @@ function UserButton() {
     }
   }, [session])
 
-  if (!session?.user) return '<div className="userButton">Login</div>'
+  if (!session?.user) return '<div className="user-button">Login</div>'
 
 
   return (
     <Link href={`${hostUrl}/usermanager`}>
-      <div className="userButton">
+      <div className="user-button">
         <img src={currentUser.avatar ? currentUser.avatar : "/avatar.png"} alt="" />
         <span>{ currentUser.username || currentUser.email }</span>
       </div>

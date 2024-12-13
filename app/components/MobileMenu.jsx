@@ -24,18 +24,18 @@ function MobileMenu() {
   }
 
   return (
-    <div className="mobileMenu">
-      <div className="menuIcon" onClick={() => setMenuOpen(!menuOpen)}>⏛</div>
+    <div className="mobile-menu">
+      <div className="mobile-menu-icon" onClick={() => setMenuOpen(!menuOpen)}>⏛</div>
       {menuOpen && (
-        <div className="menuOverlay" onClick={() => setMenuOpen(false)}>
-          <div className="menuList">
-            <div className="menuItem" onClick={handleAbout}>
+        <div className="mobile-menu-overlay" onClick={() => setMenuOpen(false)}>
+          <div className="mobile-menu-list">
+            <div className="mobile-menu-item" onClick={handleAbout}>
               <span>About</span>
             </div>
-            <div className="menuItem" onClick={handleNewBlog}>
+            <div className="mobile-menu-item" onClick={handleNewBlog}>
               <span>New Blog</span>
             </div>
-            <div className="menuItem" onClick={() => setMenuOpen(false)}>
+            <div className="mobile-menu-item" onClick={() => setMenuOpen(false)}>
                 {(!session?.user) ? (<SignIn />) : (<UserButton />)}
             </div>
           </div>

@@ -28,14 +28,14 @@ function SetUsername() {
 
   return (
     <div className="containero">
-      <div className="login">
-        <div className="loginitem">
+      <div className="signin-wrapper">
+        <div className="signin-item">
           <form onSubmit={handleSubmit}>
             <h2>Set Username</h2>
             <input type="text" placeholder="username" name="username" />
             <button type="submit">Submit</button>
           </form>
-          <div className="signout_button">
+          <div className="signout-button">
             <button onClick={handleSignout}>Sign Out</button>
 
           </div>

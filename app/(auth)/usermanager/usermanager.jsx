@@ -80,11 +80,11 @@ function UserManager() {
   }
 
   return (
-    <div className="usermanager">
-      <div className="user_info">
+    <div className="user-manager">
+      <div className="user-info">
         <h2>{currentUser.username}</h2>
         <p>{currentUser.email}</p>
-        <div className="changeavatar">
+        <div className="change-avatar">
           <label htmlFor="file">
             <img src={!avatar.file ? currentUser.avatar || "/avatar.png"
               : avatar.url || "/avatar.png"} alt="" />
@@ -95,13 +95,13 @@ function UserManager() {
             {loading ? "loading..." : avatarStatus}</button>
         </div>
       </div>
-      <div className="useraction">
+      <div className="user-manager-action">
         {!currentUser.username && <div className="new-user-info">
           <p>You are new! Please set a username.</p></div>}
-        <div className="change_username_button">
+        <div className="change-username-button">
           <button onClick={() => router.push('/setusername')}>Change Username</button>
         </div>
-        <div className="signout_button">
+        <div className="signout-button">
           <button onClick={handleSignout}>Sign Out</button>
         </div>
       </div>

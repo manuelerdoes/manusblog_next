@@ -106,12 +106,12 @@ function BlogList() {
     }
 
     return (
-        <div className="bloglist"
+        <div className="blog-list"
             onMouseOver={() => setIsMouseOver(true)}
             onMouseLeave={() => setIsMouseOver(false)}
         >
-            <div className="search">
-                <div className="searchbar">
+            <div className="blog-list-search">
+                <div className="blog-list-searchbar">
                     <img src="/search.png" alt="" />
                     <input
                         ref={searchInputRef}
@@ -126,35 +126,35 @@ function BlogList() {
             </div>
 
             {showTopicFilter && (
-                <div className="topicfilter">
+                <div className="topic-filter">
                     <h3>Filter by topic:</h3>
-                    <div className={`topic phototopic ${selectedTopic === 'photography' ? 'selected' : ''}`} onClick={() => handleTopicClick('photography')}>
+                    <div className={`blog-list-topic phototopic ${selectedTopic === 'photography' ? 'selected' : ''}`} onClick={() => handleTopicClick('photography')}>
                         <span>📸 photography</span>
                     </div>
-                    <div className={`topic musictopic ${selectedTopic === 'music' ? 'selected' : ''}`} onClick={() => handleTopicClick('music')}>
+                    <div className={`blog-list-topic musictopic ${selectedTopic === 'music' ? 'selected' : ''}`} onClick={() => handleTopicClick('music')}>
                         <span>🎵 music</span>
                     </div>
-                    <div className={`topic computertopic ${selectedTopic === 'computer' ? 'selected' : ''}`} onClick={() => handleTopicClick('computer')}>
+                    <div className={`blog-list-topic computertopic ${selectedTopic === 'computer' ? 'selected' : ''}`} onClick={() => handleTopicClick('computer')}>
                         <span>💻 computer</span>
                     </div>
-                    <div className={`topic foodtopic ${selectedTopic === 'food' ? 'selected' : ''}`} onClick={() => handleTopicClick('food')}>
+                    <div className={`blog-list-topic foodtopic ${selectedTopic === 'food' ? 'selected' : ''}`} onClick={() => handleTopicClick('food')}>
                         <span>🍕 food</span>
                     </div>
-                    <div className={`topic roboticstopic ${selectedTopic === 'robotics' ? 'selected' : ''}`} onClick={() => handleTopicClick('robotics')}>
+                    <div className={`blog-list-topic roboticstopic ${selectedTopic === 'robotics' ? 'selected' : ''}`} onClick={() => handleTopicClick('robotics')}>
                         <span>🤖 robotics/embedded</span>
                     </div>
-                    <div className={`topic traveltopic ${selectedTopic === 'travel' ? 'selected' : ''}`} onClick={() => handleTopicClick('travel')}>
+                    <div className={`blog-list-topic traveltopic ${selectedTopic === 'travel' ? 'selected' : ''}`} onClick={() => handleTopicClick('travel')}>
                         <span>🚀 travel</span>
                     </div>
-                    <div className={`topic othertopic ${selectedTopic === 'other' ? 'selected' : ''}`} onClick={() => handleTopicClick('other')}>
+                    <div className={`blog-list-topic othertopic ${selectedTopic === 'other' ? 'selected' : ''}`} onClick={() => handleTopicClick('other')}>
                         <span>⭐️ other</span>
                     </div>
                 </div>
             )}
 
-            <div className="blogentries">
+            <div className="blog-entries">
                 {filteredBlogs.map(blogentry => (
-                    <div key={blogentry.id} className={`bloglistitem ${blogentry.topic} ${!blogentry.isPublic ? 'notpublic' : ''}`} onClick={() => handleBlogClick(blogentry.id)}>
+                    <div key={blogentry.id} className={`blog-list-item blog-list-${blogentry.topic} ${!blogentry.isPublic ? 'notpublic' : ''}`} onClick={() => handleBlogClick(blogentry.id)}>
                         <p>{blogentry.title}</p>
                     </div>
                 ))}

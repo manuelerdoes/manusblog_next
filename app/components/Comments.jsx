@@ -133,25 +133,25 @@ function Comments({ blogId/*, comments */ , disabled}) {
   return (
     !commentsDisabled ? (
       <div className='comments'>
-        <div className="commentsheader" onClick={toggleComments}>
+        <div className="comments-header" onClick={toggleComments}>
           <h2>Comments</h2>
           <span onClick={toggleComments}>👁️</span>
         </div>
         {showComments && (
-          <div className="allcomments">
+          <div className="all-comments">
             {!currentBlog.comments ? (
-              <div className="commentcontainer">
+              <div className="comment-container">
                 <h3>no comments</h3>
               </div>
             ) : (
               currentBlog?.comments.map((comment, index) => (
-                <div key={comment.id || index} className="commentcontainer">
-                  <div className="commentuser">
+                <div key={comment.id || index} className="comment-container">
+                  <div className="comment-user">
                     {/* TODO: change userId to userName once db is updated */}
                     <h3>{comment.userId.substring(0, 12) + (comment.userId.length > 15 ? '...' : '')}</h3>
                     <span>{comment.created}</span>
                   </div>
-                  <div className="commentcontent">
+                  <div className="comment-content">
                     <p>{comment?.text}</p>
                   </div>
                 </div>
@@ -161,25 +161,25 @@ function Comments({ blogId/*, comments */ , disabled}) {
             {session?.user && !showUsernameWarning ? (
 
 
-              <div className="newcomment">
+              <div className="new-comment">
                 {/* {showUsernameWarning && <div className="warning">you need to set a username to comment</div>} */}
                 <form onSubmit={handleNewComment}>
                   {/* <div className="namei">
                     <input type="text" name='nickname' id='nickname' placeholder='nickname' />
                   </div> */}
-                  <div className="texti">
+                  <div className="comment-input-text">
                     {/* <input type="text" placeholder='Comment' name='newcomment' /> */}
                     <textarea name='newcomment' id='newcomment' placeholder='your comment'
                       value={commentText} onChange={(e) => setCommentText(e.target.value)}></textarea>
                   </div>
-                  <div className="boetton">
+                  <div className="comment-submit-button">
                     <button disabled={loading}>Submit</button>
                   </div>
                 </form>
               </div>
             ) : (
-              <div className="newcomment">
-                <div className="signinmessage">
+              <div className="new-comment">
+                <div className="comment-signin-message">
                   <p>Sign in to comment. Make sure to set a username.</p>
                 </div>
               </div>

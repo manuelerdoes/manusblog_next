@@ -20,12 +20,12 @@ export const SignInPage = () => {
 
   return (
     <div className="containero">
-      <div className="login">
-        <div className="loginitem">
+      <div className="signin-wrapper">
+        <div className="signin-item">
           <h2>Sign In</h2>
           <form className="email-signin-form" onSubmit={handleSubmit}>
             <input
-              className="form-input"
+              className="signin-form-input"
               type="email"
               maxLength={320}
               placeholder="Email Address"
@@ -35,7 +35,7 @@ export const SignInPage = () => {
               disabled={isPending}
               required
             />
-            <button className="submit-button" type="submit">
+            <button className="signin-submit-button" type="submit">
               Sign in with email
             </button>
           </form>
