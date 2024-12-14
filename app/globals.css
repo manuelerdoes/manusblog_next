@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'highlight.js/styles/tomorrow-night-bright.css';
+
 
 body {
   @apply bg-nightsky bg-contain bg-repeat flex flex-col items-center h-screen pt-2.5 leading-tight;
@@ -815,12 +817,14 @@ button:hover {
 }
 
 .blog-content table {
-  @apply w-[80%] p-[1px] border-spacing-[1px_3px] border-separate border-none;
+  @apply w-[80%] p-[1px] border-separate border-none;
+  border-spacing: 1px 3px;
 }
 
 .blog-content table th,
 .blog-content table td {
-  @apply rounded-sm p-[3px] text-left bg-[rgba(151,149,149,0.61)];
+  @apply p-[2px] text-left bg-[rgba(151,149,149,0.61)];
+  border-radius: 1px;
 }
 
 .blog-content table th {
@@ -833,9 +837,17 @@ button:hover {
 }
 
 .blog-content pre {
-  @apply rounded-sm p-[10px] text-sm my-[10px];
+  @apply rounded-sm text-sm my-[10px];
   background-color: rgba(147,147,147,0.356);
   border: solid 1px rgba(72,72,72,0.787);
+}
+
+.hljs {
+  background-color: rgba(0, 2, 26, 0.653);
+}
+
+pre code.hljs {
+  @apply p-2;
 }
 
 .blog-list {

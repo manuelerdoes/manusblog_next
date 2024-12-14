@@ -34,13 +34,17 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 * HIGH: disable comments ✅
 * MID: reduce session requests ✅
 * MID: check markdown syntax (dompurify) ✅
+* LOW: CSS cleanup ✅
+* MID: code syntax highlighting ✅
 
 * LOW: make searchbar topic filter keep selection when changing blogpost
 * LOW: make Detail topic and author clickable
 * LOW: In blogView change basis values with custom tailwind class or just use non-tailwind-flex
 * LOW: topic designs
 * LOW: mobilemenu yellow hover
-* MID: code syntax highlighting
 * LOW: make picture upload more beautiful
-* LOW: CSS cleanup
+* LOW: loading with animation
+* LOW: db stuff with prisma for more modularity
+* LOW: make componentes more reusable (less hardcoding)
+* LOW: Public and Comment buttons to one component
 

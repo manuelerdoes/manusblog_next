@@ -1,32 +1,32 @@
 import { apiServer } from '@/app/lib/const';
 import DOMPurify from "isomorphic-dompurify";
-import { marked } from 'marked';
-import prism from "prismjs";
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-json";
-import "prismjs/themes/prism-tomorrow.css";
-// import { Marked } from "marked";
+// import { marked } from 'marked';
+// import "prismjs/components/prism-javascript";
+// import "prismjs/components/prism-json";
+// import "prismjs/themes/prism-tomorrow.css";
+import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from 'highlight.js';
+//import 'highlight.js/styles/tomorrow-night-bright.css';
 
 // Set up prism and marked options outside the component to prevent unnecessary reconfigurations
-marked.setOptions({
-  highlight: (code, lang) => {
-    const language = prism.languages[lang] || prism.languages.markup;
-    return prism.highlight(code, language, lang);
-  },
-});
+// marked.setOptions({
+//   highlight: (code, lang) => {
+//     const language = prism.languages[lang] || prism.languages.markup;
+//     return prism.highlight(code, language, lang);
+//   },
+// });
 
-// const marked = new Marked(
-//   markedHighlight({
-// 	emptyLangClass: 'hljs',
-//     langPrefix: 'hljs language-',
-//     highlight(code, lang, info) {
-//       const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-//       return hljs.highlight(code, { language }).value;
-//     }
-//   })
-// );
+const marked = new Marked(
+  markedHighlight({
+	emptyLangClass: 'hljs',
+    langPrefix: 'hljs language-',
+    highlight(code, lang, info) {
+      const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+      return hljs.highlight(code, { language }).value;
+    }
+  })
+);
 
 async function getBlog(id) {
   const res = await fetch(`${apiServer}/api/blog/${id}`, {
