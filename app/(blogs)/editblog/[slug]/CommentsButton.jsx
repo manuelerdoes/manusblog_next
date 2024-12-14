@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 
-function CommentsButton({isDisabled}) {
+function CommentsButton({ isDisabled }) {
 
     const [commentsDisabled, setCommentsDisabled] = useState(false);
     const [buttonText, setButtonText] = useState("comments enabled");
@@ -29,8 +29,10 @@ function CommentsButton({isDisabled}) {
     }
 
     return (
-        <button id='commentsButton' type="button" className={`${!commentsDisabled ? 'disablecomments' : ''}`}
-            onClick={toggleComments} value={commentsDisabled}>{buttonText}</button>
+        <div className={`${!commentsDisabled ? 'disable-comments-button disablecomments' : 'disable-comments-button'}`}>
+            <button id='commentsButton' type="button" className={`${!commentsDisabled ? 'disablecomments' : ''}`}
+                onClick={toggleComments} value={commentsDisabled}>{buttonText}</button>
+        </div>
     )
 }
 

@@ -33,7 +33,8 @@ export const POST = auth(async function POST(request, { params }) {
   const filePath = `${fileStorageDirectory}/${file.name}`;
   const fileBuffer = await file.arrayBuffer();
   const fileData = Buffer.from(fileBuffer);
-  const fileUrl = fileStorageUrl + "/" + encodeURIComponent(file.name);
+  //const fileUrl = fileStorageUrl + "/" + encodeURIComponent(file.name);
+  const fileUrl = new URL(fileStorageUrl + '/' + file.name, import.meta.url).href;
   await saveFileToStorage(filePath, fileData);
   await writeUserImageUrlToDb(fileUrl, email);
 

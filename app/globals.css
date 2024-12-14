@@ -1257,7 +1257,6 @@ button:hover {
 
   .big-search-results td {
     @apply flex rounded flex-row text-left;
-    justify-content: space-between;
     padding: 0.5rem;
     border-bottom: 1px solid #78787814;
   }

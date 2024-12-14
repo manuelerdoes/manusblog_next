@@ -27,8 +27,9 @@ export const POST = auth(async function POST(request, { params }) {
   const data = await request.json();
 
   try {
-    // const fileUrl = fileStorageUrl + "/" + encodeURIComponent(data.fileName);
-    const fileUrl = data.fileName;
+    //const fileUrl = fileStorageUrl + "/" + encodeURIComponent(data.fileName);
+    const fileUrl = new URL(fileStorageUrl + '/' + data.fileName, import.meta.url).href;
+    //const fileUrl = data.fileName;
     const res = await connectFileAndBlog(fileUrl, params.blogId);
     return NextResponse.json({ res }, { status: 201 });
   } catch (error) {
