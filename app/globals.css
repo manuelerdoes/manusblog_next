@@ -21,8 +21,9 @@ body {
   @apply bg-pcb;
 }
 
-[data-theme='travel'], [data-theme='travel'] body {
-  @apply bg-wald;
+[data-theme='travel'] body {
+  background-image: none;
+  background-color: rgb(38, 52, 66);
 }
 
 [data-theme='other'], [data-theme='other'] body {
@@ -219,6 +220,10 @@ button:hover {
 
 .signin-item {
   @apply flex-1 flex flex-col items-center gap-5 justify-center;
+}
+
+.signin-button {
+  cursor: pointer;
 }
 
 

@@ -22,11 +22,11 @@ const marked = new Marked(
 
 function LoadBlogContentAuthenticated({ blogId }) {
   const [currentBlog, setCurrentBlog] = useState(null);
-  const { setTheme } = useTheme();
+  // const { setTheme } = useTheme();
 
   useEffect(() => {
-    const storageHandler = () => setTheme(sessionStorage.getItem('topic'));
-    window.addEventListener('storage', storageHandler);
+    // const storageHandler = () => setTheme(sessionStorage.getItem('topic'));
+    // window.addEventListener('storage', storageHandler);
     const fetchBlog = async () => {
       const res = await fetch(`${apiServer}/api/blog/${blogId}`);
       if (!res.ok) {
@@ -39,9 +39,9 @@ function LoadBlogContentAuthenticated({ blogId }) {
 
     fetchBlog();
 
-    return () => {
-      window.removeEventListener('storage', storageHandler);
-    };
+    // return () => {
+    //   window.removeEventListener('storage', storageHandler);
+    // };
   }, []);
 
   if (!currentBlog) {

@@ -90,7 +90,7 @@ module.exports = {
         'nightsky': "url('/night_sky.jpeg')",
         'piggy': "url('/piggy_bg.jpg')",
         'pcb': "url('/pcb_bg.jpg')",
-        'wald': "url('/wald_bg.jpg')"
+        'wald': "url('/wald_bg.jpeg')"
       },
     },
   },

@@ -50,4 +50,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 * LOW: Public and Comment buttons to one component
 * LOW: textarea markdown shortcuts (e.g. button for table)
 * MID: store for bloglist
+* LOW: newblog and editblog onChange topic -> sessionStore and event
 

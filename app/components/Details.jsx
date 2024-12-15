@@ -5,12 +5,14 @@ import { useEffect } from 'react';
 import { apiServer } from '../lib/const';
 import { useRouter } from 'next/navigation';
 import { useSession } from "next-auth/react"
+import { useTheme } from 'next-themes';
 
 
 const Details = ({currentBlog, author}) => {
 
   const [showEditButton, setShowEditButton] = useState(false);
   const router = useRouter();
+  const { setTheme } = useTheme();
 
   const allowed = true; // TODO: find out if user is allowed to read blog
 
@@ -38,8 +40,9 @@ const Details = ({currentBlog, author}) => {
 
   useEffect(() => {
     if (currentBlog) {
-      window.sessionStorage.setItem("topic", currentBlog.topic);
-      window.dispatchEvent(new Event("storage"));
+      setTheme(currentBlog.topic);
+      // window.sessionStorage.setItem("topic", currentBlog.topic);
+      // window.dispatchEvent(new Event("storage"));
     }
   }, [currentBlog]);
 
