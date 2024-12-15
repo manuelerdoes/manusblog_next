@@ -6,10 +6,12 @@ import DOMPurify from "isomorphic-dompurify";
 import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from 'highlight.js';
+import { useTheme } from 'next-themes';
+import useTopicData from '@/app/lib/hooks/useTopicData';
 
 const marked = new Marked(
   markedHighlight({
-	emptyLangClass: 'hljs',
+    emptyLangClass: 'hljs',
     langPrefix: 'hljs language-',
     highlight(code, lang, info) {
       const language = hljs.getLanguage(lang) ? lang : 'plaintext';
@@ -20,8 +22,11 @@ const marked = new Marked(
 
 function LoadBlogContentAuthenticated({ blogId }) {
   const [currentBlog, setCurrentBlog] = useState(null);
+  const { setTheme } = useTheme();
 
   useEffect(() => {
+    const storageHandler = () => setTheme(sessionStorage.getItem('topic'));
+    window.addEventListener('storage', storageHandler);
     const fetchBlog = async () => {
       const res = await fetch(`${apiServer}/api/blog/${blogId}`);
       if (!res.ok) {
@@ -33,6 +38,10 @@ function LoadBlogContentAuthenticated({ blogId }) {
     };
 
     fetchBlog();
+
+    return () => {
+      window.removeEventListener('storage', storageHandler);
+    };
   }, []);
 
   if (!currentBlog) {

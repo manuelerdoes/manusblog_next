@@ -145,7 +145,6 @@ function UploadPictures({ currentUser, blogid, uploadedPictures, setUploadedPict
         setLoading(true);
         try {
             const uploadPromises = filesToUpload.map(async (file) => {
-                // Upload image to Firebase Storage
 
                 const formData = new FormData();
                 formData.append('file', file);

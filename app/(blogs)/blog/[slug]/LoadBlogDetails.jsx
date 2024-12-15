@@ -5,7 +5,7 @@ import React from 'react'
 async function getBlog(id) {
   const res = await fetch(`${apiServer}/api/blog/${id}`, {
     next: {
-      revalidate: 30
+      revalidate: 10
     }
   });
   if (!res.ok) {

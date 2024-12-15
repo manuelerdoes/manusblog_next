@@ -12,7 +12,7 @@ const Details = ({currentBlog, author}) => {
   const [showEditButton, setShowEditButton] = useState(false);
   const router = useRouter();
 
-  const allowed = true; // TODO find out if user is allowed to read blog
+  const allowed = true; // TODO: find out if user is allowed to read blog
 
   const { data: session } = useSession();
 
@@ -37,10 +37,11 @@ const Details = ({currentBlog, author}) => {
   }, [session, currentBlog]);
 
   useEffect(() => {
-    if (currentBlog && currentBlog.userId) {
-      // TODO fetch author data
+    if (currentBlog) {
+      window.sessionStorage.setItem("topic", currentBlog.topic);
+      window.dispatchEvent(new Event("storage"));
     }
-  }, [/*currentBlog*/]);
+  }, [currentBlog]);
 
   const handleClickEditButton = () => {
     router.push('/editblog/' + currentBlog.id);

@@ -124,7 +124,7 @@ function NewBlog() {
             </div>
             <div className="new-blog-content new-blog-item">
               <label htmlFor="">Content:</label>
-              <textarea placeholder='Lorem ipsum, dolor sit amet' name="rawcontent" required></textarea>
+              <textarea placeholder='Lorem ipsum, dolor sit amet' name="rawcontent" rows="12" required></textarea>
             </div>
             <div className="new-blog-buttons new-blog-item">
               <div className="cancelblog">

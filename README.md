@@ -36,15 +36,18 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 * MID: check markdown syntax (dompurify) ✅
 * LOW: CSS cleanup ✅
 * MID: code syntax highlighting ✅
+* MID: Cookie Consent -> not needed for now because there are only functional cookies ✅
+* LOW: topic designs -> sessionStorage ✅
+* LOW: textarea resizable with current init size ✅
 
 * LOW: make searchbar topic filter keep selection when changing blogpost
 * LOW: make Detail topic and author clickable
-* LOW: In blogView change basis values with custom tailwind class or just use non-tailwind-flex
-* LOW: topic designs
 * LOW: mobilemenu yellow hover
 * LOW: make picture upload more beautiful
 * LOW: loading with animation
 * LOW: db stuff with prisma for more modularity
 * LOW: make componentes more reusable (less hardcoding)
 * LOW: Public and Comment buttons to one component
+* LOW: textarea markdown shortcuts (e.g. button for table)
+* MID: store for bloglist
 

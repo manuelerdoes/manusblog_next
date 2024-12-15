@@ -1,21 +1,8 @@
 import { apiServer } from '@/app/lib/const';
 import DOMPurify from "isomorphic-dompurify";
-// import { marked } from 'marked';
-// import "prismjs/components/prism-javascript";
-// import "prismjs/components/prism-json";
-// import "prismjs/themes/prism-tomorrow.css";
 import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from 'highlight.js';
-//import 'highlight.js/styles/tomorrow-night-bright.css';
-
-// Set up prism and marked options outside the component to prevent unnecessary reconfigurations
-// marked.setOptions({
-//   highlight: (code, lang) => {
-//     const language = prism.languages[lang] || prism.languages.markup;
-//     return prism.highlight(code, language, lang);
-//   },
-// });
 
 const marked = new Marked(
   markedHighlight({

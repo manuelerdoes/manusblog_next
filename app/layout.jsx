@@ -2,6 +2,7 @@ import "./globals.css";
 import BlogHeader from "./components/BlogHeader";
 import { pageTitle } from "./lib/const";
 import { SessionProvider } from "next-auth/react";
+import { ThemeProvider } from "next-themes";
 
 export const metadata = {
   title: pageTitle,
@@ -14,7 +15,13 @@ export default function RootLayout({ children }) {
       <body>
         <BlogHeader />
         <SessionProvider>
-          {children}
+          <ThemeProvider
+            themes={["travel", "photography", "music", "other", "food", "computer", "robotics"]}
+            defaultTheme="other"
+            enableSystem={false}
+          >
+            {children}
+          </ThemeProvider>
         </SessionProvider>
       </body>
     </html>
