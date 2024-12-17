@@ -78,7 +78,8 @@ Following services are needed to allow the whole app to run:
 * LOW: make componentes more reusable (less hardcoding)
 * LOW: Public and Comment buttons to one component
 * LOW: textarea markdown shortcuts (e.g. button for table)
-* MID: store for bloglist
+* MID: fixed bloglist
 * LOW: newblog and editblog onChange topic -> sessionStore and event
 * LOW: Table of Contents
+* LOW: copy to clipboard button in code blocks
 

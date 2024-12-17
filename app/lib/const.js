@@ -1,8 +1,8 @@
 export const pageTitle = "Manus Blog";
 
 // host
-export const apiServer = "http://localhost:3000";
-export const hostUrl = "http://localhost:3000";
+export const apiServer = process.env.API_SERVER_URL;
+export const hostUrl = process.env.HOST_SERVER_URL;
 
 // blog database
 export const sqlServer = "localhost";
