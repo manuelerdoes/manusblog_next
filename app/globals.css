@@ -847,7 +847,7 @@ button:hover {
 }
 
 .blog-content {
-  @apply p-[20px] pt-[25px] overflow-scroll w-full;
+  @apply px-4 overflow-scroll w-full;
 }
 
 .blog-content p,
@@ -891,7 +891,7 @@ button:hover {
 }
 
 .blog-content ul {
-  @apply ml-[20px];
+  /* @apply ml-[20px]; */
   list-style-type: square;
 }
 

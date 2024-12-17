@@ -21,14 +21,6 @@ const Details = ({currentBlog, author}) => {
   const currentUser = session?.user;
 
 
-  // useEffect(() => {
-  //   if (currentUser?.id === currentBlog?.userId || currentUser?.id === adminUserId) {
-  //     setShowEditButton(true);
-  //   } else {
-  //     setShowEditButton(false);
-  //   }
-  // }, [currentUser, currentBlog]);
-
 
   useEffect(() => {
     if (session?.user && (currentBlog?.userId === session?.user.email || session?.user.role === "admin")) {

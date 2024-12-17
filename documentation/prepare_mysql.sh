@@ -2,10 +2,10 @@
 
 # Bash script to prepare the mysql db for Manusblog.
 #
+# 1.0.1     M. Erdös    17.12.2024      Added File and BlogFile tables
 # 1.0.0     M. Erdös    13.10.2024      Initial Version
-#
 
-version="1.0.0"
+version="1.0.1"
 
 
 usage() {
@@ -80,6 +80,20 @@ CREATE TABLE IF NOT EXISTS Comment (
     PRIMARY KEY (id),
     FOREIGN KEY (blogId) REFERENCES Blog(id) ON DELETE CASCADE
 );  
+
+CREATE TABLE IF NOT EXISTS File (
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) DEFAULT NULL,
+    PRIMARY KEY (name)
+);
+
+CREATE TABLE IF NOT EXISTS BlogFile (
+    fileName VARCHAR(255) NOT NULL,
+    blogId INT NOT NULL,
+    PRIMARY KEY (fileName, blogId),
+    FOREIGN KEY (blogId) REFERENCES Blog(id) ON DELETE CASCADE,
+    FOREIGN KEY (fileName) REFERENCES File(name) ON DELETE CASCADE
+);
 EOF
 )
 
