@@ -5,15 +5,15 @@ export const apiServer = process.env.API_SERVER_URL;
 export const hostUrl = process.env.HOST_SERVER_URL;
 
 // blog database
-export const sqlServer = "localhost";
-export const sqlUser = "manusblog";
+export const sqlServer = process.env.SQL_SERVER
+export const sqlUser = process.env.SQL_USER
 export const sqlPassword = process.env.SQL_PASSWORD;
-export const sqlDatabase = "manusblog";
+export const sqlDatabase = process.env.SQL_DATABASE
 
 // auth database
-export const authSqlServer = "localhost";
-export const authSqlDatabase = "blogauth";
-export const authSqlUser = "blogauth";
+export const authSqlServer = process.env.AUTH_SQL_SERVER;
+export const authSqlDatabase = process.env.AUTH_SQL_DATABASE;
+export const authSqlUser = process.env.AUTH_SQL_USER;
 export const authSqlPassword = process.env.AUTH_SQL_PASSWORD;
 
 // file storage

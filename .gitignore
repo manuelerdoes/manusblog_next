@@ -45,3 +45,6 @@ firebase.js
 
 # public folder
 public/files/*
+
+# sql schemas
+*.sql
