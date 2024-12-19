@@ -8,9 +8,11 @@ import { useSession } from "next-auth/react"
 import { useTheme } from 'next-themes';
 
 
-const Details = ({currentBlog, author}) => {
+const Details = ({blogId}) => {
 
   const [showEditButton, setShowEditButton] = useState(false);
+  const [currentBlog, setCurrentBlog] = useState(null);
+  const [author, setAuthor] = useState(null);
   const router = useRouter();
   const { setTheme } = useTheme();
 
@@ -23,20 +25,49 @@ const Details = ({currentBlog, author}) => {
 
 
   useEffect(() => {
+    const fetchBlog = async () => {
+      const res = await fetch(`${apiServer}/api/blog/${blogId}`);
+      if (!res.ok) {
+        console.error("Could not fetch blog content");
+        return;
+      }
+      const data = await res.json();
+      setCurrentBlog(data);
+      getUserInfo(data.userId);
+      setTheme(data.topic);
+    };
+
+    const getUserInfo = async (id) => {
+      const res = await fetch(`${apiServer}/api/user/${id}`);
+      if (!res.ok) {
+        console.error('Could not fetch user info');
+        return null;
+      }
+      const data = await res.json(); // Ensure the response is parsed as JSON
+      setAuthor(data);
+    }
+
+    fetchBlog();
+
+  }, [blogId]);
+
+
+
+  useEffect(() => {
     if (session?.user && (currentBlog?.userId === session?.user.email || session?.user.role === "admin")) {
       setShowEditButton(true);
     } else {
       setShowEditButton(false);
     }
-  }, [session, currentBlog]);
+  }, [session, blogId]);
 
-  useEffect(() => {
-    if (currentBlog) {
-      setTheme(currentBlog.topic);
-      // window.sessionStorage.setItem("topic", currentBlog.topic);
-      // window.dispatchEvent(new Event("storage"));
-    }
-  }, [currentBlog]);
+  // useEffect(() => {
+  //   if (currentBlog) {
+  //     setTheme(currentBlog.topic);
+  //     // window.sessionStorage.setItem("topic", currentBlog.topic);
+  //     // window.dispatchEvent(new Event("storage"));
+  //   }
+  // }, [blogId]);
 
   const handleClickEditButton = () => {
     router.push('/editblog/' + currentBlog.id);
