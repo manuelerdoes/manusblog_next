@@ -35,7 +35,7 @@ const Details = ({blogId}) => {
       setCurrentBlog(data);
       getUserInfo(data.userId);
       setTheme(data.topic);
-      if (session?.user && (currentBlog?.userId === session?.user.email || session?.user.role === "admin")) {
+      if (session?.user && (data.userId === session?.user.email || session?.user.role === "admin")) {
         setShowEditButton(true);
       } else {
         setShowEditButton(false);
