@@ -6,8 +6,6 @@ import DOMPurify from "isomorphic-dompurify";
 import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from 'highlight.js';
-import { useTheme } from 'next-themes';
-import useTopicData from '@/app/lib/hooks/useTopicData';
 
 const marked = new Marked(
   markedHighlight({
@@ -56,18 +54,7 @@ function LoadBlogContentAuthenticated({ blogId }) {
       </div>
       <div className="blog-content">
         <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(currentBlog.content)) }} />
-        {/* <div dangerouslySetInnerHTML={{ __html: marked.parse(currentBlog.content) }} /> */}
-        {/* <p>{currentBlog.content}</p> */}
       </div>
-      {/* {(!currentBlog.disableComments) ? (
-        <Suspense fallback={<p>loading comments...</p>}>
-          <LoadCommentsAuthenticated blogId={blogId} />
-        </Suspense>
-      ) : (
-        <div className="comments">
-          <p>comments disabled</p>
-        </div>
-      )} */}
     </>
   )
 }

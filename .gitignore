@@ -48,3 +48,7 @@ public/files/*
 
 # sql schemas
 *.sql
+
+const.js*
+
+documentation/*.txt

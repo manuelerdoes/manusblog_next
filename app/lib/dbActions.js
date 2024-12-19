@@ -13,7 +13,7 @@ function logError(action, error) {
 export async function getUser(email) {
   try {
     const [rows] = await authPool.query(
-      'SELECT name, image FROM user WHERE email = ?',
+      'SELECT name, image FROM User WHERE email = ?',
       [email]
     );
     return rows[0] || null;
@@ -29,7 +29,7 @@ export async function newBlog(userId, title, created, content, tags, topic, isPu
 
   try {
     const [rows] = await pool.query(
-      `INSERT INTO blog (userId, title, created, modified, content, tags, topic, isPublic, disableComments) 
+      `INSERT INTO Blog (userId, title, created, modified, content, tags, topic, isPublic, disableComments) 
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [userId, title, created, created, content, tags, topic, isPublicInt, disableCommentsInt]
     );
@@ -45,7 +45,7 @@ export async function updateBlog(id, title, modified, content, tags, topic, isPu
 
   try {
     const [rows] = await pool.query(
-      `UPDATE blog SET title = ?, modified = ?, content = ?, tags = ?, topic = ?, isPublic = ?, disableComments = ? 
+      `UPDATE Blog SET title = ?, modified = ?, content = ?, tags = ?, topic = ?, isPublic = ?, disableComments = ? 
       WHERE id = ?`,
       [title, modified, content, tags, topic, isPublicInt, disableCommentsInt, id]
     );
@@ -58,7 +58,7 @@ export async function updateBlog(id, title, modified, content, tags, topic, isPu
 export async function deleteBlog(id) {
   try {
     const [rows] = await pool.query(
-      'DELETE FROM blog WHERE id = ?',
+      'DELETE FROM Blog WHERE id = ?',
       [id]
     );
     return rows.affectedRows;
@@ -70,7 +70,7 @@ export async function deleteBlog(id) {
 export async function getBlogList() {
   try {
     const [rows] = await pool.query(
-      'SELECT * FROM blog WHERE isPublic = 1 ORDER BY id DESC'
+      'SELECT * FROM Blog WHERE isPublic = 1 ORDER BY id DESC'
     );
     return rows;
   } catch (error) {
@@ -81,7 +81,7 @@ export async function getBlogList() {
 export async function getAuthenticatedBlogList(userId) {
   try {
     const [rows] = await pool.query(
-      `SELECT * FROM blog WHERE isPublic = 1 OR userId = ? 
+      `SELECT * FROM Blog WHERE isPublic = 1 OR userId = ? 
       GROUP BY id ORDER BY id DESC`,
       [userId]
     );
@@ -94,7 +94,7 @@ export async function getAuthenticatedBlogList(userId) {
 export async function getBlog(id) {
   try {
     const [rows] = await pool.query(
-      'SELECT * FROM blog WHERE id = ? AND isPublic = 1',
+      'SELECT * FROM Blog WHERE id = ? AND isPublic = 1',
       [id]
     );
     return rows[0] || null;
@@ -106,7 +106,7 @@ export async function getBlog(id) {
 export async function getBlogAuthenticated(id, userId) {
   try {
     const [rows] = await pool.query(
-      `SELECT * FROM blog WHERE id = ? AND (isPublic = 1 OR userId = ?)`,
+      `SELECT * FROM Blog WHERE id = ? AND (isPublic = 1 OR userId = ?)`,
       [id, userId]
     );
     return rows[0] || null;
@@ -118,7 +118,7 @@ export async function getBlogAuthenticated(id, userId) {
 export async function getLatestBlogId() {
   try {
     const [rows] = await pool.query(
-      `SELECT id FROM blog WHERE isPublic = 1 ORDER BY id DESC LIMIT 1`
+      `SELECT id FROM Blog WHERE isPublic = 1 ORDER BY id DESC LIMIT 1`
     );
     return rows[0]?.id || null;
   } catch (error) {
