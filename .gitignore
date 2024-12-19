@@ -50,5 +50,6 @@ public/files/*
 *.sql
 
 const.js*
+!const.js.default
 
 documentation/*.txt

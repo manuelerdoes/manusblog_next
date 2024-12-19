@@ -1,0 +1,27 @@
+export const pageTitle = "Manus Blog";
+
+// host
+//export const apiServer = process.env.API_SERVER_URL;
+export const apiServer = "http://localhost:3000";
+export const hostUrl = process.env.HOST_SERVER_URL;
+
+// blog database
+export const sqlServer = process.env.SQL_SERVER
+export const sqlUser = process.env.SQL_USER
+export const sqlPassword = process.env.SQL_PASSWORD;
+export const sqlDatabase = process.env.SQL_DATABASE
+
+// auth database
+export const authSqlServer = process.env.AUTH_SQL_SERVER;
+export const authSqlDatabase = process.env.AUTH_SQL_DATABASE;
+export const authSqlUser = process.env.AUTH_SQL_USER;
+export const authSqlPassword = process.env.AUTH_SQL_PASSWORD;
+
+// file storage
+export const fileStorageDirectory = "public/files";
+export const fileStorageUrl = `${hostUrl}/files`;
+
+// for UploadPictures component
+export const imageCompressionMaxWidth = 2048;
+export const imageCompressionMaxHeight = 2048;
+export const imageCompressionQuality = 0.9;
