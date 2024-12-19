@@ -150,7 +150,7 @@ function UploadPictures({ currentUser, blogid, uploadedPictures, setUploadedPict
                 formData.append('file', file);
                 formData.append('email', currentUser.email);
 
-                const response = await fetch("/api/file", {
+                const response = await fetch(`${apiServer}/api/file`, {
                     method: 'POST',
                     body: formData,
                 });

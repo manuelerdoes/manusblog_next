@@ -34,8 +34,10 @@ async function LoadComments({ blogId }) {
       <Comments blogId={blogId} disabled={disabled} />
     )
   } catch (error) {
-    console.error("Could not load comments: " + error);
-    return null;
+    console.error("LoadComments: Could not load blog info: " + error);
+    return (
+    <Comments blogId={blogId} disabled={true} />
+    )
   }
 
 
