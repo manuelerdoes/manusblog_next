@@ -5,6 +5,7 @@
 @import 'highlight.js/styles/tomorrow-night-bright.css';
 
 html {
+  @apply bg-contain;
   border: none;
 }
 
@@ -13,11 +14,11 @@ body {
   font-family: "Lucida Sans","Lucida Sans Regular","Lucida Grande","Lucida Sans Unicode",Geneva,Verdana,sans-serif;
 }
 
-[data-theme='computer'], [data-theme='computer'] body {
+[data-theme='computer'] body {
   @apply bg-piggy;
 }
 
-[data-theme='robotics'], [data-theme='robotics'] body {
+[data-theme='robotics'] body {
   @apply bg-pcb;
 }
 
@@ -26,7 +27,7 @@ body {
   background-color: rgb(38, 52, 66);
 }
 
-[data-theme='other'], [data-theme='other'] body {
+[data-theme='other'] body {
   @apply bg-nightsky;
 }
 
@@ -39,7 +40,7 @@ body {
   @apply bg-nightsky;
 }
 
-[data-theme='music'], [data-theme='music'] body {
+[data-theme='music'] body {
   @apply bg-nightsky;
 }
 
@@ -63,35 +64,39 @@ button:hover {
   @apply w-[90vw] h-[10vh] bg-[rgba(8,51,82,0.85)] rounded mb-2.5 border-none border-[rgba(201,200,200,0.65)] flex flex-row text-[rgb(212,207,187)] p-5 items-center justify-center;
 }
 
-[data-theme='computer'], [data-theme='computer'] .blog-header {
+[data-theme='computer'] .blog-header {
   border: 1px solid;
+  @media (max-width: 768px) {border: none}
   @apply bg-computer-headerBGColor text-computer-headerTextColor border-computer-headerBorderColor;
 }
 
-[data-theme='robotics'], [data-theme='robotics'] .blog-header {
+[data-theme='robotics'] .blog-header {
   @apply bg-robotics-headerBGColor text-robotics-headerTextColor border-robotics-headerBorderColor;
 }
 
-[data-theme='travel'], [data-theme='travel'] .blog-header {
+[data-theme='travel'] .blog-header {
   @apply bg-travel-headerBGColor text-travel-headerTextColor border-travel-headerBorderColor;
 }
 
-[data-theme='other'], [data-theme='other'] .blog-header {
+[data-theme='other'] .blog-header {
   @apply bg-other-headerBGColor text-other-headerTextColor border-other-headerBorderColor;
 }
 
-[data-theme='food'], [data-theme='food'] .blog-header {
+[data-theme='food'] .blog-header {
   border: 1px solid;
+  @media (max-width: 768px) {border: none}
   @apply bg-food-headerBGColor text-food-headerTextColor border-food-headerBorderColor;
 }
 
-[data-theme='photography'], [data-theme='photography'] .blog-header {
+[data-theme='photography'] .blog-header {
   border: 1px solid;
+  @media (max-width: 768px) {border: none}
   @apply bg-photography-headerBGColor text-photography-headerTextColor border-photography-headerBorderColor;
 }
 
-[data-theme='music'], [data-theme='music'] .blog-header {
+[data-theme='music'] .blog-header {
   border: 1px solid;
+  @media (max-width: 768px) {border: none}
   @apply bg-music-headerBGColor text-music-headerTextColor border-music-headerBorderColor;
 }
 
@@ -165,35 +170,39 @@ button:hover {
   min-height: min-content;
 }
 
-[data-theme='computer'], [data-theme='computer'] .containero {
+[data-theme='computer'] .containero {
   border: 1px solid;
+  @media (max-width: 768px) {border: none}
   @apply bg-computer-containerBGColor text-computer-containerTextColor border-computer-containerBorderColor;
 }
 
-[data-theme='robotics'], [data-theme='robotics'] .containero {
+[data-theme='robotics'] .containero {
   @apply bg-robotics-containerBGColor text-robotics-containerTextColor border-robotics-containerBorderColor;
 }
 
-[data-theme='travel'], [data-theme='travel'] .containero {
+[data-theme='travel'] .containero {
   @apply bg-travel-containerBGColor text-travel-containerTextColor border-travel-containerBorderColor;
 }
 
-[data-theme='other'], [data-theme='other'] .containero {
+[data-theme='other'] .containero {
   @apply bg-other-containerBGColor text-other-containerTextColor border-other-containerBorderColor;
 }
 
-[data-theme='food'], [data-theme='food'] .containero {
+[data-theme='food'] .containero {
   border: 1px solid;
+  @media (max-width: 768px) {border: none}
   @apply bg-food-containerBGColor text-food-containerTextColor border-food-containerBorderColor;
 }
 
-[data-theme='photography'], [data-theme='photography'] .containero {
+[data-theme='photography'] .containero {
   border: 1px solid;
+  @media (max-width: 768px) {border: none}
   @apply bg-photography-containerBGColor text-photography-containerTextColor border-photography-containerBorderColor;
 }
 
-[data-theme='music'], [data-theme='music'] .containero {
+[data-theme='music'] .containero {
   border: 1px solid;
+  @media (max-width: 768px) {border: none}
   @apply bg-music-containerBGColor text-music-containerTextColor border-music-containerBorderColor;
 }
 
@@ -639,7 +648,7 @@ button:hover {
 }
 
 .blog-title {
-  @apply flex gap-[20px] items-center pl-[25px] pb-[8px];
+  @apply flex gap-[20px] w-full items-center px-4 pb-[8px];
   @apply border-b-[2px] border-solid border-[rgba(131,130,130,0.312)];
   /* border-bottom: 2px solid rgba(131,130,130,0.312); */
 }
@@ -1264,10 +1273,14 @@ pre code.hljs {
     @apply px-3;
   }
 
-  .new-blog {
+  .newblog {
     @apply basis-3/4 flex flex-col items-center w-full p-1 px-1;
     border-bottom: 1px solid rgba(131,130,130,0.312);
 
+  }
+  
+  .newblog form {
+    @apply w-full;
   }
 
   .new-blog-options-buttons {

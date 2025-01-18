@@ -72,6 +72,7 @@ Following services are needed to allow the whole app to run:
 * MID: Cookie Consent -> not needed for now because there are only functional cookies ✅
 * LOW: topic designs -> sessionStorage ✅
 * LOW: textarea resizable with current init size ✅
+* LOW: fix mobile design Blogtitle and Edit form ✅
 
 * BUG LOW: cant comment with emojis on mobile ✅ -> utf8mb4 muss konfiguriert sein in mysql
 * BUG HIGH: No pics loaded when not logged in ✅
@@ -95,7 +96,6 @@ Following services are needed to allow the whole app to run:
 * MID: move fetching to server side
 * HIGH: Search is inefficient and slow
 * LOW: document newly found server (nginx) stuff
-* LOW: fix mobile design Blogtitle and Edit form
 * LOW: Usermanager
 
 * BUG MID: avatar upload not working on mobile prod

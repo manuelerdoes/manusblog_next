@@ -53,3 +53,4 @@ const.js*
 !const.js.default
 
 documentation/*.txt
+nohup.out
