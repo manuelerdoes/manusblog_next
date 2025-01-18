@@ -37,10 +37,6 @@ async function LoadBlogContent({ blogId }) {
       You might be trying to access a non-public blogpost. Please check if you are signed in.</p></div>
   }
 
-  const blogContentHTML = DOMPurify.sanitize(marked.parse(currentBlog.content), {
-    ALLOWED_ATTR: ['class'], // Ensure class attributes are not stripped by DOMPurify
-  });
-
   return (
     <>
       <div className="blog-title">
@@ -48,7 +44,7 @@ async function LoadBlogContent({ blogId }) {
         {!currentBlog.isPublic && (<span>not public</span>)}
       </div>
       <div className="blog-content">
-        <div dangerouslySetInnerHTML={{ __html: blogContentHTML }} />
+        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(currentBlog.content)) }} />
       </div>
     </>
   )

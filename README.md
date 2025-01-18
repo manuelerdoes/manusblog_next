@@ -74,11 +74,8 @@ Following services are needed to allow the whole app to run:
 * LOW: textarea resizable with current init size ✅
 
 * BUG LOW: cant comment with emojis on mobile ✅ -> utf8mb4 muss konfiguriert sein in mysql
-* BUG MID: picture upload not working in prod (upload kinda works, but picture only available after service restart) ✅ -> made nginx directly serve pictures as location in nginx conf. also had to set client_max_body_size 20M; in nginx.conf http part. 
-location /files/ {
-  root /path/to/publicfolder
-  autoindex off;
-}
+* BUG HIGH: No pics loaded when not logged in ✅
+* BUG MID: picture upload not working in prod (upload kinda works, but picture only available after service restart) ✅ -> fix in nginx config. see install_on_linux.md -> no bug
 
 ---
 
@@ -96,10 +93,16 @@ location /files/ {
 * LOW: Table of Contents
 * LOW: copy to clipboard button in code blocks
 * MID: move fetching to server side
+* HIGH: Search is inefficient and slow
+* LOW: document newly found server (nginx) stuff
+* LOW: fix mobile design Blogtitle and Edit form
+* LOW: Usermanager
 
 * BUG MID: avatar upload not working on mobile prod
 * BUG LOW: no favicon on prod
 * BUG LOW: direct camera upload on mobile (at least ios) not working
 * BUG LOW: Details.jsx when showing user pics and then hiding, the blog pics also vanish
+
+* SECURITY: implement blog access control in Details
 
 
