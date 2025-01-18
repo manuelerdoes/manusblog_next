@@ -20,9 +20,6 @@ const Details = ({blogId}) => {
 
   const { data: session } = useSession();
 
-  const currentUser = session?.user;
-
-
 
   useEffect(() => {
     const fetchBlog = async () => {

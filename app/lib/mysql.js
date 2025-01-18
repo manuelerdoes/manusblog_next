@@ -16,6 +16,7 @@ export const pool = mysql.createPool({
   queueLimit: 0,
   enableKeepAlive: true,
   keepAliveInitialDelay: 0,
+  charset: 'utf8mb4',
 });
 
 export const authPool = mysql.createPool({

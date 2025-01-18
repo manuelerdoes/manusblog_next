@@ -38,6 +38,12 @@ npm run build
 npm run start
 ```
 
+on the server (run it in the background and not in the terminal):
+
+```bash
+nohup npm run start &
+```
+
 ## Providers
 
 Following services are needed to allow the whole app to run:
@@ -67,6 +73,13 @@ Following services are needed to allow the whole app to run:
 * LOW: topic designs -> sessionStorage ✅
 * LOW: textarea resizable with current init size ✅
 
+* BUG LOW: cant comment with emojis on mobile ✅ -> utf8mb4 muss konfiguriert sein in mysql
+* BUG MID: picture upload not working in prod (upload kinda works, but picture only available after service restart) ✅ -> made nginx directly serve pictures as location in nginx conf. also had to set client_max_body_size 20M; in nginx.conf http part. 
+location /files/ {
+  root /path/to/publicfolder
+  autoindex off;
+}
+
 ---
 
 * LOW: make searchbar topic filter keep selection when changing blogpost
@@ -82,4 +95,11 @@ Following services are needed to allow the whole app to run:
 * LOW: newblog and editblog onChange topic -> sessionStore and event
 * LOW: Table of Contents
 * LOW: copy to clipboard button in code blocks
+* MID: move fetching to server side
+
+* BUG MID: avatar upload not working on mobile prod
+* BUG LOW: no favicon on prod
+* BUG LOW: direct camera upload on mobile (at least ios) not working
+* BUG LOW: Details.jsx when showing user pics and then hiding, the blog pics also vanish
+
 
