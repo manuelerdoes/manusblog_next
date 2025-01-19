@@ -9,7 +9,7 @@ There is a script to prepare the blog database once you have the server running.
 
 >documentation/prepare_mysql.sh
 
-Additionally you have to prepare the auth db with the following command. **DATABASE_URL** has to be configirued in **.env** to allow the command to work.
+Additionally you have to prepare the auth db with the following command. **DATABASE_URL** has to be configured in **.env** to allow the command to work.
 
 ```bash
 npm exec prisma migrate dev

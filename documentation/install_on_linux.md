@@ -1,4 +1,6 @@
-## als root:
+# install on linux (debian)
+
+## as root:
 
 ```bash 
 apt update
@@ -105,7 +107,7 @@ mysql_secure_installation
 ```
 
 
-## als user:
+## as user:
 
 ### install node  
 >https://nodejs.org/en/download/package-manager/current
