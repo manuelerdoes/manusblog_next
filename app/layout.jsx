@@ -1,12 +1,12 @@
 import "./globals.css";
 import BlogHeader from "./components/BlogHeader";
-import { pageTitle } from "./lib/const";
+import { description, pageTitle } from "./lib/const";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
 
 export const metadata = {
   title: pageTitle,
-  description: "Manus Blog",
+  description: description,
 };
 
 export default function RootLayout({ children }) {

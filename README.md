@@ -80,7 +80,7 @@ Following services are needed to allow the whole app to run:
 
 ---
 
-* LOW: make searchbar topic filter keep selection when changing blogpost
+* LOW: make searchbar topic filter keep selection when changing blogpost REDACTED
 * LOW: make Detail topic and author clickable
 * LOW: mobilemenu yellow hover
 * LOW: make picture upload more beautiful
@@ -102,7 +102,8 @@ Following services are needed to allow the whole app to run:
 * BUG LOW: no favicon on prod
 * BUG LOW: direct camera upload on mobile (at least ios) not working
 * BUG LOW: Details.jsx when showing user pics and then hiding, the blog pics also vanish
+* BUG LOW: cannot delete blogs when not public
 
-* SECURITY: implement blog access control in Details
+* SECURITY: implement blog access control in Details.jsx
 
 
