@@ -207,7 +207,7 @@ button:hover {
 }
 
 .about {
-  @apply px-20 py-2 flex flex-col items-center gap-5 justify-center;
+  @apply px-40 py-2 flex flex-col items-center gap-5 justify-center;
 }
 
 .version {

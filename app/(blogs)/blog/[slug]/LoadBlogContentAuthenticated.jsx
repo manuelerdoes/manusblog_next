@@ -43,7 +43,9 @@ function LoadBlogContentAuthenticated({ blogId }) {
   }, []);
 
   if (!currentBlog) {
-    return <div className="loading-error"><p>could not load blog content</p></div>
+    return <div className="loading-error">
+      {/* <p>could not load blog content</p> */}
+    </div>
   }
 
   return (

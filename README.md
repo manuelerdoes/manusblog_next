@@ -97,6 +97,7 @@ Following services are needed to allow the whole app to run:
 * MID: move fetching to server side
 * HIGH: Search is inefficient and slow
 * LOW: Usermanager
+* LOW: hide new blog button when not logged in?
 
 * BUG MID: avatar upload not working on mobile prod
 * BUG LOW: no favicon on prod
