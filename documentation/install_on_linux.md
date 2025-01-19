@@ -144,7 +144,13 @@ npm exec prisma migrate dev
 
 ```bash
 npm run build
-npm runs start
+nohup npm run start &
+```
+
+### stop
+
+```bash
+pkill -9 -f 'npm|next-server'
 ```
 
 ## Troubleshooting
