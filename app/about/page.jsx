@@ -1,5 +1,4 @@
-import About from './about';
-
+import About from './about.jsx';
 export default function page() {
 
     return (
