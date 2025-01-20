@@ -1,4 +1,4 @@
-import { deleteBlog, getBlog, getBlogAuthenticated, getBlogByTitleAuthenticated, getLatestBlogId, getLatestBlogTitle, updateBlog } from "@/app/lib/dbActions";
+import { deleteBlog, getBlog, getBlogAuthenticated, getBlogByTitleAuthenticated, getBlogByTitle, getLatestBlogId, getLatestBlogTitle, updateBlog } from "@/app/lib/dbActions";
 import { NextResponse } from "next/server";
 import { auth } from "@/app/auth";
 

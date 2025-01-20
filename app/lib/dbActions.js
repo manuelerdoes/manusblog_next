@@ -107,7 +107,7 @@ export async function getBlogByTitle(title) {
   try {
     const [rows] = await pool.query(
       'SELECT * FROM Blog WHERE title = ? AND isPublic = 1',
-      [id]
+      [title]
     );
     return rows[0] || null;
   } catch (error) {
