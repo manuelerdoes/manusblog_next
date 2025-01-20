@@ -6,6 +6,7 @@ import { apiServer } from '../lib/const';
 import { useRouter } from 'next/navigation';
 import { useSession } from "next-auth/react"
 import { useTheme } from 'next-themes';
+import { pageTitle } from '../lib/const';
 
 
 const Details = ({blogId}) => {
@@ -30,6 +31,7 @@ const Details = ({blogId}) => {
       }
       const data = await res.json();
       setCurrentBlog(data);
+      document.title = data.title + " | " + pageTitle;
       getUserInfo(data.userId);
       setTheme(data.topic);
       if (session?.user && (data.userId === session?.user.email || session?.user.role === "admin")) {
