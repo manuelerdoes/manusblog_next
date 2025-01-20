@@ -98,6 +98,10 @@ Following services are needed to allow the whole app to run:
 * HIGH: Search is inefficient and slow
 * LOW: Usermanager
 * LOW: hide new blog button when not logged in?
+* MID: fix about.md fetch
+* MID: global switch for fetching from same server or external
+* MID: urls with blog name
+* MID: editform fetch newest version
 
 * BUG MID: avatar upload not working on mobile prod
 * BUG LOW: no favicon on prod

@@ -103,11 +103,35 @@ export async function getBlog(id) {
   }
 }
 
+export async function getBlogByTitle(title) {
+  try {
+    const [rows] = await pool.query(
+      'SELECT * FROM Blog WHERE title = ? AND isPublic = 1',
+      [id]
+    );
+    return rows[0] || null;
+  } catch (error) {
+    logError('getBlog', error);
+  }
+}
+
 export async function getBlogAuthenticated(id, userId) {
   try {
     const [rows] = await pool.query(
       `SELECT * FROM Blog WHERE id = ? AND (isPublic = 1 OR userId = ?)`,
       [id, userId]
+    );
+    return rows[0] || null;
+  } catch (error) {
+    logError('getBlogAuthenticated', error);
+  }
+}
+
+export async function getBlogByTitleAuthenticated(title, userId) {
+  try {
+    const [rows] = await pool.query(
+      `SELECT * FROM Blog WHERE title = ? AND (isPublic = 1 OR userId = ?)`,
+      [title, userId]
     );
     return rows[0] || null;
   } catch (error) {
@@ -121,6 +145,17 @@ export async function getLatestBlogId() {
       `SELECT id FROM Blog WHERE isPublic = 1 ORDER BY id DESC LIMIT 1`
     );
     return rows[0]?.id || null;
+  } catch (error) {
+    logError('getLatestBlogId', error);
+  }
+}
+
+export async function getLatestBlogTitle() {
+  try {
+    const [rows] = await pool.query(
+      `SELECT title FROM Blog WHERE isPublic = 1 ORDER BY id DESC LIMIT 1`
+    );
+    return rows[0]?.title || null;
   } catch (error) {
     logError('getLatestBlogId', error);
   }

@@ -1,23 +1,27 @@
-import { deleteBlog, getBlog, getBlogAuthenticated, getLatestBlogId, updateBlog } from "@/app/lib/dbActions";
+import { deleteBlog, getBlog, getBlogAuthenticated, getBlogByTitleAuthenticated, getLatestBlogId, getLatestBlogTitle, updateBlog } from "@/app/lib/dbActions";
 import { NextResponse } from "next/server";
 import { auth } from "@/app/auth";
 
 export const dynamic = 'force-dynamic';
 
 export const GET = auth(async function GET(req, { params }) {
-  let searchId = params.id;
+  //let searchId = params.id;
+  let searchId = decodeURIComponent(params.id);
   let res = null;
 
   if (params.id === 'latest') {
-    searchId = await getLatestBlogId();
-  } else if (!/^\d+$/.test(params.id)) { // Ensure `id` is numeric
-    return NextResponse.json({ error: "Invalid blog ID" }, { status: 400 });
-  }
+    //searchId = await getLatestBlogId();
+    searchId = await getLatestBlogTitle();
+  } 
+  // else if (!/^\d+$/.test(params.id)) { // Ensure `id` is numeric
+  //   return NextResponse.json({ error: "Invalid blog ID" }, { status: 400 });
+  // }
 
   if (req.auth) {
-    res = await getBlogAuthenticated(searchId, req.auth.user.email);
+    //res = await getBlogAuthenticated(searchId, req.auth.user.email);
+    res = await getBlogByTitleAuthenticated(searchId, req.auth.user.email);
   } else {
-    res = await getBlog(searchId);
+    res = await getBlogByTitle(searchId);
   }
 
   if (!res) {
