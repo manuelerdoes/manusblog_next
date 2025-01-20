@@ -74,6 +74,7 @@ Following services are needed to allow the whole app to run:
 * LOW: textarea resizable with current init size ✅
 * LOW: fix mobile design Blogtitle and Edit form ✅
 * LOW: document newly found server (nginx) stuff ✅
+* MID: urls with blog name ✅
 
 * BUG LOW: cant comment with emojis on mobile ✅ -> utf8mb4 muss konfiguriert sein in mysql
 * BUG HIGH: No pics loaded when not logged in ✅
@@ -100,7 +101,6 @@ Following services are needed to allow the whole app to run:
 * LOW: hide new blog button when not logged in?
 * MID: fix about.md fetch
 * MID: global switch for fetching from same server or external
-* MID: urls with blog name
 * MID: editform fetch newest version
 
 * BUG MID: avatar upload not working on mobile prod

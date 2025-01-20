@@ -154,7 +154,7 @@ function BlogList() {
 
             <div className="blog-entries">
                 {filteredBlogs.map(blogentry => (
-                    <div key={blogentry.id} className={`blog-list-item blog-list-${blogentry.topic} ${!blogentry.isPublic ? 'notpublic' : ''}`} onClick={() => handleBlogClick(blogentry.title)}>
+                    <div key={blogentry.id} className={`blog-list-item blog-list-${blogentry.topic} ${!blogentry.isPublic ? 'notpublic' : ''}`} onClick={() => handleBlogClick(blogentry.slug)}>
                         <p>{blogentry.title}</p>
                     </div>
                 ))}

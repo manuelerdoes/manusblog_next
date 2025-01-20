@@ -72,7 +72,7 @@ const Details = ({blogId}) => {
   // }, [blogId]);
 
   const handleClickEditButton = () => {
-    router.push('/editblog/' + currentBlog.id);
+    router.push('/editblog/' + currentBlog.slug);
   }
 
   const handleClickDeleteButton = async () => {

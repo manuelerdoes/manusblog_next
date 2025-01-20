@@ -23,15 +23,15 @@ export async function getUser(email) {
 }
 
 // Blog actions
-export async function newBlog(userId, title, created, content, tags, topic, isPublic, disableComments) {
+export async function newBlog(userId, title, created, content, tags, topic, isPublic, disableComments, slug) {
   const isPublicInt = boolStringToInt(isPublic);
   const disableCommentsInt = boolStringToInt(disableComments);
 
   try {
     const [rows] = await pool.query(
-      `INSERT INTO Blog (userId, title, created, modified, content, tags, topic, isPublic, disableComments) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [userId, title, created, created, content, tags, topic, isPublicInt, disableCommentsInt]
+      `INSERT INTO Blog (userId, title, created, modified, content, tags, topic, isPublic, disableComments, slug) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [userId, title, created, created, content, tags, topic, isPublicInt, disableCommentsInt, slug]
     );
     return rows.insertId;
   } catch (error) {
@@ -103,11 +103,11 @@ export async function getBlog(id) {
   }
 }
 
-export async function getBlogByTitle(title) {
+export async function getBlogBySlug(slug) {
   try {
     const [rows] = await pool.query(
-      'SELECT * FROM Blog WHERE title = ? AND isPublic = 1',
-      [title]
+      'SELECT * FROM Blog WHERE slug = ? AND isPublic = 1',
+      [slug]
     );
     return rows[0] || null;
   } catch (error) {
@@ -127,11 +127,11 @@ export async function getBlogAuthenticated(id, userId) {
   }
 }
 
-export async function getBlogByTitleAuthenticated(title, userId) {
+export async function getBlogBySlugAuthenticated(slug, userId) {
   try {
     const [rows] = await pool.query(
-      `SELECT * FROM Blog WHERE title = ? AND (isPublic = 1 OR userId = ?)`,
-      [title, userId]
+      `SELECT * FROM Blog WHERE slug = ? AND (isPublic = 1 OR userId = ?)`,
+      [slug, userId]
     );
     return rows[0] || null;
   } catch (error) {
@@ -150,14 +150,14 @@ export async function getLatestBlogId() {
   }
 }
 
-export async function getLatestBlogTitle() {
+export async function getLatestBlogSlug() {
   try {
     const [rows] = await pool.query(
-      `SELECT title FROM Blog WHERE isPublic = 1 ORDER BY id DESC LIMIT 1`
+      `SELECT slug FROM Blog WHERE isPublic = 1 ORDER BY id DESC LIMIT 1`
     );
-    return rows[0]?.title || null;
+    return rows[0]?.slug || null;
   } catch (error) {
-    logError('getLatestBlogId', error);
+    logError('getLatestBlogSlug', error);
   }
 }
 

@@ -19,6 +19,7 @@
     "marked": "^14.1.2",
     "marked-highlight": "^2.2.1",
     "mysql2": "^3.11.3",
+    "nanoid": "^5.0.9",
     "net": "^1.0.2",
     "next": "14.2.14",
     "next-auth": "^5.0.0-beta.22",
@@ -26,6 +27,7 @@
     "nodemailer": "^6.9.16",
     "react": "^18",
     "react-dom": "^18",
+    "slugify": "^1.6.6",
     "swr": "^2.2.5"
   },
   "devDependencies": {
