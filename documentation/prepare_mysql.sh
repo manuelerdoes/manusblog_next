@@ -68,7 +68,9 @@ CREATE TABLE IF NOT EXISTS Blog (
     topic VARCHAR(255) NOT NULL,
     isPublic BOOLEAN NOT NULL,
     disableComments BOOLEAN NOT NULL,
-    PRIMARY KEY (id)
+    slug VARCHAR(255) NOT NULL UNIQUE,
+    PRIMARY KEY (id),
+    INDEX slug_index (slug)
 );
 
 CREATE TABLE IF NOT EXISTS Comment (

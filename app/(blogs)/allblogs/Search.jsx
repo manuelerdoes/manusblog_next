@@ -27,6 +27,7 @@ function Search() {
           return;
         }
         const data = await res.json();
+        setCurrentBlogList(data);
         const userlist = await addUsernameToBloglist(data);
         setCurrentBlogList(userlist);
       } catch (error) {
@@ -68,18 +69,18 @@ function Search() {
   };
 
 
-  useEffect(() => {
-    if (!currentBlogList) return;
+  // useEffect(() => {
+  //   if (!currentBlogList) return;
 
-    const sortedBlogs = [...currentBlogList].sort((a, b) => {
-      const aValue = parse(a.created, "dd.MM.yyyy HH:mm:ss", new Date());
-      const bValue = parse(b.created, "dd.MM.yyyy HH:mm:ss", new Date());
+  //   const sortedBlogs = [...currentBlogList].sort((a, b) => {
+  //     const aValue = parse(a.created, "dd.MM.yyyy HH:mm:ss", new Date());
+  //     const bValue = parse(b.created, "dd.MM.yyyy HH:mm:ss", new Date());
 
-      return compareAsc(aValue, bValue);
-    });
+  //     return compareAsc(aValue, bValue);
+  //   });
 
-    setFilteredBlogs(sortedBlogs);
-  }, [currentBlogList]);
+  //   setFilteredBlogs(sortedBlogs);
+  // }, [currentBlogList]);
 
   useEffect(() => {
     const debouncedSearch = debounce((searchText) => {

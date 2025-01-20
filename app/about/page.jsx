@@ -1,4 +1,5 @@
 import About from './About.jsx';
+import { appVersion } from '../version.js';
 export default function page() {
 
     return (
@@ -10,6 +11,9 @@ export default function page() {
                 <div className="content">
                     <About />
                 </div>
+                <div className="version">
+                    <p>App Version: {appVersion}</p>
+                </div>  
             </div>
         </div>
     );
