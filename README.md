@@ -96,7 +96,7 @@ Following services are needed to allow the whole app to run:
 * LOW: Table of Contents
 * LOW: copy to clipboard button in code blocks
 * MID: move fetching to server side
-* HIGH: Search is inefficient and slow
+* LOW: Search is inefficient and slow -> much better now
 * LOW: Usermanager
 * LOW: hide new blog button when not logged in?
 * MID: fix about.md fetch

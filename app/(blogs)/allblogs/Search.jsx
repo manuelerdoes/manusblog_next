@@ -42,8 +42,8 @@ function Search() {
     email: session?.user.email
   };
 
-  const handleBlogClick = (id) => {
-    router.push(`/blog/${id}`);
+  const handleBlogClick = (slug) => {
+    router.push(`/blog/${slug}`);
   };
 
   const handleSort = (field) => {
@@ -154,7 +154,7 @@ function Search() {
               <tr
                 key={blogentry.id}
                 className={`big-search-item ${blogentry.topic}-item ${!blogentry.isPublic ? 'not-public-item' : ''}`}
-                onClick={() => handleBlogClick(blogentry.id)}
+                onClick={() => handleBlogClick(blogentry.slug)}
               >
                 <td data-label="Title" className='resulttitle'>{blogentry.title}</td>
                 <td data-label="Topic">{blogentry.topic}</td>

@@ -1393,7 +1393,7 @@ pre code.hljs {
     @apply text-xs;
     content: attr(data-label);
     font-weight: lighter;
-    flex-basis: 30%;
+    flex-basis: 19%;
   }
 
   .resulttitle {
