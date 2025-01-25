@@ -38,7 +38,7 @@ function EditBlogForm({currentUser, blogid}) {
       }),
     });
     if (!res.ok) {
-      throw new Error('§sponse was not ok');
+      throw new Error('response was not ok');
     }
     const modified = await res.json();
       

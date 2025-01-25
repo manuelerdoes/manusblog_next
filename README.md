@@ -102,6 +102,7 @@ Following services are needed to allow the whole app to run:
 * MID: fix about.md fetch
 * MID: global switch for fetching from same server or external
 * MID: editform fetch newest version
+* MID: multimedia: audio and video
 
 * BUG MID: avatar upload not working on mobile prod
 * BUG LOW: no favicon on prod

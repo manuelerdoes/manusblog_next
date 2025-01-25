@@ -863,6 +863,8 @@ button:hover {
 .blog-content h1,
 .blog-content h2,
 .blog-content h3,
+.blog-content h4,
+.blog-content h5,
 .blog-content li,
 .blog-content a,
 .blog-content ol,
@@ -888,6 +890,10 @@ button:hover {
 
 .blog-content h3 {
   @apply text-base mb-[7px] font-semibold;
+}
+
+.blog-content h4 {
+  @apply text-sm mb-[7px] font-semibold;
 }
 
 .blog-content ol,

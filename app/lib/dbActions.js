@@ -39,15 +39,15 @@ export async function newBlog(userId, title, created, content, tags, topic, isPu
   }
 }
 
-export async function updateBlog(id, title, modified, content, tags, topic, isPublic, disableComments) {
+export async function updateBlog(slug, title, modified, content, tags, topic, isPublic, disableComments) {
   const isPublicInt = boolStringToInt(isPublic);
   const disableCommentsInt = boolStringToInt(disableComments);
 
   try {
     const [rows] = await pool.query(
       `UPDATE Blog SET title = ?, modified = ?, content = ?, tags = ?, topic = ?, isPublic = ?, disableComments = ? 
-      WHERE id = ?`,
-      [title, modified, content, tags, topic, isPublicInt, disableCommentsInt, id]
+      WHERE slug = ?`,
+      [title, modified, content, tags, topic, isPublicInt, disableCommentsInt, slug]
     );
     return rows.affectedRows;
   } catch (error) {
