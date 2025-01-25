@@ -14,6 +14,14 @@ body {
   font-family: "Lucida Sans","Lucida Sans Regular","Lucida Grande","Lucida Sans Unicode",Geneva,Verdana,sans-serif;
 }
 
+body input[type="text"],
+body input[type="number"],
+body input[type="email"],
+body input[type="tel"],
+body input[type="password"] {
+  font-size: 16px;
+}
+
 [data-theme='computer'] body {
   @apply bg-piggy;
 }
@@ -397,7 +405,8 @@ button:hover {
 }
 
 .new-blog-content textarea {
-  @apply h-full p-2.5 rounded w-full text-xs;
+  @apply h-full p-2.5 rounded w-full;
+  font-size: 16px;
   resize: vertical;
   border-radius: 10px;
   background-color: rgba(255,255,224,0.456);
