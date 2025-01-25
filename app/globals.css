@@ -933,7 +933,8 @@ button:hover {
 }
 
 .blog-content table {
-  @apply w-[80%] p-[1px] border-separate border-none;
+  @apply p-[1px] border-separate border-none;
+  width: auto;
   border-spacing: 1px 3px;
 }
 
