@@ -654,7 +654,7 @@ button:hover {
 }
 
 .blog-wrapper {
-  @apply text-justify flex flex-col gap-2.5 p-1.5 px-8 h-full;
+  @apply flex flex-col gap-2.5 p-1.5 px-8 h-full;
   @apply border-l border-r border-solid border-[rgba(0,0,0,0.15)];
   flex: 3;
   hyphens: auto;
@@ -1250,7 +1250,7 @@ pre code.hljs {
   }
 
   .blog-wrapper {
-    @apply text-justify w-full flex flex-col gap-1 p-1 px-0 h-full border-none items-center;
+    @apply w-full flex flex-col gap-1 p-1 px-0 h-full border-none items-center;
     flex: 3;
     border-left: none;
     border-right: none;
