@@ -210,6 +210,10 @@ button:hover {
   @apply px-40 py-2 flex flex-col items-center gap-5 justify-center;
 }
 
+.about a {
+  @apply bg-[rgba(251,150,67,0.848)] text-black px-[3px] rounded-[2px];
+}
+
 .version {
   @apply pt-2 items-center justify-center;
 }

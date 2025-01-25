@@ -1,4 +1,5 @@
 
+// 1.0.9  25.01.2024    M. Erdös    Blog content table autowidth.
 // 1.0.8  25.01.2024    M. Erdös    Fixed UpdateBlog function to run with slugs. started creation documentation. bold h4 in content.
 // 1.0.7  21.01.2024    M. Erdös    Search.jsx uses slugs now. Search mobile design improvement
 // 1.0.6  20.01.2024    M. Erdös    Show search results without author while querying author
@@ -12,4 +13,4 @@
 // 0.0.2  12.10.2024    M. Erdös    Added most of the design elements
 // 0.0.1   1.10.2024    M. Erdös    Initial
 
-export const appVersion = "1.0.8";
+export const appVersion = "1.0.9";
