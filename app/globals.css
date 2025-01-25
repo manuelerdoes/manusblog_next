@@ -1265,7 +1265,20 @@ pre code.hljs {
   }
 
   .comments {
+    @apply px-1;
     width: 95%;
+  }
+
+  .new-comment {
+    @apply flex w-full p-0 gap-[10px];
+  }
+
+  .new-comment form {
+    @apply gap-1;
+  }
+
+  .new-comment textarea {
+    @apply p-1; 
   }
 
   .blog-content {
