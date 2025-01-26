@@ -1,20 +1,38 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PublicButton from './PublicButton';
 import CommentsButton from './CommentsButton';
 import UploadPictures from '@/app/components/UploadPictures';
 import { useRouter } from 'next/navigation';
-import useSWR from 'swr';
 import { apiServer } from '@/app/lib/const';
 import { getFormattedDateTime } from '@/app/lib/utils';
 
-function EditBlogForm({currentUser, blogid}) {
+function EditBlogForm({ currentUser, blogid }) {
   const router = useRouter();
-  const fetcher = (...args) => fetch(...args).then((res) => res.json())
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
 
-  const { data, error } = useSWR(`${apiServer}/api/blog/${blogid}`, fetcher)
- 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`${apiServer}/api/blog/${blogid}`, {
+          headers: {
+            'Cache-Control': 'no-cache',
+          },
+        });
+        if (!res.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await res.json();
+        setData(data);
+      } catch (error) {
+        setError(error);
+      }
+    };
+    fetchData();
+  }, [blogid]);
+
   if (error) return <div>Failed to load</div>
   if (!data) return <div>Loading...</div>
 
@@ -41,10 +59,10 @@ function EditBlogForm({currentUser, blogid}) {
       throw new Error('response was not ok');
     }
     const modified = await res.json();
-      
+
     return modified.res;
   }
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -110,7 +128,7 @@ function EditBlogForm({currentUser, blogid}) {
           </form>
         </div>
         <div className="pictureUpload">
-          <UploadPictures currentUser={currentUser} blogid={blogid}/>
+          <UploadPictures currentUser={currentUser} blogid={blogid} />
         </div>
       </div>
 
