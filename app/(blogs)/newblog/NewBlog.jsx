@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { getFormattedDateTime, sleep } from '@/app/lib/utils';
 import { apiServer } from '@/app/lib/const';
 import { useSession } from "next-auth/react"
+import UploadFiles from '@/app/components/UploadFiles';
 
 function NewBlog() {
   const router = useRouter();
@@ -136,8 +137,14 @@ function NewBlog() {
             </div>
           </form>
         </div>
-        <div className="pictureUpload">
-          <UploadPictures currentUser={currentUser} uploadedPictures={uploadedPictures} setUploadedPictures={setUploadedPictures}/>
+        <div className="uploaders">
+          <div className="pictureUpload">
+            <UploadPictures currentUser={currentUser} uploadedPictures={uploadedPictures} setUploadedPictures={setUploadedPictures} />
+          </div>
+          <div className="upload-separator"></div>
+          <div className="fileUpload">
+            <UploadFiles currentUser={currentUser} />
+          </div>
         </div>
       </div>
 
