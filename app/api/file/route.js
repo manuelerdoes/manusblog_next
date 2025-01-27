@@ -4,6 +4,7 @@ import { saveFileToStorage } from "@/app/lib/storage/saveFileToStorageServerActi
 import { fileStorageDirectory, fileStorageUrl } from "@/app/lib/const";
 import { writeFileToDb } from "@/app/lib/storage/writeFileToDbServerAction";
 import { getFilesOfUser } from "@/app/lib/storage/getFilesOfUserServerAction";
+import { nanoid } from 'nanoid'
 
 export const dynamic = 'force-dynamic';
 
@@ -21,11 +22,12 @@ export const POST = auth(async function POST(request) {
   }
 
   // Process the file here, e.g., save it to storage
-  const filePath = `${fileStorageDirectory}/${file.name}`;
+  const uniqueFileName = `${nanoid(5)}-${file.name}`;
+  const filePath = `${fileStorageDirectory}/${uniqueFileName}`;
   const fileBuffer = await file.arrayBuffer();
   const fileData = Buffer.from(fileBuffer);
   //const fileUrl = fileStorageUrl + "/" + encodeURIComponent(file.name);
-  const fileUrl = new URL(fileStorageUrl + '/' + file.name, import.meta.url).href;
+  const fileUrl = new URL(fileStorageUrl + '/' + uniqueFileName, import.meta.url).href;
   await saveFileToStorage(filePath, fileData);
   await writeFileToDb(fileUrl, email);
 
