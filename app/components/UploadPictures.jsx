@@ -225,7 +225,7 @@ function UploadPictures({ currentUser, blogid, uploadedPictures, setUploadedPict
 
     return (
         <div className='uploadPicturesContainer'>
-            <div className="picturetitle">
+            <div className="uploader-title">
                 <h3>Pictures</h3>
             </div>
             <div

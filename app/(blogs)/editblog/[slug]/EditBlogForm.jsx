@@ -7,6 +7,7 @@ import UploadPictures from '@/app/components/UploadPictures';
 import { useRouter } from 'next/navigation';
 import { apiServer } from '@/app/lib/const';
 import { getFormattedDateTime } from '@/app/lib/utils';
+import UploadFiles from '@/app/components/UploadFiles';
 
 function EditBlogForm({ currentUser, blogid }) {
   const router = useRouter();
@@ -127,8 +128,14 @@ function EditBlogForm({ currentUser, blogid }) {
             </div>
           </form>
         </div>
-        <div className="pictureUpload">
-          <UploadPictures currentUser={currentUser} blogid={blogid} />
+        <div className="uploaders">
+          <div className="pictureUpload">
+            <UploadPictures currentUser={currentUser} blogid={blogid} />
+          </div>
+          <div className="upload-separator"></div>
+          <div className="fileUpload">
+            <UploadFiles currentUser={currentUser} blogid={blogid} />
+          </div>
         </div>
       </div>
 
