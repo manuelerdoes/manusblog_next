@@ -11,6 +11,7 @@ const marked = new Marked(
   markedHighlight({
     emptyLangClass: 'hljs',
     langPrefix: 'hljs language-',
+    sanitize: false,
     highlight(code, lang, info) {
       const language = hljs.getLanguage(lang) ? lang : 'plaintext';
       return hljs.highlight(code, { language }).value;
@@ -20,6 +21,7 @@ const marked = new Marked(
 
 function LoadBlogContentAuthenticated({ blogId }) {
   const [currentBlog, setCurrentBlog] = useState(null);
+  const [parsedByDOMPurify, setParsedByDOMPurify] = useState(null);
   // const { setTheme } = useTheme();
 
   useEffect(() => {
@@ -33,6 +35,12 @@ function LoadBlogContentAuthenticated({ blogId }) {
       }
       const data = await res.json();
       setCurrentBlog(data);
+      const marki = marked.parse(data.content);
+      const puri = DOMPurify.sanitize(marki, {
+        ADD_TAGS: ['iframe'], // Add iframe as an allowed tag
+        ADD_ATTR: ['src', 'width', 'height', 'frameborder', 'allowfullscreen'], // Allow necessary attributes for iframes
+      });
+      setParsedByDOMPurify(puri);
     };
 
     fetchBlog();
@@ -55,7 +63,7 @@ function LoadBlogContentAuthenticated({ blogId }) {
         {!currentBlog.isPublic && (<span>not public</span>)}
       </div>
       <div className="blog-content">
-        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(currentBlog.content)) }} />
+        <div dangerouslySetInnerHTML={{ __html: parsedByDOMPurify }} />
       </div>
     </>
   )

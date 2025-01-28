@@ -99,7 +99,7 @@ The **package.json** file reveals that there are other NPM packages that have be
 
 ### Component tree
 
-![Component Tree](https://bitesnbytes.ch/files/component_tree.png)
+https://bitesnbytes.ch/files/xF3g--component_tree.pdf
 
 The goal is to use server rendering as much as possible. This is not the case right now, so there is room for improvement. What can be seen on the diagram is that the blog content is rendered on the server. But if the user who reads it is authenticated, the content gets served by a client component. This is because difficulties with authenticated requests from server components have been encountered. For now loading times without authorisation are fast and SEO is possible. Also are not-authorised users prevented from accessing not-public blogposts. The downside is the slower loading time when users are logged in. 
 

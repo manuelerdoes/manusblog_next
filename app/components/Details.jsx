@@ -103,7 +103,7 @@ const Details = ({blogId}) => {
 
     !currentBlog ? (
       <div className="blog-details">
-        <p>no data</p>
+        <p></p>
       </div>
     ) : (
       allowed ? (

@@ -6,7 +6,7 @@ import hljs from 'highlight.js';
 
 const marked = new Marked(
   markedHighlight({
-	emptyLangClass: 'hljs',
+    emptyLangClass: 'hljs',
     langPrefix: 'hljs language-',
     highlight(code, lang, info) {
       const language = hljs.getLanguage(lang) ? lang : 'plaintext';
@@ -44,7 +44,12 @@ async function LoadBlogContent({ blogId }) {
         {!currentBlog.isPublic && (<span>not public</span>)}
       </div>
       <div className="blog-content">
-        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(currentBlog.content)) }} />
+        <div dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(marked.parse(currentBlog.content), {
+            ADD_TAGS: ['iframe'], // Add iframe as an allowed tag
+            ADD_ATTR: ['src', 'width', 'height', 'frameborder', 'allowfullscreen'], // Allow necessary attributes for iframes
+          })
+        }} />
       </div>
     </>
   )
