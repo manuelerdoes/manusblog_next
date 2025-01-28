@@ -79,7 +79,6 @@ const Details = ({blogId}) => {
 
   const handleClickDeleteButton = async () => {
     try {
-
       const res = await fetch(`${apiServer}/api/blog/${currentBlog.id}`, {
         method: 'DELETE',
         headers: {

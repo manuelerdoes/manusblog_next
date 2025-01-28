@@ -76,6 +76,9 @@ Following services are needed to allow the whole app to run:
 * LOW: document newly found server (nginx) stuff ✅
 * MID: urls with blog name ✅
 * MID: editform fetch newest version ✅ 
+* MID: multimedia: audio and video ✅
+* LOW: Search is inefficient and slow -> much better now ✅
+* BUG LOW: cannot delete blogs when not public ✅
 
 * BUG LOW: cant comment with emojis on mobile ✅ -> utf8mb4 muss konfiguriert sein in mysql
 * BUG HIGH: No pics loaded when not logged in ✅
@@ -97,19 +100,13 @@ Following services are needed to allow the whole app to run:
 * LOW: Table of Contents
 * LOW: copy to clipboard button in code blocks
 * MID: move fetching to server side
-* LOW: Search is inefficient and slow -> much better now
 * LOW: Usermanager
 * LOW: hide new blog button when not logged in?
 * MID: fix about.md fetch
 * MID: global switch for fetching from same server or external
-* MID: multimedia: audio and video
 
 * BUG MID: avatar upload not working on mobile prod
-* BUG LOW: no favicon on prod
 * BUG LOW: direct camera upload on mobile (at least ios) not working
 * BUG LOW: Details.jsx when showing user pics and then hiding, the blog pics also vanish
-* BUG LOW: cannot delete blogs when not public
-
-* SECURITY: implement blog access control in Details.jsx
 
 
