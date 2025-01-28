@@ -104,9 +104,9 @@ Following services are needed to allow the whole app to run:
 * LOW: hide new blog button when not logged in?
 * MID: fix about.md fetch
 * MID: global switch for fetching from same server or external
+* LOW: compress avatar pics before uploading
 
-* BUG MID: avatar upload not working on mobile prod
-* BUG LOW: direct camera upload on mobile (at least ios) not working
 * BUG LOW: Details.jsx when showing user pics and then hiding, the blog pics also vanish
+* BUG MID: used pics and files in edit mode not showing in the uploaders
 
 
