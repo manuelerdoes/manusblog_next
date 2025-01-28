@@ -1,6 +1,7 @@
 
-// 1.1.3  26.01.2024    M. Erdös    dompurify now allows iframes. embedding yt-videos now possible
-// 1.1.2  26.01.2024    M. Erdös    added fileuploading and made filenames uniqiue
+// 1.1.4  28.01.2024    M. Erdös    deleting non-public blogposts works now.
+// 1.1.3  28.01.2024    M. Erdös    dompurify now allows iframes. embedding yt-videos now possible
+// 1.1.2  26.01.2024    M. Erdös    added fileuploading and made filenames unique
 // 1.1.1  26.01.2024    M. Erdös    EditBlogForm fetches data every time now, without cache
 // 1.1.0  25.01.2024    M. Erdös    align text left instead of justify
 // 1.0.10 25.01.2024    M. Erdös    Design improvements: more space for comments and bigger font size for inputs.
@@ -18,4 +19,4 @@
 // 0.0.2  12.10.2024    M. Erdös    Added most of the design elements
 // 0.0.1   1.10.2024    M. Erdös    Initial
 
-export const appVersion = "1.1.3";
+export const appVersion = "1.1.4";
