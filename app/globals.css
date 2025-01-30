@@ -1026,6 +1026,25 @@ button:hover {
   border-left: 10px solid black;
 }
 
+[data-theme='robotics'] .hljs {
+  background-color: rgb(0 16 206 / 38%);
+}
+
+pre {
+  position: relative;
+  /*padding: 10px; /* add some padding to create space for the button */
+}
+
+.copy-button {
+  @apply rounded-xl p-2 bg-black text-xs;
+  color: rgba(255, 255, 255, 0.69);
+  border: solid rgba(255, 255, 255, 0.69) 0.5px;
+  position: absolute;
+  top: 6px; /* adjust the top position to match the padding */
+  right: 6px; /* adjust the right position to match the padding */
+  z-index: 1; /* add a z-index to ensure the button is on top of the code */
+}
+
 pre code.hljs {
   @apply p-2;
 }
