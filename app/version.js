@@ -1,4 +1,5 @@
 
+// 1.1.6  30.01.2024    M. Erdös    design: brighter background in code snippets in robotics theme. copy button in code snippets (works only with safari)
 // 1.1.5  28.01.2024    M. Erdös    unique avatar picture names. should solve problems with mobile direct pics
 // 1.1.4  28.01.2024    M. Erdös    deleting non-public blogposts works now.
 // 1.1.3  28.01.2024    M. Erdös    dompurify now allows iframes. embedding yt-videos now possible
@@ -20,4 +21,4 @@
 // 0.0.2  12.10.2024    M. Erdös    Added most of the design elements
 // 0.0.1   1.10.2024    M. Erdös    Initial
 
-export const appVersion = "1.1.5";
+export const appVersion = "1.1.6";
