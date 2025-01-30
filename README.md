@@ -79,6 +79,7 @@ Following services are needed to allow the whole app to run:
 * MID: multimedia: audio and video ✅
 * LOW: Search is inefficient and slow -> much better now ✅
 * BUG LOW: cannot delete blogs when not public ✅
+* LOW: copy to clipboard button in code blocks ✅
 
 * BUG LOW: cant comment with emojis on mobile ✅ -> utf8mb4 muss konfiguriert sein in mysql
 * BUG HIGH: No pics loaded when not logged in ✅
@@ -98,7 +99,6 @@ Following services are needed to allow the whole app to run:
 * MID: fixed bloglist
 * LOW: newblog and editblog onChange topic -> sessionStore and event
 * LOW: Table of Contents
-* LOW: copy to clipboard button in code blocks
 * MID: move fetching to server side
 * LOW: Usermanager
 * LOW: hide new blog button when not logged in?

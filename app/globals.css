@@ -1037,10 +1037,12 @@ pre {
 
 .copy-button {
   @apply rounded-xl p-2 bg-black text-xs;
+  padding-top: 1px;
+  padding-bottom: 1px;
   color: rgba(255, 255, 255, 0.69);
   border: solid rgba(255, 255, 255, 0.69) 0.5px;
   position: absolute;
-  top: 6px; /* adjust the top position to match the padding */
+  top: 2px; /* adjust the top position to match the padding */
   right: 6px; /* adjust the right position to match the padding */
   z-index: 1; /* add a z-index to ensure the button is on top of the code */
 }
