@@ -165,7 +165,7 @@ function Search() {
               >
                 <td data-label="Title" className='resulttitle'>{blogentry.title}</td>
                 <td data-label="Topic">{blogentry.topic}</td>
-                <td data-label="Author">👤{blogentry.userName}</td>
+                <td data-label="Author">👤 {blogentry.userName}</td>
                 <td data-label="Tags" className='resulttags'>{blogentry.tags}</td>
                 <td data-label="Created" className='resultdate'>{blogentry.created}</td>
               </tr>
