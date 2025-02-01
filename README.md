@@ -79,6 +79,8 @@ Following services are needed to allow the whole app to run:
 * MID: multimedia: audio and video ✅
 * LOW: Search is inefficient and slow -> much better now ✅
 * BUG LOW: cannot delete blogs when not public ✅
+* LOW: make Detail topic clickable ✅
+* LOW: make Detail tags clickable ✅
 
 * BUG LOW: cant comment with emojis on mobile ✅ -> utf8mb4 muss konfiguriert sein in mysql
 * BUG HIGH: No pics loaded when not logged in ✅
@@ -90,7 +92,7 @@ Following services are needed to allow the whole app to run:
 
 * LOW: copy to clipboard button in code blocks ✅ ☢️ -> does not work on mobile non-safari
 * LOW: make searchbar topic filter keep selection when changing blogpost
-* LOW: make Detail topic and author clickable
+* LOW: make Detail author clickable
 * LOW: mobilemenu yellow hover
 * LOW: make picture upload more beautiful
 * LOW: loading with animation
@@ -107,4 +109,5 @@ Following services are needed to allow the whole app to run:
 * MID: fix about.md fetch
 * MID: global switch for fetching from same server or external
 * LOW: compress avatar pics before uploading
+* LOW: edit / new blog on mobile: insert clipboard button
 

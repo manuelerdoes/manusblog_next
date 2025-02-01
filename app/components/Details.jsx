@@ -6,14 +6,20 @@ import { apiServer } from '../lib/const';
 import { useRouter } from 'next/navigation';
 import { useSession } from "next-auth/react"
 import { useTheme } from 'next-themes';
-import { pageTitle } from '../lib/const';
+import { pageTitle, hostUrl } from '../lib/const';
+import Link from 'next/link';
+
+const commaListToArray = (commaList) => {
+  return commaList.split(',').map((item) => item.trim());
+}
 
 
-const Details = ({blogId}) => {
+const Details = ({ blogId }) => {
 
   const [showEditButton, setShowEditButton] = useState(false);
   const [currentBlog, setCurrentBlog] = useState(null);
   const [author, setAuthor] = useState(null);
+  const [tagArray, setTagArray] = useState([]);
   const router = useRouter();
   const { setTheme } = useTheme();
 
@@ -34,6 +40,7 @@ const Details = ({blogId}) => {
       document.title = data.title + " | " + pageTitle;
       getUserInfo(data.userId);
       setTheme(data.topic);
+      setTagArray(commaListToArray(data.tags));
       if (session?.user && (data.userId === session?.user.email || session?.user.role === "admin")) {
         setShowEditButton(true);
       } else {
@@ -131,12 +138,22 @@ const Details = ({blogId}) => {
           <div className="detail-topic detail-item">
             <h3>topic</h3>
             <div className="detail-topico">
-              <p className={`detail-${currentBlog.topic}`}>{currentBlog.topic}</p>
+              <p className={`detail-${currentBlog.topic}`}>
+                <Link href={`${hostUrl}/allblogs?search=${currentBlog.topic}`}>{currentBlog.topic}</Link>
+              </p>
             </div>
           </div>
           <div className="detail-tags detail-item">
             <h3>tags</h3>
-            <p>{currentBlog.tags}</p>
+            {/* <p>{currentBlog.tags}</p> */}
+            <p>
+              {tagArray.map((tag, index) => (
+                <React.Fragment key={index}>
+                  <Link href={`${hostUrl}/allblogs?search=${tag}`}>{tag}</Link>
+                  {index < tagArray.length - 1 && ', '}
+                </React.Fragment>
+              ))}
+            </p>
           </div>
           <div className="detail-timestamps detail-item">
             <h3>created on</h3>

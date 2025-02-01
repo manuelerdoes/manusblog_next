@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { debounce } from 'lodash';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { apiServer } from '@/app/lib/const';
 import { useSession } from "next-auth/react"
 import { addUsernameToBloglist } from '@/app/lib/addUsernameToBloglist';
@@ -16,6 +16,9 @@ function Search() {
   const [currentBlogList, setCurrentBlogList] = useState(null);
   const router = useRouter();
   const { data: session } = useSession();
+  const searchParams = useSearchParams()
+
+
 
   useEffect(() => {
     // Fetch initial blogs when the component mounts
@@ -36,6 +39,11 @@ function Search() {
     };
 
     fetchBlogs();
+
+    const search = searchParams.get('search');
+    if (search) {
+      setSearchText(search);
+    }
   }, []);
 
   const user = {
