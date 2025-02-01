@@ -60,6 +60,7 @@ USE \`$db_name\`;
 CREATE TABLE IF NOT EXISTS Blog (
     id INT AUTO_INCREMENT NOT NULL,
     userId VARCHAR(191),
+    userName VARCHAR(255),
     title VARCHAR(255) NOT NULL,
     created TEXT NOT NULL,
     modified TEXT NOT NULL,

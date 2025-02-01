@@ -23,15 +23,15 @@ export async function getUser(email) {
 }
 
 // Blog actions
-export async function newBlog(userId, title, created, content, tags, topic, isPublic, disableComments, slug) {
+export async function newBlog(userId, userName, title, created, content, tags, topic, isPublic, disableComments, slug) {
   const isPublicInt = boolStringToInt(isPublic);
   const disableCommentsInt = boolStringToInt(disableComments);
 
   try {
     const [rows] = await pool.query(
-      `INSERT INTO Blog (userId, title, created, modified, content, tags, topic, isPublic, disableComments, slug) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [userId, title, created, created, content, tags, topic, isPublicInt, disableCommentsInt, slug]
+      `INSERT INTO Blog (userId, userName, title, created, modified, content, tags, topic, isPublic, disableComments, slug) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [userId, userName, title, created, created, content, tags, topic, isPublicInt, disableCommentsInt, slug]
     );
     return rows.insertId;
   } catch (error) {

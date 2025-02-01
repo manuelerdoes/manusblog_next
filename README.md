@@ -81,6 +81,7 @@ Following services are needed to allow the whole app to run:
 * BUG LOW: cannot delete blogs when not public ✅
 * LOW: make Detail topic clickable ✅
 * LOW: make Detail tags clickable ✅
+* LOW: make Detail author clickable ✅
 
 * BUG LOW: cant comment with emojis on mobile ✅ -> utf8mb4 muss konfiguriert sein in mysql
 * BUG HIGH: No pics loaded when not logged in ✅
@@ -92,7 +93,6 @@ Following services are needed to allow the whole app to run:
 
 * LOW: copy to clipboard button in code blocks ✅ ☢️ -> does not work on mobile non-safari
 * LOW: make searchbar topic filter keep selection when changing blogpost
-* LOW: make Detail author clickable
 * LOW: mobilemenu yellow hover
 * LOW: make picture upload more beautiful
 * LOW: loading with animation

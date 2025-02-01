@@ -5,7 +5,6 @@ import { debounce } from 'lodash';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { apiServer } from '@/app/lib/const';
 import { useSession } from "next-auth/react"
-import { addUsernameToBloglist } from '@/app/lib/addUsernameToBloglist';
 import { compareAsc, parse } from 'date-fns';
 
 function Search() {
@@ -31,8 +30,8 @@ function Search() {
         }
         const data = await res.json();
         setCurrentBlogList(data);
-        const userlist = await addUsernameToBloglist(data);
-        setCurrentBlogList(userlist);
+        // const userlist = await addUsernameToBloglist(data);
+        // setCurrentBlogList(userlist);
       } catch (error) {
         console.error("Error fetching blogs:", error);
       }
@@ -101,7 +100,7 @@ function Search() {
       if (searchText.trim() !== "") {
         filtered = filtered.filter((blog) =>
           blog.title.toLowerCase().includes(searchText.toLowerCase()) ||
-          blog.userId.toLowerCase().includes(searchText.toLowerCase()) ||
+          blog.userName?.toLowerCase().includes(searchText.toLowerCase()) ||
           blog.topic.toLowerCase().includes(searchText.toLowerCase()) ||
           blog.tags?.toLowerCase().includes(searchText.toLowerCase()) ||
           blog.created.includes(searchText)
@@ -146,8 +145,8 @@ function Search() {
               <th onClick={() => handleSort('topic')}>
                 Topic {renderSortIndicator('topic')}
               </th>
-              <th onClick={() => handleSort('username')}>
-                Author {renderSortIndicator('username')}
+              <th onClick={() => handleSort('userName')}>
+                Author {renderSortIndicator('userName')}
               </th>
               <th onClick={() => handleSort('tags')} className='resulttags'>
                 Tags {renderSortIndicator('tags')}
@@ -166,7 +165,7 @@ function Search() {
               >
                 <td data-label="Title" className='resulttitle'>{blogentry.title}</td>
                 <td data-label="Topic">{blogentry.topic}</td>
-                <td data-label="Author">👤{blogentry.username}</td>
+                <td data-label="Author">👤{blogentry.userName}</td>
                 <td data-label="Tags" className='resulttags'>{blogentry.tags}</td>
                 <td data-label="Created" className='resultdate'>{blogentry.created}</td>
               </tr>

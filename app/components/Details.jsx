@@ -131,7 +131,8 @@ const Details = ({ blogId }) => {
                 <img src={author ? author.image || "/avatar.png" : "/avatar.png"} alt="" />
               </div>
               <div className="detail-author-username">
-                {author?.name}
+                {/* {author?.name} */}
+                <Link href={`${hostUrl}/allblogs?search=${currentBlog.userName}`}>{currentBlog.userName}</Link>
               </div>
             </div>
           </div>

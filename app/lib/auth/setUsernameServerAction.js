@@ -1,7 +1,7 @@
 'use server'
 
 import { auth } from "@/app/auth";
-import { authPool } from "../mysql";
+import { authPool, pool } from "../mysql";
 
 export const setNewUsername = async (username) => {
 
@@ -11,6 +11,7 @@ export const setNewUsername = async (username) => {
   }
 
   const uuid = session.user.id;
+  const email = session.user.email;
 
   // Sanitize input
   // const uuidRegExp =
@@ -23,7 +24,8 @@ export const setNewUsername = async (username) => {
   const name = username.trim();
 
   try {
-    await authPool.query(`UPDATE User SET name = '${username}' WHERE id = '${uuid}';`);
+    await authPool.query(`UPDATE User SET name = '${name}' WHERE id = '${uuid}';`);
+    await pool.query(`UPDATE Blog SET userName = '${name}' WHERE userId = '${email}';`);
     return "ok"
   } catch (error) {
     console.error("Database query failed:", error);

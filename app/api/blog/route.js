@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/app/auth";
 export const dynamic = 'force-dynamic';
 import { nanoid } from 'nanoid'
+import { getUsername } from "@/app/lib/auth/getUsernameServerAction";
 
 var slugify = require('slugify')
 
@@ -31,7 +32,9 @@ export const POST = auth(async function POST(request) {
       replacement: '-',
     })}-${nanoid(5)}`;
 
-    const res = await newBlog(data.userId, data.title, data.created, data.content,
+    const userName = await getUsername();
+
+    const res = await newBlog(data.userId, userName, data.title, data.created, data.content,
       data.tags, data.topic, data.isPublic, data.disableComments, slug);
     return NextResponse.json({ res }, { status: 201 });
   } catch (error) {
