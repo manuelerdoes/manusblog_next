@@ -1393,6 +1393,11 @@ pre code.hljs {
     @apply p-1 rounded-xl m-0;
   }
 
+  .uploaders {
+    @apply basis-1/4 flex flex-col;
+    overflow-x: unset;
+  }
+
   .user-manager {
     @apply flex-col w-full p-4;
   }

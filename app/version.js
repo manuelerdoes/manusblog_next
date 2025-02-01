@@ -1,4 +1,5 @@
 
+// 1.2.2  01.02.2025    M. Erdös    mobile picture upload no overflow
 // 1.2.1  01.02.2025    M. Erdös    fixed bug where blog and file couldn't be connected in the db.
 // 1.2.0  01.02.2025    M. Erdös    added username to blogpost in db. and made author in details clickable. ATTENTION: DB alteration needed
 // 1.1.9  01.02.2025    M. Erdös    topic and tags in Details now clickable -> link to search
@@ -26,4 +27,4 @@
 // 0.0.2  12.10.2024    M. Erdös    Added most of the design elements
 // 0.0.1   1.10.2024    M. Erdös    Initial
 
-export const appVersion = "1.2.1";
+export const appVersion = "1.2.2";
