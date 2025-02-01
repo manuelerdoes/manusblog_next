@@ -13,6 +13,8 @@ function EditBlogForm({ currentUser, blogid }) {
   const router = useRouter();
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const [uploadedPictures, setUploadedPictures] = useState([]);
+  const [uploadedFiles, setUploadedFiles] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -130,11 +132,11 @@ function EditBlogForm({ currentUser, blogid }) {
         </div>
         <div className="uploaders">
           <div className="pictureUpload">
-            <UploadPictures currentUser={currentUser} blogid={blogid} />
+            <UploadPictures currentUser={currentUser} blogid={blogid} uploadedPictures={uploadedPictures} setUploadedPictures={setUploadedPictures}/>
           </div>
           <div className="upload-separator"></div>
           <div className="fileUpload">
-            <UploadFiles currentUser={currentUser} blogid={blogid} />
+            <UploadFiles currentUser={currentUser} blogid={blogid} uploadedFiles={uploadedFiles} setUploadedFiles={setUploadedFiles}/>
           </div>
         </div>
       </div>

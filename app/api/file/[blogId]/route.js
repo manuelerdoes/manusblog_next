@@ -11,8 +11,9 @@ export const GET = auth(async function GET(request, { params }) {
   if (!request.auth) {
     return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
   }
-
+  console.log("id: ", params.blogId);
   const files = await getFilesOfBlog(params.blogId);
+  console.log("files: ", files);
   if (!files) {
     return NextResponse.json({ error: "no files" }, { status: 200 });
   }

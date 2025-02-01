@@ -30,6 +30,7 @@ function UploadPictures({ currentUser, blogid, uploadedPictures, setUploadedPict
                 const data = await res.json();
                 const img = data.map(item => item.fileName);
                 setServerImages(img);
+                setUploadedPictures(img);
             };
             fetchPictures();
         }

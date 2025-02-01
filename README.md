@@ -79,14 +79,16 @@ Following services are needed to allow the whole app to run:
 * MID: multimedia: audio and video ✅
 * LOW: Search is inefficient and slow -> much better now ✅
 * BUG LOW: cannot delete blogs when not public ✅
-* LOW: copy to clipboard button in code blocks ✅
 
 * BUG LOW: cant comment with emojis on mobile ✅ -> utf8mb4 muss konfiguriert sein in mysql
 * BUG HIGH: No pics loaded when not logged in ✅
 * BUG MID: picture upload not working in prod (upload kinda works, but picture only available after service restart) ✅ -> fix in nginx config. see install_on_linux.md -> no bug
+* BUG MID: used pics and files in edit mode not showing in the uploaders ✅
+* BUG LOW: Details.jsx when showing user pics and then hiding, the blog pics also vanish ✅
 
 ---
 
+* LOW: copy to clipboard button in code blocks ✅ ☢️ -> does not work on mobile non-safari
 * LOW: make searchbar topic filter keep selection when changing blogpost
 * LOW: make Detail topic and author clickable
 * LOW: mobilemenu yellow hover
@@ -105,8 +107,4 @@ Following services are needed to allow the whole app to run:
 * MID: fix about.md fetch
 * MID: global switch for fetching from same server or external
 * LOW: compress avatar pics before uploading
-
-* BUG LOW: Details.jsx when showing user pics and then hiding, the blog pics also vanish
-* BUG MID: used pics and files in edit mode not showing in the uploaders
-
 

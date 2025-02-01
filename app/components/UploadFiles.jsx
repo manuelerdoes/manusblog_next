@@ -28,6 +28,7 @@ function UploadFiles({ currentUser, blogid, uploadedFiles, setUploadedFiles }) {
           const data = await res.json();
           const files = data.map(item => item.fileName);
           setServerFiles(files);
+          setUploadedFiles(files);
         } catch (error) {
           console.error("Error fetching files: ", error);
         }
