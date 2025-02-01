@@ -110,4 +110,4 @@ Following services are needed to allow the whole app to run:
 * MID: global switch for fetching from same server or external
 * LOW: compress avatar pics before uploading
 * LOW: edit / new blog on mobile: insert clipboard button
-
+* LOW: search field empty button
