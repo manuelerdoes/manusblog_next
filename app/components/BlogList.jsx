@@ -115,7 +115,7 @@ function BlogList() {
                     <img src="/search.png" alt="" />
                     <input
                         ref={searchInputRef}
-                        type="text"
+                        type="search"
                         placeholder="Search: CMD/CTRL + K"
                         onFocus={() => setSearchActive(true)}
                         onBlur={() => setSearchActive(false)}

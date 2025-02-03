@@ -1,4 +1,5 @@
 
+// 1.2.4  03.02.2025    M. Erdös    changed input type of search fields to "search" to enable clear button
 // 1.2.3  03.02.2025    M. Erdös    set theme onchange in new and edit blog form
 // 1.2.2  01.02.2025    M. Erdös    mobile picture upload no overflow
 // 1.2.1  01.02.2025    M. Erdös    fixed bug where blog and file couldn't be connected in the db.
@@ -28,4 +29,4 @@
 // 0.0.2  12.10.2024    M. Erdös    Added most of the design elements
 // 0.0.1   1.10.2024    M. Erdös    Initial
 
-export const appVersion = "1.2.3";
+export const appVersion = "1.2.4";

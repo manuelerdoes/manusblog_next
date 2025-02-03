@@ -129,7 +129,7 @@ function Search() {
       <div className="big-search-input">
         <img src="/search.png" alt="" />
         <input
-          type="text"
+          type="search"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           placeholder='Search all Blogs'
