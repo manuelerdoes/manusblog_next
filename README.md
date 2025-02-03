@@ -82,6 +82,7 @@ Following services are needed to allow the whole app to run:
 * LOW: make Detail topic clickable ✅
 * LOW: make Detail tags clickable ✅
 * LOW: make Detail author clickable ✅
+* LOW: set theme onchange in new and edit blog form ✅
 
 * BUG LOW: cant comment with emojis on mobile ✅ -> utf8mb4 muss konfiguriert sein in mysql
 * BUG HIGH: No pics loaded when not logged in ✅

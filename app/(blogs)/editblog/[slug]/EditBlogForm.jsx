@@ -7,6 +7,7 @@ import UploadPictures from '@/app/components/UploadPictures';
 import { useRouter } from 'next/navigation';
 import { apiServer } from '@/app/lib/const';
 import { getFormattedDateTime } from '@/app/lib/utils';
+import { useTheme } from 'next-themes';
 import UploadFiles from '@/app/components/UploadFiles';
 
 function EditBlogForm({ currentUser, blogid }) {
@@ -15,6 +16,7 @@ function EditBlogForm({ currentUser, blogid }) {
   const [error, setError] = useState(null);
   const [uploadedPictures, setUploadedPictures] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const { setTheme } = useTheme();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,7 +97,7 @@ function EditBlogForm({ currentUser, blogid }) {
             </div>
             <div className="settopic new-blog-item">
               <label htmlFor="">Topic:</label>
-              <select name="selectedtopic" defaultValue={currentBlog?.topic}>
+              <select name="selectedtopic" defaultValue={currentBlog?.topic} onChange={(e) => setTheme(e.target.value)}>
                 <option value="computer">Computer</option>
                 <option value="food">Food</option>
                 <option value="music">Music</option>

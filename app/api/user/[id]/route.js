@@ -8,7 +8,11 @@ import { nanoid } from 'nanoid'
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(_, { params }) {
+export async function GET(request, { params }) {
+  if (!request.auth) {
+    return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+  }
+
   const user = await getUser(params.id);
   if (!user) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });

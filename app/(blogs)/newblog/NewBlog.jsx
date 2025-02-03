@@ -7,12 +7,14 @@ import { useRouter } from 'next/navigation';
 import { getFormattedDateTime, sleep } from '@/app/lib/utils';
 import { apiServer } from '@/app/lib/const';
 import { useSession } from "next-auth/react"
+import { useTheme } from 'next-themes';
 import UploadFiles from '@/app/components/UploadFiles';
 
 function NewBlog() {
   const router = useRouter();
   const { data: session } = useSession()
   const [uploadedPictures, setUploadedPictures] = useState([]);
+  const { setTheme } = useTheme();
 
   const currentUser = {
     email: session?.user.email,
@@ -102,7 +104,7 @@ function NewBlog() {
             </div>
             <div className="settopic new-blog-item">
               <label htmlFor="">Topic:</label>
-              <select name="selectedtopic">
+              <select name="selectedtopic" onChange={(e) => setTheme(e.target.value)}>
                 <option value="computer">Computer</option>
                 <option value="food">Food</option>
                 <option value="music">Music</option>

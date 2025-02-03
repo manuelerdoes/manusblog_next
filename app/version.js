@@ -1,4 +1,5 @@
 
+// 1.2.3  03.02.2025    M. Erdös    set theme onchange in new and edit blog form
 // 1.2.2  01.02.2025    M. Erdös    mobile picture upload no overflow
 // 1.2.1  01.02.2025    M. Erdös    fixed bug where blog and file couldn't be connected in the db.
 // 1.2.0  01.02.2025    M. Erdös    added username to blogpost in db. and made author in details clickable. ATTENTION: DB alteration needed
