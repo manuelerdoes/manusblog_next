@@ -596,6 +596,7 @@ button:hover {
 
 .big-search-input {
   @apply flex flex-1 items-center bg-[rgba(17,25,40,0.5)] rounded-[10px] p-[7px] overflow-auto w-1/2;
+  position: relative;
 }
 
 .big-search-input input {
@@ -1062,6 +1063,7 @@ pre code.hljs {
 
 .blog-list .blog-list-searchbar {
   @apply flex items-center w-full p-[6px] bg-[rgba(17,25,40,0.5)] rounded-[10px] overflow-auto;
+  position: relative;
 }
 
 .blog-list .blog-list-searchbar input {
@@ -1070,6 +1072,30 @@ pre code.hljs {
 
 .blog-list .blog-list-searchbar img {
   @apply w-[20px] h-[20px];
+}
+
+/* Remove default search controls in WebKit browsers */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.clear-button {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  padding: 0;
+  padding-bottom: 2px;
+  cursor: pointer;
+  font-size: 1.2em;
+  color: #999;
+  line-height: 1;
+  margin-left: 8px;
+}
+
+.clear-button:hover {
+  color: #666;
+  background-color: transparent
 }
 
 .blog-list .blog-list-item {

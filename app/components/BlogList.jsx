@@ -45,7 +45,7 @@ function BlogList() {
         let result = [...currentBlogList];
 
         result = result.filter((blog) => blog.isPublic || (user && blog.userId === user.email));
-        
+
         // Filter by search value if present
         if (searchValue.trim()) {
             result = result.filter((blog) =>
@@ -122,6 +122,20 @@ function BlogList() {
                         onChange={(e) => setSearchValue(e.target.value)}
                         value={searchValue}
                     />
+                    {/* Clear button */}
+                    {searchValue && (
+                        <button
+                            type="button"
+                            className="clear-button"
+                            onClick={() => {
+                                setSearchValue('');
+                                searchInputRef.current?.focus();
+                            }}
+                            onMouseDown={(e) => e.preventDefault()} // Prevent blur on click
+                        >
+                            ×
+                        </button>
+                    )}
                 </div>
             </div>
 

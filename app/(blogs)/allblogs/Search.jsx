@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { debounce } from 'lodash';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { apiServer } from '@/app/lib/const';
@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react"
 import { compareAsc, parse } from 'date-fns';
 
 function Search() {
+  const searchInputRef = useRef(null);
   const [searchText, setSearchText] = useState("");
   const [filteredBlogs, setFilteredBlogs] = useState([]);
   const [sortField, setSortField] = useState('created'); // Default sort field
@@ -129,11 +130,26 @@ function Search() {
       <div className="big-search-input">
         <img src="/search.png" alt="" />
         <input
+          ref={searchInputRef}
           type="search"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           placeholder='Search all Blogs'
         />
+         {/* Clear button */}
+         {searchText && (
+                        <button
+                            type="button"
+                            className="clear-button"
+                            onClick={() => {
+                                setSearchText('');
+                                searchInputRef.current?.focus();
+                            }}
+                            onMouseDown={(e) => e.preventDefault()} // Prevent blur on click
+                        >
+                            ×
+                        </button>
+                    )}
       </div>
       <div className="big-search-results">
         <table>
