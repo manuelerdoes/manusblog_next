@@ -16,7 +16,7 @@ function Search() {
   const [currentBlogList, setCurrentBlogList] = useState(null);
   const router = useRouter();
   const { data: session } = useSession();
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
 
 
 
