@@ -19,8 +19,12 @@ export const GET = auth(async function GET(req) {
 })
 
 export const POST = auth(async function POST(request) {
+  console.log("role: ", request.auth.user.role);
   if (!request.auth) {
     return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+  } else if (!request.auth.user.role) {
+    // TODO: check for roles like admin or author
+    return NextResponse.json({ message: "Not permitted to create blogpost" }, { status: 401 });
   }
 
   const data = await request.json();

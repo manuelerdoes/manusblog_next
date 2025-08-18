@@ -1,4 +1,6 @@
 
+// 1.2.7  18.08.2025    M. Erdös    user needs role to create comment. fixed comments by changing fk to slug instead of id
+// 1.2.6  18.08.2025    M. Erdös    user needs to have a role to create a blogpost. changed max width for responsive design
 // 1.2.5  03.02.2025    M. Erdös    added clear button for search inputs to make it work with all browsers.
 // 1.2.4  03.02.2025    M. Erdös    changed input type of search fields to "search" to enable clear button
 // 1.2.3  03.02.2025    M. Erdös    set theme onchange in new and edit blog form
@@ -30,4 +32,4 @@
 // 0.0.2  12.10.2024    M. Erdös    Added most of the design elements
 // 0.0.1   1.10.2024    M. Erdös    Initial
 
-export const appVersion = "1.2.5";
+export const appVersion = "1.2.7";

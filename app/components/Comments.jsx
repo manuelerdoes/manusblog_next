@@ -73,7 +73,7 @@ function Comments({ blogId/*, comments */ , disabled}) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        blogId: currentBlog.id,
+        blogId,
         // TODO: change to userName, once db is updated
         userId: currentUser.username,
         created: getFormattedDateTime(),

@@ -2,6 +2,7 @@
 
 # Bash script to prepare the mysql db for Manusblog.
 #
+# 1.0.2     M. Erdös    18.08.2025      Changed Comment FK to look for slug and added collation config
 # 1.0.1     M. Erdös    17.12.2024      Added File and BlogFile tables
 # 1.0.0     M. Erdös    13.10.2024      Initial Version
 
@@ -43,8 +44,8 @@ fi
 
 # Create the SQL script to run
 sql_script=$(cat <<EOF
--- Create database if it does not exist
-CREATE DATABASE IF NOT EXISTS \`$db_name\`;
+-- Create database if it does not exist, with utf8mb4 charset and collation
+CREATE DATABASE IF NOT EXISTS \`$db_name\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- Create user if it does not exist
 CREATE USER IF NOT EXISTS '$username'@'localhost' IDENTIFIED BY '$user_password';
@@ -55,8 +56,7 @@ GRANT ALL PRIVILEGES ON \`$db_name\`.* TO '$username'@'localhost';
 -- Use the newly created database
 USE \`$db_name\`;
 
--- Create tables if they do not exist
-
+-- Create tables if they do not exist, with utf8mb4 charset and collation
 CREATE TABLE IF NOT EXISTS Blog (
     id INT AUTO_INCREMENT NOT NULL,
     userId VARCHAR(191),
@@ -72,23 +72,23 @@ CREATE TABLE IF NOT EXISTS Blog (
     slug VARCHAR(255) NOT NULL UNIQUE,
     PRIMARY KEY (id),
     INDEX slug_index (slug)
-);
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS Comment (
     id INT AUTO_INCREMENT NOT NULL,
-    blogId INT NOT NULL,
+    blogId VARCHAR(255) NOT NULL,
     userName VARCHAR(191),
     text TEXT NOT NULL,
     created TEXT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (blogId) REFERENCES Blog(id) ON DELETE CASCADE
-);  
+    FOREIGN KEY (blogId) REFERENCES Blog(slug) ON DELETE CASCADE
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS File (
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) DEFAULT NULL,
     PRIMARY KEY (name)
-);
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS BlogFile (
     fileName VARCHAR(255) NOT NULL,
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS BlogFile (
     PRIMARY KEY (fileName, blogId),
     FOREIGN KEY (blogId) REFERENCES Blog(id) ON DELETE CASCADE,
     FOREIGN KEY (fileName) REFERENCES File(name) ON DELETE CASCADE
-);
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 EOF
 )
 
