@@ -164,3 +164,5 @@ ignore certbot manuals, only consult the official site.
 
 
 update certbot occasionally: sudo /opt/certbot/bin/pip install --upgrade certbot certbot-nginx
+
+generate new certificates: sudo certbot renew

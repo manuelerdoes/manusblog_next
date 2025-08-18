@@ -74,7 +74,7 @@ button:hover {
 
 [data-theme='computer'] .blog-header {
   border: 1px solid;
-  @media (max-width: 768px) {border: none}
+  @media (max-width: 1280px) {border: none}
   @apply bg-computer-headerBGColor text-computer-headerTextColor border-computer-headerBorderColor;
 }
 
@@ -92,19 +92,19 @@ button:hover {
 
 [data-theme='food'] .blog-header {
   border: 1px solid;
-  @media (max-width: 768px) {border: none}
+  @media (max-width: 1280px) {border: none}
   @apply bg-food-headerBGColor text-food-headerTextColor border-food-headerBorderColor;
 }
 
 [data-theme='photography'] .blog-header {
   border: 1px solid;
-  @media (max-width: 768px) {border: none}
+  @media (max-width: 1280px) {border: none}
   @apply bg-photography-headerBGColor text-photography-headerTextColor border-photography-headerBorderColor;
 }
 
 [data-theme='music'] .blog-header {
   border: 1px solid;
-  @media (max-width: 768px) {border: none}
+  @media (max-width: 1280px) {border: none}
   @apply bg-music-headerBGColor text-music-headerTextColor border-music-headerBorderColor;
 }
 
@@ -180,7 +180,7 @@ button:hover {
 
 [data-theme='computer'] .containero {
   border: 1px solid;
-  @media (max-width: 768px) {border: none}
+  @media (max-width: 1280px) {border: none}
   @apply bg-computer-containerBGColor text-computer-containerTextColor border-computer-containerBorderColor;
 }
 
@@ -198,19 +198,19 @@ button:hover {
 
 [data-theme='food'] .containero {
   border: 1px solid;
-  @media (max-width: 768px) {border: none}
+  @media (max-width: 1280px) {border: none}
   @apply bg-food-containerBGColor text-food-containerTextColor border-food-containerBorderColor;
 }
 
 [data-theme='photography'] .containero {
   border: 1px solid;
-  @media (max-width: 768px) {border: none}
+  @media (max-width: 1280px) {border: none}
   @apply bg-photography-containerBGColor text-photography-containerTextColor border-photography-containerBorderColor;
 }
 
 [data-theme='music'] .containero {
   border: 1px solid;
-  @media (max-width: 768px) {border: none}
+  @media (max-width: 1280px) {border: none}
   @apply bg-music-containerBGColor text-music-containerTextColor border-music-containerBorderColor;
 }
 
@@ -1290,9 +1290,10 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* ==================================== */
 /* ========  responsive part  ========= */
+/* ======== old value 768px ==========*/
 /* ==================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 1280px) {
 
   body {
     @apply bg-nightsky bg-contain bg-repeat flex flex-col items-center h-screen pt-0 leading-tight w-full;
