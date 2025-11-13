@@ -698,7 +698,7 @@ button:hover {
 }
 
 .side-search {
-  @apply flex flex-col h-full overflow-scroll;
+  @apply flex flex-col h-full overflow-auto;
   flex: 1;
 }
 
@@ -918,7 +918,7 @@ button:hover {
 }
 
 .blog-content {
-  @apply px-4 overflow-scroll w-full;
+  @apply px-4 overflow-auto w-full;
 }
 
 .blog-content p,
@@ -1054,7 +1054,7 @@ pre code.hljs {
 
 .blog-list {
   flex: 1;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .blog-list .blog-list-search {
@@ -1062,7 +1062,7 @@ pre code.hljs {
 }
 
 .blog-list .blog-list-searchbar {
-  @apply flex items-center w-full p-[6px] bg-[rgba(17,25,40,0.5)] rounded-[10px] overflow-auto;
+  @apply flex items-center w-full p-[6px] bg-[rgba(17,25,40,0.5)] rounded-[10px] overflow-hidden;
   position: relative;
 }
 
