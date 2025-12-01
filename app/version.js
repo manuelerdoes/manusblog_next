@@ -1,4 +1,5 @@
 
+// 1.2.10 01.12.2025    M. Erdös    fixed big blog header in search or blogs with little content
 // 1.2.9  20.11.2025    M. Erdös    added max-width to containero and navbar because it looked shit on very wide screens
 // 1.2.8  13.11.2025    M. Erdös    changed overflow scroll to auto and to hidden in the left search bar
 // 1.2.7  18.08.2025    M. Erdös    user needs role to create comment. fixed comments by changing fk to slug instead of id
@@ -34,4 +35,4 @@
 // 0.0.2  12.10.2024    M. Erdös    Added most of the design elements
 // 0.0.1   1.10.2024    M. Erdös    Initial
 
-export const appVersion = "1.2.9";
+export const appVersion = "1.2.10";
