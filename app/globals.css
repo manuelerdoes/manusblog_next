@@ -69,7 +69,7 @@ button:hover {
 }
 
 .blog-header {
-  @apply w-[90vw] h-[10vh] bg-[rgba(8,51,82,0.85)] rounded mb-2.5 border-none border-[rgba(201,200,200,0.65)] flex flex-row text-[rgb(212,207,187)] p-5 items-center justify-center;
+  @apply w-[90vw] bg-[rgba(8,51,82,0.85)] rounded mb-2.5 border-none border-[rgba(201,200,200,0.65)] flex flex-row text-[rgb(212,207,187)] p-5 items-center justify-center;
   max-width: 2048px;
   max-height: fit-content;
 }
